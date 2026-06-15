@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hero Legends Thai — Battle Viewer (prototype)</title>
+<style>
+  :root{
+    --bg:#0a0a12; --panel:#13131f; --panel2:#1b1b2b; --line:#2a2a40;
+    --ink:#e9e9f4; --muted:#8a8aa8; --glow:#8b5cf6; --glow2:#6d28d9;
+    --water:#3b82f6; --fire:#ef4444; --nature:#22c55e; --light:#fbbf24; --dark:#a855f7;
+    --win:#22c55e; --lose:#ef4444; --hp:#34d399; --energy:#60a5fa;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1200px 600px at 50% -10%,#1a1530 0%,var(--bg) 60%);
+    color:var(--ink);font:14px/1.5 -apple-system,"Segoe UI","Noto Sans Thai",sans-serif;min-height:100vh}
+  header{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .orb{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c4b5fd,var(--glow) 45%,var(--glow2) 80%);
+    box-shadow:0 0 22px 4px rgba(139,92,246,.55);flex:none}
+  h1{font-size:16px;margin:0;font-weight:700;letter-spacing:.3px}
+  .sub{color:var(--muted);font-size:12px}
+  .wrap{max-width:1600px;margin:0 auto;padding:18px 4vw 60px}
+  .controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+  select,button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:9px;
+    padding:9px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+  button.primary{background:linear-gradient(135deg,var(--glow),var(--glow2));border:none;font-weight:600}
+  button:disabled{opacity:.4;cursor:default}
+  .meta{color:var(--muted);font-size:12px;margin-left:auto;text-align:right}
+  .field{display:grid;grid-template-columns:1fr 64px 1fr;gap:14px;align-items:start;margin-bottom:16px}
+  .vs{align-self:center;text-align:center;color:var(--muted);font-weight:700;font-size:13px}
+  .team{display:flex;flex-direction:column;gap:9px}
+  .team.enemy{align-items:flex-end}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:9px 11px;width:100%;
+    position:relative;transition:transform .12s,box-shadow .12s,opacity .25s;display:flex;gap:10px;align-items:stretch}
+  .team.enemy .card{flex-direction:row-reverse}
+  .portrait{width:54px;height:74px;border-radius:8px;object-fit:cover;object-position:top center;
+    flex:none;border:1px solid var(--line);background:#0c0c16}
+  .cardbody{flex:1;min-width:0}
+  .card.act{box-shadow:0 0 0 2px var(--glow),0 0 22px rgba(139,92,246,.5);transform:translateY(-2px)}
+  .card.dead{opacity:.32;filter:grayscale(1)}
+  .card .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .name{font-weight:700;font-size:13.5px}
+  .tags{font-size:10.5px;color:var(--muted)}
+  .ele{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle;margin-right:5px}
+  .boss{color:#fbbf24;font-weight:700}
+  .bar{height:9px;border-radius:6px;background:#0c0c16;overflow:hidden;margin-top:7px;border:1px solid #00000055}
+  .bar > i{display:block;height:100%;border-radius:6px;transition:width .28s ease}
+  .hp > i{background:linear-gradient(90deg,#10b981,var(--hp))}
+  .en{height:5px;margin-top:4px}
+  .en > i{background:linear-gradient(90deg,#3b82f6,var(--energy))}
+  .hpnum{font-size:10.5px;color:var(--muted);margin-top:3px;display:flex;justify-content:space-between}
+  .status{position:absolute;top:8px;right:10px;display:flex;gap:3px}
+  .chip{font-size:9px;padding:1px 5px;border-radius:6px;background:#3a2a55;color:#d8b4fe;border:1px solid #6d28d9}
+  .float{position:absolute;left:50%;top:6px;transform:translateX(-50%);font-weight:800;font-size:15px;
+    pointer-events:none;opacity:0;animation:rise 1s ease forwards;text-shadow:0 1px 3px #000}
+  .float.dmg{color:#fca5a5}.float.crit{color:#fde047;font-size:18px}.float.heal{color:#86efac}
+  @keyframes rise{0%{opacity:0;top:6px}20%{opacity:1}100%{opacity:0;top:-26px}}
+  .result{text-align:center;font-size:26px;font-weight:800;letter-spacing:2px;margin:8px 0;min-height:34px}
+  .result.win{color:var(--win);text-shadow:0 0 22px rgba(34,197,94,.5)}
+  .result.lose{color:var(--lose);text-shadow:0 0 22px rgba(239,68,68,.5)}
+  .log{background:#0c0c16;border:1px solid var(--line);border-radius:12px;padding:12px 14px;height:200px;
+    overflow:auto;font:12px/1.6 ui-monospace,"SF Mono",monospace;color:#c7c7e0}
+  .log .t{color:var(--glow)}.log .p{color:#7dd3fc}.log .e{color:#fca5a5}.log .h{color:#86efac}.log .cc{color:#d8b4fe}
+  .turnbar{display:flex;align-items:center;gap:10px;margin:6px 0 14px}
+  .turnbar input{flex:1}
+  .footnote{color:var(--muted);font-size:11px;margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
+  .footnote code{color:#c4b5fd}
+</style>
+</head>
+<body>
+<header>
+  <div class="orb"></div>
+  <div>
+    <h1>Hero Legends Thai — Battle Viewer</h1>
+    <div class="sub">พระอภัยมณี · prototype ที่รัน engine จริง (deterministic replay) — แสง เงา วิญญาณ</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="controls">
+    <label class="sub">ด่าน:</label>
+    <select id="stage"></select>
+    <button class="primary" id="play">▶ เล่น</button>
+    <button id="reset">⟲ รีเซ็ต</button>
+    <label class="sub">ความเร็ว</label>
+    <select id="speed">
+      <option value="900">0.5x</option>
+      <option value="500" selected>1x</option>
+      <option value="260">2x</option>
+      <option value="120">4x</option>
+    </select>
+    <div class="meta" id="meta"></div>
+  </div>
+
+  <div class="result" id="result"></div>
+
+  <div class="field">
+    <div class="team" id="teamP"></div>
+    <div class="vs">VS</div>
+    <div class="team enemy" id="teamE"></div>
+  </div>
+
+  <div class="turnbar">
+    <span class="sub" id="turnlbl">เทิร์น 0</span>
+    <input type="range" id="scrub" min="0" max="0" value="0" />
+  </div>
+
+  <div class="log" id="log"></div>
+
+  <div class="footnote">
+    Engine: <code>backend/src/modules/battle/battle-simulator.ts</code> (docs/08) · seed คงที่ → ผลเหมือนเดิมทุกครั้ง ·
+    หน้านี้เป็น <b>presentation layer</b> ไม่แตะ battle logic · สกิลในเดโมใช้ fallback by-hero_id
+    (heroes.json <code>skill_ids</code> 24/42 ตัวไม่ตรง skills.json — บั๊กที่ต้องแก้ที่ต้นทาง)
+  </div>
+</div>
+
+<script src="engine.js"></script>
+<script src="sim.js"></script>
+<script src="replays.js"></script>
+<script>
+const ELE = {Water:'var(--water)',Fire:'var(--fire)',Nature:'var(--nature)',Light:'var(--light)',Dark:'var(--dark)'};
+const $ = (id)=>document.getElementById(id);
+let data = window.REPLAYS || {battles:[]};
+let battle, units, step, timer;
+
+function initStages(){
+  data.battles.forEach((b,i)=>{
+    const o=document.createElement('option');
+    o.value=i; o.textContent=`${b.meta.stageName}${b.meta.isBoss?' ⚔ บอส':''}  (${b.meta.stageId})`;
+    $('stage').appendChild(o);
+  });
+}
+
+function cardHtml(u){
+  return `<div class="card" id="c_${u.uid}">
+    <div class="float" id="f_${u.uid}"></div>
+    <div class="status" id="s_${u.uid}"></div>
+    <img class="portrait" src="portraits/${u.heroId}.jpg" alt="" onerror="this.style.visibility='hidden'">
+    <div class="cardbody">
+      <div class="top">
+        <div class="name"><span class="ele" style="background:${ELE[u.element]||'#888'}"></span>${u.name_th}${u.is_boss?' <span class="boss">★</span>':''}</div>
+        <div class="tags">${u.rarity} · ${u.class}</div>
+      </div>
+      <div class="bar hp"><i id="hp_${u.uid}" style="width:100%"></i></div>
+      <div class="hpnum"><span id="hpn_${u.uid}">${u.maxHp}/${u.maxHp}</span><span class="tags">SPD ${u.spd}</span></div>
+      <div class="bar en"><i id="en_${u.uid}" style="width:0%"></i></div>
+    </div>
+  </div>`;
+}
+
+function buildBoard(idx){
+  battle = data.battles[idx];
+  clearInterval(timer); timer=null;
+  units = {};
+  [...battle.player, ...battle.enemy].forEach(u=>{
+    units[u.uid] = { ...u, hp:u.maxHp, energy:0, statuses:{}, dead:false };
+  });
+  $('teamP').innerHTML = battle.player.map(cardHtml).join('');
+  $('teamE').innerHTML = battle.enemy.map(cardHtml).join('');
+  $('result').className='result'; $('result').textContent='';
+  $('log').innerHTML='';
+  $('scrub').max = battle.events.length; $('scrub').value=0;
+  step=0; $('turnlbl').textContent='เทิร์น 0';
+  const m=battle.meta;
+  $('meta').innerHTML = `seed ${m.seed} · ${m.events?'':''}${battle.events.length} events<br>ผลจริง: <b style="color:${m.result==='win'?'var(--win)':'var(--lose)'}">${m.result.toUpperCase()}</b> ใน ${m.turns} เทิร์น`;
+  render();
+}
+
+function nm(uid){ return units[uid]?.name_th || uid; }
+function sideOf(uid){ return uid.startsWith('player')?'p':'e'; }
+
+function applyEvent(ev){
+  // DoT / skip notes carry "status(NN)" damage on the actor
+  if(ev.note){
+    const m=[...ev.note.matchAll(/([a-z_]+)\((\d+)\)/g)];
+    for(const mm of m){ hit(ev.actor, +mm[2], false); }
+  }
+  if(ev.amounts){
+    ev.amounts.forEach((amt,i)=>{
+      const tgt=ev.targets[i]; if(tgt==null) return;
+      if(amt>=0) hit(tgt, amt, ev.rolls && ev.skill!=='basic'); else heal(tgt, -amt);
+    });
+  }
+  if(ev.applied){ ev.applied.forEach(a=>{ if(units[a.target]) units[a.target].statuses[a.status]=a.duration; }); }
+}
+
+function hit(uid,amt,crit){ const u=units[uid]; if(!u) return; u.hp=Math.max(0,u.hp-amt); if(u.hp===0)u.dead=true; floatTxt(uid,'-'+amt,crit?'crit':'dmg'); }
+function heal(uid,amt){ const u=units[uid]; if(!u) return; u.hp=Math.min(u.maxHp,u.hp+amt); floatTxt(uid,'+'+amt,'heal'); }
+function floatTxt(uid,txt,cls){ const f=$('f_'+uid); if(!f)return; f.textContent=txt; f.className='float '+cls; f.style.animation='none'; void f.offsetWidth; f.style.animation=''; }
+
+function setEnergy(uid,e){ units[uid].energy=e; }
+
+function logLine(ev){
+  const a=units[ev.actor]; if(!a) return;
+  const sc = sideOf(ev.actor)==='p'?'p':'e';
+  let txt='';
+  if(ev.skill==='skip'){ txt = ev.note? `<span class="cc">${nm(ev.actor)} — ${ev.note}</span>` : ''; }
+  else {
+    const sk = ev.skill==='ultimate'?'✦ อัลติเมท':ev.skill==='active'?'สกิล':'โจมตี';
+    const parts = (ev.targets||[]).map((t,i)=>{
+      const amt=ev.amounts[i];
+      if(amt<0) return `<span class="h">ฮีล ${nm(t)} +${-amt}</span>`;
+      return `<span class="${sideOf(t)==='p'?'p':'e'}">${nm(t)} -${amt}</span>`;
+    });
+    const cc = (ev.applied||[]).map(x=>`<span class="cc">${x.status}→${nm(x.target)}</span>`).join(' ');
+    txt = `<span class="${sc}">${nm(ev.actor)}</span> ${sk} ${parts.join(', ')} ${cc}`;
+  }
+  if(!txt) return;
+  const div=document.createElement('div');
+  div.innerHTML=`<span class="t">T${ev.turn}</span> ${txt}`;
+  $('log').appendChild(div); $('log').scrollTop=$('log').scrollHeight;
+}
+
+function decayStatuses(actorUid){
+  // crude: each time a unit acts, tick down its own statuses for display
+  const u=units[actorUid]; if(!u)return;
+  for(const k in u.statuses){ u.statuses[k]--; if(u.statuses[k]<=0) delete u.statuses[k]; }
+}
+
+function render(){
+  for(const uid in units){
+    const u=units[uid];
+    const hp=$('hp_'+uid), hpn=$('hpn_'+uid), en=$('en_'+uid), card=$('c_'+uid), s=$('s_'+uid);
+    if(!hp) continue;
+    hp.style.width=(100*u.hp/u.maxHp)+'%';
+    hpn.textContent=`${Math.round(u.hp)}/${u.maxHp}`;
+    en.style.width=Math.min(100,u.energy)+'%';
+    card.classList.toggle('dead',u.dead);
+    s.innerHTML=Object.entries(u.statuses).map(([k,d])=>`<span class="chip">${k} ${d}</span>`).join('');
+  }
+}
+
+function highlight(uid){
+  document.querySelectorAll('.card.act').forEach(c=>c.classList.remove('act'));
+  const c=$('c_'+uid); if(c) c.classList.add('act');
+}
+
+function next(){
+  if(step>=battle.events.length){ finish(); return; }
+  const ev=battle.events[step];
+  highlight(ev.actor);
+  decayStatuses(ev.actor);
+  applyEvent(ev);
+  logLine(ev);
+  render();
+  step++;
+  $('scrub').value=step;
+  $('turnlbl').textContent='เทิร์น '+ev.turn;
+}
+
+function finish(){
+  clearInterval(timer); timer=null;
+  document.querySelectorAll('.card.act').forEach(c=>c.classList.remove('act'));
+  const r=battle.meta.result;
+  $('result').className='result '+(r==='win'?'win':'lose');
+  $('result').textContent = r==='win'?'★ ชัยชนะ ★': r==='lose'?'พ่ายแพ้':'เสมอ';
+}
+
+function play(){
+  if(timer){ clearInterval(timer); timer=null; $('play').textContent='▶ เล่น'; return; }
+  if(step>=battle.events.length) buildBoard(+$('stage').value);
+  $('play').textContent='⏸ หยุด';
+  const speed=+$('speed').value;
+  timer=setInterval(()=>{
+    if(step>=battle.events.length){ $('play').textContent='▶ เล่น'; finish(); return; }
+    next();
+  }, speed);
+}
+
+$('stage').onchange=()=>buildBoard(+$('stage').value);
+$('play').onclick=play;
+$('reset').onclick=()=>{ buildBoard(+$('stage').value); $('play').textContent='▶ เล่น'; };
+$('speed').onchange=()=>{ if(timer){ clearInterval(timer); timer=null; play(); } };
+$('scrub').oninput=(e)=>{
+  clearInterval(timer); timer=null; $('play').textContent='▶ เล่น';
+  const target=+e.target.value; buildBoard(+$('stage').value);
+  for(let i=0;i<target;i++) next();
+};
+
+// Bootstrap: if the player picked a team in game.html, simulate THAT battle live
+// (real engine) and show it first. Otherwise use the pre-generated demo replays.
+async function bootstrap(){
+  let battles = (window.REPLAYS && window.REPLAYS.battles) ? window.REPLAYS.battles.slice() : [];
+  try {
+    const raw = localStorage.getItem('hlt_team');
+    if (raw && window.HLT && window.HLTSim) {
+      const sel = JSON.parse(raw);
+      if (sel && sel.team && sel.team.length) {
+        const live = await window.HLTSim.build(sel.stage || '2-6', sel.team);
+        live.meta.stageName = '⚡ ทีมของคุณ · ' + live.meta.stageName;
+        battles.unshift(live);
+      }
+    }
+  } catch(e){ console.warn('live battle failed, using demo replays:', e); }
+  data = { battles };
+  initStages();
+  buildBoard(0);
+}
+bootstrap();
+</script>
+</body>
+</html>

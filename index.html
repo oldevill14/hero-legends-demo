@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Hero Legends Thai — Game UI Mockup</title>
+<style>
+  :root{
+    --bg:#0a0a12; --panel:rgba(22,22,36,.82); --panel2:#1b1b2b; --line:#2c2c46;
+    --ink:#eceaf6; --muted:#9a9ac0; --glow:#8b5cf6; --glow2:#6d28d9; --gold:#f5c451;
+    --water:#3b82f6; --fire:#ef4444; --nature:#22c55e; --light:#fbbf24; --dark:#a855f7;
+    --leg:#f59e0b; --myth:#a855f7; --epic:#ec4899;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI","Noto Sans Thai",sans-serif;overflow:hidden;user-select:none}
+  /* Landscape game stage — fills the whole browser window (landscape-only) */
+  #stage{position:relative;width:100vw;height:100vh;
+    margin:0;background:radial-gradient(1400px 900px at 50% -20%,#241a44,#0a0a12 60%);
+    overflow:hidden;border-radius:0}
+  .screen{position:absolute;inset:0;display:none;flex-direction:column;animation:fade .25s ease}
+  .screen.on{display:flex}
+  @keyframes fade{from{opacity:0;transform:scale(.99)}to{opacity:1}}
+  .glass{background:var(--panel);backdrop-filter:blur(8px);border:1px solid var(--line)}
+
+  /* rotate hint for portrait phones */
+  #rotate{position:fixed;inset:0;background:#0a0a12;color:var(--ink);display:none;
+    align-items:center;justify-content:center;flex-direction:column;gap:14px;z-index:99;text-align:center}
+  @media (max-aspect-ratio:1/1){ #rotate{display:flex} #stage{display:none} }
+  .rot-orb{width:54px;height:54px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c4b5fd,var(--glow) 45%,var(--glow2));
+    box-shadow:0 0 26px 6px rgba(139,92,246,.6);animation:spin 2.4s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* ---------- TITLE ---------- */
+  #title{justify-content:center;align-items:center;
+    background:linear-gradient(rgba(10,10,18,.45),rgba(10,10,18,.92)),
+      url('portraits/hero_phraaphai.jpg') center 18%/cover no-repeat}
+  .logo{ text-align:center }
+  .logo .orb{width:46px;height:46px;border-radius:50%;margin:0 auto 12px;
+    background:radial-gradient(circle at 35% 30%,#e9d5ff,var(--glow) 45%,var(--glow2));
+    box-shadow:0 0 34px 8px rgba(139,92,246,.6)}
+  .logo h1{margin:0;font-size:40px;font-weight:900;letter-spacing:1px;
+    background:linear-gradient(180deg,#fff,#f5c451);-webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 2px 30px rgba(245,196,81,.25)}
+  .logo .th{font-size:19px;color:#e9d5ff;margin-top:2px;letter-spacing:3px}
+  .logo .tag{color:var(--muted);font-size:12px;margin-top:10px;font-style:italic}
+  .start{margin-top:34px;padding:13px 40px;border:none;border-radius:30px;cursor:pointer;
+    background:linear-gradient(135deg,var(--glow),var(--glow2));color:#fff;font-weight:800;font-size:16px;
+    box-shadow:0 6px 26px rgba(139,92,246,.55);animation:pulse 1.8s ease-in-out infinite;font-family:inherit}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+  .ver{position:absolute;bottom:10px;width:100%;text-align:center;color:var(--muted);font-size:10px}
+
+  /* ---------- TOP BAR (shared) ---------- */
+  .topbar{display:flex;align-items:center;gap:8px;padding:8px 12px;z-index:5}
+  .pf{display:flex;align-items:center;gap:8px;padding:4px 12px 4px 4px;border-radius:24px}
+  .pf img{width:36px;height:36px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid var(--gold)}
+  .pf .lv{font-size:11px;color:var(--gold);font-weight:700}.pf .nm{font-size:12px;font-weight:700}
+  .curr{margin-left:auto;display:flex;gap:6px}
+  .pill{display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:18px;font-size:12px;font-weight:700}
+  .pill .ic{font-size:13px}
+  .back{padding:6px 13px;border-radius:18px;cursor:pointer;font-size:12px;font-weight:700;color:var(--ink)}
+
+  /* ---------- HUB ---------- */
+  #hub{justify-content:space-between}
+  .hub-hero{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,18,.1),rgba(10,10,18,.85)),
+      url('portraits/hero_suwanmali.jpg') right 20%/contain no-repeat;opacity:.9}
+  .hub-mid{position:relative;z-index:2;padding:0 18px;align-self:flex-start;margin-top:6px;max-width:54%}
+  .hub-mid h2{margin:6px 0 2px;font-size:22px}
+  .hub-mid p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
+  .feat{margin-top:12px;display:inline-flex;gap:8px;align-items:center;padding:8px 14px;border-radius:14px;cursor:pointer}
+  .feat .badge{background:var(--epic);color:#fff;font-size:9px;padding:2px 7px;border-radius:8px;font-weight:800}
+  .hub-nav{position:relative;z-index:3;display:flex;gap:9px;padding:12px;justify-content:center}
+  .navbtn{flex:1;max-width:150px;padding:13px 8px;border-radius:14px;text-align:center;cursor:pointer;
+    transition:transform .12s,box-shadow .12s}
+  .navbtn:hover{transform:translateY(-3px)}
+  .navbtn.primary{background:linear-gradient(135deg,var(--glow),var(--glow2));border-color:transparent;
+    box-shadow:0 6px 22px rgba(139,92,246,.45)}
+  .navbtn .ic{font-size:24px}.navbtn .t{font-size:12px;font-weight:800;margin-top:4px}
+  .navbtn .s{font-size:9.5px;color:var(--muted)}
+  .navbtn.primary .s{color:#e9d5ff}
+  .side{position:absolute;top:54px;right:12px;z-index:4;display:flex;flex-direction:column;gap:7px}
+  .sbtn{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    font-size:18px;cursor:pointer}
+
+  /* ---------- generic content panel ---------- */
+  .body{flex:1;overflow:auto;padding:6px 14px 14px}
+  .h2{font-size:16px;font-weight:800;margin:2px 0 10px;display:flex;align-items:center;gap:8px}
+  .h2 .sub{font-size:11px;color:var(--muted);font-weight:500}
+
+  /* ---------- HERO GRID ---------- */
+  .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}
+  .hcard{position:relative;border-radius:12px;overflow:hidden;cursor:pointer;aspect-ratio:3/4;
+    border:2px solid var(--line);transition:transform .12s,box-shadow .12s}
+  .hcard:hover{transform:translateY(-3px) scale(1.02)}
+  .hcard img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+  .hcard .rb{position:absolute;inset:0;border-radius:10px;pointer-events:none}
+  .hcard.Legendary{border-color:var(--leg);box-shadow:0 0 14px rgba(245,158,11,.35)}
+  .hcard.Mythic{border-color:var(--myth);box-shadow:0 0 14px rgba(168,85,247,.4)}
+  .hcard.Epic{border-color:var(--epic)}
+  .hcard .info{position:absolute;left:0;right:0;bottom:0;padding:14px 6px 5px;
+    background:linear-gradient(transparent,rgba(0,0,0,.88));font-size:10.5px;font-weight:700}
+  .hcard .ele{position:absolute;top:5px;left:5px;width:16px;height:16px;border-radius:50%;border:1px solid #fff6}
+  .hcard .stars{position:absolute;top:5px;right:6px;font-size:9px;color:var(--gold)}
+  .hcard .cls{color:var(--muted);font-weight:500;font-size:9px}
+
+  /* ---------- HERO DETAIL ---------- */
+  #detail .body{display:flex;gap:16px}
+  .dt-art{flex:none;width:230px;border-radius:14px;overflow:hidden;border:2px solid var(--line);align-self:flex-start}
+  .dt-art img{width:100%;display:block}
+  .dt-info{flex:1;min-width:0}
+  .dt-info h2{margin:0 0 2px;font-size:22px}
+  .dt-info .meta{color:var(--muted);font-size:12px;margin-bottom:10px}
+  .statrow{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px}
+  .statrow b{color:var(--gold)}
+  .skill{display:flex;gap:9px;padding:8px 0;border-bottom:1px solid var(--line)}
+  .skill .si{width:34px;height:34px;border-radius:9px;background:#2a2342;display:flex;align-items:center;justify-content:center;font-size:16px;flex:none}
+  .skill .sn{font-size:12.5px;font-weight:700}.skill .sd{font-size:10.5px;color:var(--muted)}
+
+  /* ---------- SUMMON ---------- */
+  #summon .body{align-items:center;text-align:center;justify-content:center;display:flex;flex-direction:column;gap:4px}
+  .banner{width:74%;max-width:520px;border-radius:16px;overflow:hidden;position:relative;border:1px solid var(--line)}
+  .banner img{width:100%;height:150px;object-fit:cover;object-position:center 22%;display:block}
+  .banner .cap{position:absolute;left:0;bottom:0;right:0;padding:18px 14px 8px;
+    background:linear-gradient(transparent,rgba(0,0,0,.9));text-align:left}
+  .banner .cap b{font-size:15px}.banner .cap span{font-size:10px;color:var(--gold)}
+  .pulls{display:flex;gap:12px;margin-top:14px}
+  .pull{padding:12px 26px;border-radius:14px;cursor:pointer;font-weight:800;font-size:14px}
+  .pull.one{background:var(--panel2);border:1px solid var(--line)}
+  .pull.ten{background:linear-gradient(135deg,var(--gold),#d99a2b);color:#3a2600}
+  .rates{color:var(--muted);font-size:10px;margin-top:10px}
+
+  .btn{padding:11px 30px;border:none;border-radius:26px;cursor:pointer;font-weight:800;font-size:14px;
+    background:linear-gradient(135deg,var(--glow),var(--glow2));color:#fff;font-family:inherit;
+    box-shadow:0 5px 20px rgba(139,92,246,.45)}
+  .btn:disabled{opacity:.4;cursor:default;box-shadow:none}
+
+  /* ---------- TEAM BUILDER ---------- */
+  #team .body{display:block;padding-bottom:4px}
+  .slots{display:flex;flex-direction:column;gap:7px;margin-bottom:8px}
+  .slotrow{display:flex;align-items:center;gap:8px}
+  .rowlabel{width:62px;font-size:11px;color:var(--muted);font-weight:700;flex:none}
+  .slot{width:58px;height:76px;border-radius:10px;border:2px dashed var(--line);background:#11111d;
+    display:flex;align-items:center;justify-content:center;color:#55557a;font-size:24px;cursor:pointer;
+    position:relative;overflow:hidden;flex:none;transition:transform .1s}
+  .slot.filled{border-style:solid;border-color:var(--glow)}
+  .slot.filled:hover{transform:scale(1.04)}
+  .slot img{width:100%;height:100%;object-fit:cover;object-position:top center}
+  .slot .nm{position:absolute;left:0;right:0;bottom:0;font-size:8.5px;font-weight:700;text-align:center;
+    background:linear-gradient(transparent,rgba(0,0,0,.9));padding:8px 1px 2px}
+  .slot .x{position:absolute;top:2px;right:3px;width:15px;height:15px;line-height:14px;text-align:center;
+    font-size:11px;color:#fff;background:#000a;border-radius:50%}
+  .rostertitle{font-size:12px;font-weight:800;margin:4px 0 7px;display:flex;justify-content:space-between}
+  #team .roster{grid-template-columns:repeat(6,1fr);gap:8px}
+  #team .roster .hcard{aspect-ratio:auto;height:92px}
+  #team .roster .hcard .info{font-size:9px;padding:10px 4px 3px}
+  #team .roster .hcard .cls{display:none}
+  .roster .hcard.sel{opacity:.45}
+  .roster .hcard.sel::after{content:'✓ ในทีม';position:absolute;inset:0;display:flex;align-items:center;
+    justify-content:center;font-size:13px;font-weight:800;color:var(--gold);background:rgba(0,0,0,.55)}
+  .teamfoot{display:flex;align-items:center;gap:12px;padding:8px 14px 10px}
+  .teamfoot .hint{color:var(--muted);font-size:11px}
+
+  /* ---------- shared menu screens ---------- */
+  .listcard{display:flex;align-items:center;gap:11px;padding:10px 13px;border-radius:12px;margin-bottom:8px}
+  .listcard .ic{font-size:22px;flex:none;width:30px;text-align:center}
+  .listcard .gr{flex:1;min-width:0}.listcard .gr .t{font-weight:700;font-size:13px}.listcard .gr .s{font-size:10.5px;color:var(--muted)}
+  .listcard .rt{font-size:11px;color:var(--gold);font-weight:700;text-align:right}
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .tile{border-radius:14px;padding:15px 10px;text-align:center;cursor:pointer;transition:transform .12s}
+  .tile:hover{transform:translateY(-3px)}
+  .tile .ic{font-size:28px}.tile .t{font-weight:800;font-size:12.5px;margin-top:6px}.tile .s{font-size:9.5px;color:var(--muted);margin-top:1px}
+  .rankrow{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:11px;margin-bottom:7px}
+  .rankrow .rk{width:24px;font-weight:900;text-align:center;color:var(--gold);font-size:15px}
+  .rankrow img{width:38px;height:38px;border-radius:9px;object-fit:cover;object-position:top}
+  .rankrow .pw{font-size:11px;color:var(--muted)}
+  .upgrade-stat{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px}
+  .up-delta{color:#34d399;font-size:11px;font-weight:700}
+  .gear{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+  .gslot{aspect-ratio:1;border-radius:11px;border:2px dashed var(--line);display:flex;flex-direction:column;
+    align-items:center;justify-content:center;cursor:pointer;background:#11111d}
+  .gslot.filled{border-style:solid;border-color:var(--glow);background:#1a1530}
+  .gslot .gi{font-size:20px}.gslot .gn{font-size:8.5px;color:var(--muted);margin-top:3px}
+  .coltab{display:flex;gap:6px;margin-bottom:11px;flex-wrap:wrap}
+  .coltab .tb{padding:6px 13px;border-radius:16px;font-size:11.5px;cursor:pointer;background:var(--panel2);border:1px solid var(--line)}
+  .coltab .tb.on{background:linear-gradient(135deg,var(--glow),var(--glow2));border-color:transparent}
+  .badge2{background:var(--epic);color:#fff;font-size:8.5px;padding:1px 6px;border-radius:7px;font-weight:800;margin-left:6px}
+  .progress{height:7px;border-radius:5px;background:#0c0c16;overflow:hidden;margin-top:5px}
+  .progress>i{display:block;height:100%;background:linear-gradient(90deg,var(--glow),#c4b5fd)}
+  .guildhead{display:flex;gap:14px;align-items:center;padding:12px 14px;border-radius:14px;margin-bottom:12px}
+  .guildhead .em{font-size:42px}
+  .toast{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:20;
+    background:#1b1b2b;border:1px solid var(--glow);padding:8px 18px;border-radius:20px;font-size:12px;
+    opacity:0;transition:opacity .2s}
+  .toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div id="rotate"><div class="rot-orb"></div><div>หมุนเครื่องเป็นแนวนอน<br><span style="color:#9a9ac0;font-size:12px">เกมนี้เล่นในแนวนอนเท่านั้น</span></div></div>
+
+<div id="stage">
+  <!-- TITLE -->
+  <section class="screen on" id="title">
+    <div class="logo">
+      <div class="orb"></div>
+      <h1>HERO LEGENDS THAI</h1>
+      <div class="th">ตำนานวีรชน · พระอภัยมณี</div>
+      <div class="tag">"ในที่ที่มีแสงสว่าง ย่อมมีเงา"</div>
+      <button class="start" onclick="go('hub')">▶ แตะเพื่อเริ่ม</button>
+    </div>
+    <div class="ver">prototype v0.1 · art: ChatGPT Images (cartoon set) · engine: docs/08</div>
+  </section>
+
+  <!-- HUB -->
+  <section class="screen" id="hub">
+    <div class="hub-hero"></div>
+    <div class="topbar">
+      <div class="pf glass" onclick="go('profile')" style="cursor:pointer"><img src="portraits/hero_phraaphai.jpg" alt=""><div><div class="nm">Keng</div><div class="lv">Lv.24</div></div></div>
+      <div class="curr">
+        <div class="pill glass"><span class="ic">🪙</span>1,240,500</div>
+        <div class="pill glass"><span class="ic">💎</span>8,420</div>
+        <div class="pill glass"><span class="ic">⚡</span>112/120</div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="sbtn glass" title="ร้านค้า" onclick="go('shop')">🛒</div>
+      <div class="sbtn glass" title="กล่องจดหมาย" onclick="go('mail')">✉️</div>
+      <div class="sbtn glass" title="อีเวนต์ & ภารกิจ" onclick="go('events')">🎉</div>
+      <div class="sbtn glass" title="โหมดเกม" onclick="go('modes')">🗺️</div>
+    </div>
+    <div class="hub-mid">
+      <h2>มหาสมุทรแห่งเจ็ดดวงจันทร์</h2>
+      <p>พลังมืดโบราณกำลังตื่น — รวมเหล่าวีรชนจากทุกอาณาจักร<br>ปกป้องโลกพระอภัยมณี</p>
+      <div class="feat glass" onclick="go('summon')"><span class="badge">ใหม่</span><b style="font-size:13px">อัญเชิญ: นางละเวง ✦ Limited</b></div>
+    </div>
+    <div class="hub-nav">
+      <div class="navbtn glass" onclick="go('heroes')"><div class="ic">🛡️</div><div class="t">ฮีโร่</div><div class="s">24 ตัว</div></div>
+      <div class="navbtn glass" onclick="go('summon')"><div class="ic">🔮</div><div class="t">อัญเชิญ</div><div class="s">มี Limited</div></div>
+      <div class="navbtn primary" onclick="go('stages')"><div class="ic">⚔️</div><div class="t">ผจญภัย</div><div class="s">บทที่ 1-8</div></div>
+      <div class="navbtn glass" onclick="go('arena')"><div class="ic">🏆</div><div class="t">สังเวียน</div><div class="s">Diamond III</div></div>
+      <div class="navbtn glass" onclick="go('guild')"><div class="ic">🏰</div><div class="t">กิลด์</div><div class="s">Lv.18</div></div>
+    </div>
+  </section>
+
+  <!-- HEROES -->
+  <section class="screen" id="heroes">
+    <div class="topbar"><div class="back glass" onclick="go('hub')">‹ กลับ</div>
+      <div class="h2" style="margin:0 0 0 10px">ฮีโร่ <span class="sub">Hero Collection · 24 ตัว</span></div></div>
+    <div class="body"><div class="grid" id="heroGrid"></div></div>
+  </section>
+
+  <!-- HERO DETAIL -->
+  <section class="screen" id="detail">
+    <div class="topbar"><div class="back glass" onclick="go('heroes')">‹ กลับ</div></div>
+    <div class="body" id="detailBody"></div>
+  </section>
+
+  <!-- SUMMON -->
+  <section class="screen" id="summon">
+    <div class="topbar"><div class="back glass" onclick="go('hub')">‹ กลับ</div>
+      <div class="curr"><div class="pill glass"><span class="ic">💎</span>8,420</div></div></div>
+    <div class="body">
+      <div class="banner"><img src="portraits/hero_nang_laweng.jpg" alt="">
+        <div class="cap"><b>มหาศึกนางละเวง</b><br><span>★ Limited Banner · Rate Up: นางละเวง (Mythic)</span></div></div>
+      <div class="pulls">
+        <div class="pull one glass" onclick="toast('อัญเชิญ x1 — 💎300')">อัญเชิญ ×1<br><small style="color:var(--gold)">💎 300</small></div>
+        <div class="pull ten" onclick="toast('อัญเชิญ x10 — รับประกัน Epic+ 1 ตัว')">อัญเชิญ ×10<br><small>💎 2,700</small></div>
+      </div>
+      <div class="rates">เรท: Mythic 1% · Legendary 4% · Epic 15% · Pity 100 ครั้ง รับประกัน Mythic</div>
+    </div>
+  </section>
+
+  <!-- STAGE SELECT -->
+  <section class="screen" id="stages">
+    <div class="topbar"><div class="back glass" onclick="go('hub')">‹ กลับ</div>
+      <div class="h2" style="margin:0 0 0 10px">ผจญภัย <span class="sub">Campaign · พระอภัยมณี Saga</span></div></div>
+    <div class="body"><div id="stageList"></div></div>
+  </section>
+
+  <!-- TEAM BUILDER -->
+  <section class="screen" id="team">
+    <div class="topbar"><div class="back glass" onclick="go('stages')">‹ กลับ</div>
+      <div class="h2" style="margin:0 0 0 10px">จัดทีม <span class="sub" id="teamStage"></span></div>
+      <div class="curr"><div class="pill glass"><span class="ic">⚔️</span><span id="teamPower">0</span></div></div></div>
+    <div class="body">
+      <div class="slots">
+        <div class="slotrow"><div class="rowlabel">แนวหน้า ×2</div>
+          <div class="slot" data-i="0" onclick="removeSlot(0)"></div><div class="slot" data-i="1" onclick="removeSlot(1)"></div></div>
+        <div class="slotrow"><div class="rowlabel">แนวหลัง ×3</div>
+          <div class="slot" data-i="2" onclick="removeSlot(2)"></div><div class="slot" data-i="3" onclick="removeSlot(3)"></div><div class="slot" data-i="4" onclick="removeSlot(4)"></div></div>
+      </div>
+      <div class="rostertitle"><span>เลือกฮีโร่ลงทีม</span><span id="teamCount" style="color:var(--gold)">0/5</span></div>
+      <div class="grid roster" id="teamRoster"></div>
+    </div>
+    <div class="teamfoot">
+      <button class="btn" id="startBtn" onclick="startBattle()" disabled>เริ่มรบ ▶</button>
+      <span class="hint" id="teamHint">เลือกให้ครบ 5 ตัว (แนวหน้า 2 / แนวหลัง 3)</span>
+      <button class="back glass" style="margin-left:auto" onclick="autoTeam()">⚡ ทีมแนะนำ</button>
+    </div>
+  </section>
+
+  <!-- GAME MODES -->
+  <section class="screen" id="modes">
+    <div class="topbar"><div class="back glass" onclick="go('hub')">‹ กลับ</div>
+      <div class="h2" style="margin:0 0 0 10px">โหมดเกม <span class="sub">Game Modes</span></div>
+      <div class="curr"><div class="pill glass"><span class="ic">⚡</span>112/120</div></div></div>
+    <div class="body"><div class="tiles" id="modeTiles"></div></div>
+  </section>
+
+  <!-- ARENA -->
+  <section class="screen" id="arena">
+    <div class="topbar"><div class="back glass" onclick="go('hub')">‹ กลับ</div>
+      <div class="h2" style="margin:0 0 0 10px">สังเวียน <span class="sub">Arena PvP</span></div>
+      <div class="curr"><div class="pill glass"><span class="ic">🏅</span> Diamond III · #1,204</div></div></div>
+    <div class="body">
+      <div class="glass listcard" style="background:linear-gradient(90deg,rgba(139,92,246,.25),transparent)">
+        <div class="ic">🏆</div><div class="gr"><div class="t">อันดับของคุณ: Diamond III</div>
+          <div class="s">ชนะ 47 · แพ้ 12 · เรตติ้ง 2,340 — ชนะอีก 3 เพื่อขึ้น Master</div></div>
+        <div class="rt">🎟️ ตั๋ว 5/5</div></div>
+      <div class="h2" style="font-size:13px;margin:12px 0 8px">เลือกคู่ต่อสู้</div>
+      <div id="arenaList"></div>
+    </div>
+  </section>
+
+  <!-- GUILD -->
+  <section class="screen" id="guild">
+    <div class="topbar"><div class="back glass" onclick="go('hub')">‹ กลับ</div>
+      <div class="h2" style="margin:0 0 0 10px">กิลด์ <span class="sub">Guild</span></div></div>
+    <div class="body">
+      <div class="guildhead glass"><div class="em">🏰</div>
+        <div style="flex:1"><div style="font-weight:800;font-size:16px">เจ้าสมุทรเจ็ดเกาะ <span class="badge2">Lv.18</span></div>
+          <div class="s" style="color:var(--muted);font-size:11px">สมาชิก 38/50 · พลังรวม 2.4M · อันดับเซิร์ฟ #7</div>
+          <div class="progress"><i style="width:64%"></i></div></div></div>
+      <div class="tiles">
+        <div class="tile glass" onclick="toast('Guild Boss: มังกรเจ็ดเศียร — ดาเมจสะสม 4.2M')"><div class="ic">🐉</div><div class="t">บอสกิลด์</div><div class="s">รีเซ็ตใน 6ชม.</div></div>
+        <div class="tile glass" onclick="toast('Guild War: vs กิลด์ลังกาเหนือ — เริ่ม 20:00')"><div class="ic">⚔️</div><div class="t">สงครามกิลด์</div><div class="s">เริ่ม 20:00</div></div>
+        <div class="tile glass" onclick="toast('Guild Shop — แลกเหรียญกิลด์')"><div class="ic">🛍️</div><div class="t">ร้านกิลด์</div><div class="s">เหรียญ 1,820</div></div>
+        <div class="tile glass" onclick="toast('Guild Raid — ปลดล็อก Lv.20')"><div class="ic">👹</div><div class="t">เรด</div><div class="s">Lv.20</div></div>
+      </div>
+      <div class="h2" style="font-size:13px;margin:12px 0 8px">สมาชิกเด่น</div>
+      <div id="guildMembers"></div>
+    </div>
+  </section>
+
+  <!-- SHOP -->
+  <section class="screen" id="shop">
+    <div class="topbar"><div class="back glass" onclick="go('hub')">‹ กลับ</div>
+      <div class="h2" style="margin:0 0 0 10px">ร้านค้า <span class="sub">Shop</span></div>
+      <div class="curr"><div class="pill glass"><span class="ic">🪙</span>1.24M</div><div class="pill glass"><span class="ic">💎</span>8,420</div></div></div>
+    <div class="body">
+      <div class="coltab"><div class="tb on" onclick="shopTab(this,'deals')">ดีลพิเศษ</div><div class="tb" onclick="shopTab(this,'packs')">แพ็ก</div><div class="tb" onclick="shopTab(this,'exchange')">แลกเปลี่ยน</div></div>
+      <div id="shopBody"></div>
+    </div>
+  </section>
+
+  <!-- EVENTS / DAILY -->
+  <section class="screen" id="events">
+    <div class="topbar"><div class="back glass" onclick="go('hub')">‹ กลับ</div>
+      <div class="h2" style="margin:0 0 0 10px">อีเวนต์ & ภารกิจ <span class="sub">Events · Daily</span></div></div>
+    <div class="body">
+      <div class="h2" style="font-size:13px;margin:2px 0 8px">ภารกิจรายวัน <span class="sub">รีเซ็ตใน 8ชม.</span></div>
+      <div id="dailyList"></div>
+      <div class="h2" style="font-size:13px;margin:14px 0 8px">อีเวนต์ที่กำลังเปิด</div>
+      <div class="glass listcard" style="background:linear-gradient(90deg,rgba(236,72,153,.22),transparent)">
+        <div class="ic">🎆</div><div class="gr"><div class="t">มหาศึกนางละเวง</div><div class="s">เก็บเหรียญอีเวนต์แลกนางละเวง · เหลือ 5 วัน</div></div>
+        <div class="rt">เข้าร่วม ›</div></div>
+      <div class="glass listcard"><div class="ic">📅</div><div class="gr"><div class="t">เช็คอินรายวัน — วันที่ 12/28</div><div class="s">วันนี้: 💎 ×100 · พรุ่งนี้: shard ×10</div></div><div class="rt">รับ</div></div>
+    </div>
+  </section>
+
+  <!-- MAIL -->
+  <section class="screen" id="mail">
+    <div class="topbar"><div class="back glass" onclick="go('hub')">‹ กลับ</div>
+      <div class="h2" style="margin:0 0 0 10px">กล่องจดหมาย <span class="sub">Mail</span></div>
+      <div class="curr"><div class="back glass" onclick="toast('รับรางวัลทั้งหมดแล้ว 🎁')">รับทั้งหมด</div></div></div>
+    <div class="body"><div id="mailList"></div></div>
+  </section>
+
+  <!-- HERO UPGRADE (interactive) -->
+  <section class="screen" id="upgrade">
+    <div class="topbar"><div class="back glass" id="upBack">‹ กลับ</div>
+      <div class="h2" style="margin:0 0 0 10px">อัปเกรดฮีโร่ <span class="sub">Level · Star · Awaken</span></div>
+      <div class="curr"><div class="pill glass"><span class="ic">🪙</span><span id="upGold">1,240,500</span></div></div></div>
+    <div class="body" id="upgradeBody"></div>
+  </section>
+
+  <!-- EQUIPMENT -->
+  <section class="screen" id="equip">
+    <div class="topbar"><div class="back glass" id="eqBack">‹ กลับ</div>
+      <div class="h2" style="margin:0 0 0 10px">อุปกรณ์ <span class="sub">Equipment · Set Bonus</span></div></div>
+    <div class="body" id="equipBody"></div>
+  </section>
+
+  <!-- PROFILE / SETTINGS -->
+  <section class="screen" id="profile">
+    <div class="topbar"><div class="back glass" onclick="go('hub')">‹ กลับ</div>
+      <div class="h2" style="margin:0 0 0 10px">โปรไฟล์ & ตั้งค่า <span class="sub">Profile · Settings</span></div></div>
+    <div class="body">
+      <div class="guildhead glass"><img src="portraits/hero_phraaphai.jpg" style="width:54px;height:54px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid var(--gold)">
+        <div style="flex:1"><div style="font-weight:800;font-size:16px">Keng <span class="badge2">Lv.24</span></div>
+        <div class="s" style="color:var(--muted);font-size:11px">UID 8842-1907 · พลังรวมทีม 7,359 · ด่านสูงสุด 7-7</div></div></div>
+      <div class="glass listcard"><div class="ic">🔊</div><div class="gr"><div class="t">เสียง & เพลง</div><div class="s">BGM 80% · SFX 100%</div></div><div class="rt">เปิด</div></div>
+      <div class="glass listcard"><div class="ic">🌐</div><div class="gr"><div class="t">ภาษา</div><div class="s">ไทย</div></div><div class="rt">›</div></div>
+      <div class="glass listcard"><div class="ic">📱</div><div class="gr"><div class="t">การหมุนจอ</div><div class="s">ล็อกแนวนอน (Landscape only)</div></div><div class="rt">🔒</div></div>
+      <div class="glass listcard"><div class="ic">🔗</div><div class="gr"><div class="t">เชื่อมบัญชี</div><div class="s">Google · Apple · เก็บข้อมูลข้ามเครื่อง</div></div><div class="rt">›</div></div>
+    </div>
+  </section>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+const HEROES=[
+ {id:'hero_phraaphai',th:'พระอภัยมณี',r:'Legendary',e:'Water',c:'Support',hp:1050,atk:140,def:95,spd:102,star:5,
+  skills:[['🎵','เพลงปี่กล่อมนิทรา','สร้างความเสียหายทุกศัตรู + มีโอกาสหลับ 2 เทิร์น'],['🌊','คลื่นปลอบขวัญ','ล้างสถานะร้ายให้ทีม + ฟื้น HP']]},
+ {id:'hero_srisuwan',th:'ศรีสุวรรณ',r:'Legendary',e:'Fire',c:'Warrior',hp:1320,atk:180,def:120,spd:95,star:5,
+  skills:[['⚔️','กระบี่คู่','โจมตีเดี่ยว 2 ครั้ง ติดเลือดออก'],['🔥','ฮึกเหิม','เพิ่มพลังโจมตีทั้งทีม']]},
+ {id:'hero_sudsakorn',th:'สุดสาคร',r:'Legendary',e:'Nature',c:'Assassin',hp:1100,atk:195,def:90,spd:118,star:5,
+  skills:[['🐉','ทะยานนิลมังกร','กระโจนใส่แถวหลัง ดาเมจสูง'],['🌿','ไม้เท้าวิเศษ','เพิ่มความเร็วตัวเอง']]},
+ {id:'hero_sinsamut',th:'สินสมุทร',r:'Legendary',e:'Water',c:'Guardian',hp:1550,atk:150,def:150,spd:88,star:5,
+  skills:[['🛡️','กำแพงอสูร','ยั่วยุศัตรู + ลดดาเมจ'],['💪','พลังครึ่งยักษ์','สะท้อนดาเมจ']]},
+ {id:'hero_nang_ngeuak',th:'นางเงือก',r:'Legendary',e:'Water',c:'Priest',hp:1080,atk:130,def:95,spd:108,star:5,
+  skills:[['💧','พรแห่งสมุทร','ฟื้น HP ทีมต่อเนื่อง'],['🫧','ฟองคุ้มภัย','โล่ป้องกันให้พันธมิตร']]},
+ {id:'hero_phisuea_samut',th:'ผีเสื้อสมุทร',r:'Mythic',e:'Dark',c:'Warrior',hp:1700,atk:210,def:135,spd:92,star:6,
+  skills:[['🦋','ความรักคลั่ง','ดาเมจมหาศาล ดูดเลือด'],['🌑','คำสาปสมุทร','ลดพลังป้องกันศัตรู']]},
+ {id:'hero_nang_laweng',th:'นางละเวง',r:'Mythic',e:'Fire',c:'Mage',hp:1120,atk:225,def:95,spd:105,star:6,
+  skills:[['🖼️','รูปวาดเสน่ห์','สะกดศัตรู (charm) 1 ตัว'],['🔥','เพลิงลังกา','ระเบิด AoE เผาไหม้']]},
+ {id:'hero_ma_nin_mangkorn',th:'ม้านิลมังกร',r:'Mythic',e:'Dark',c:'Guardian',hp:1650,atk:170,def:160,spd:100,star:6,
+  skills:[['🐲','คำรามมังกร','ยั่วยุ + ลดความเร็วศัตรู'],['⚫','เกล็ดนิล','ภูมิคุ้มกันสถานะ']]},
+ {id:'hero_suwanmali',th:'นางสุวรรณมาลี',r:'Mythic',e:'Light',c:'Support',hp:1150,atk:165,def:105,spd:110,star:6,
+  skills:[['👑','พรราชนิกุล','บัฟพลังโจมตี+คริติคอลทั้งทีม'],['✨','แสงผลึก','เพิ่มเกจอัลติเมท']]},
+ {id:'hero_phra_ruesi',th:'พระฤๅษี',r:'Mythic',e:'Light',c:'Priest',hp:1090,atk:150,def:110,spd:96,star:6,
+  skills:[['🧙','ฌานบำบัด','ฟื้นชีพพันธมิตรที่ล้ม'],['📿','มนตร์ศักดิ์สิทธิ์','ล้างสถานะร้าย + ภูมิคุ้มกัน']]},
+ {id:'hero_usaren',th:'อุศเรน',r:'Epic',e:'Fire',c:'Archer',hp:980,atk:175,def:85,spd:112,star:4,
+  skills:[['🏹','ธนูลังกา','ยิงเป้า HP ต่ำสุด'],['⚓','บัญชาการเรือ','เพิ่มความแม่นยำ']]},
+ {id:"hero_mangkala",th:"มังคลา",r:"Legendary",e:"Dark",c:"Warrior",hp:1400,atk:200,def:125,spd:100,star:9,skills:[["⚔️","ดาบทมิฬลังกา","โจมตีเดี่ยวหนัก ลดเกราะศัตรู"],["✦","คลั่งเลือดผสม","AoE + ลดพลังโจมตี"]]},
+ {id:"hero_hatchai",th:"หัสไชย",r:"Legendary",e:"Light",c:"Guardian",hp:1500,atk:165,def:150,spd:95,star:9,skills:[["🛡️","หอกพิทักษ์การะเวก","AoE + ลดความเร็ว"],["✦","กำแพงนครทอง","AoE + สตัน"]]},
+ {id:"hero_soisuwan",th:"สร้อยสุวรรณ",r:"Epic",e:"Light",c:"Mage",hp:1000,atk:185,def:90,spd:106,star:7,skills:[["🔮","ลำแสงผลึก","เวทเดี่ยว ลดเกราะ"],["✦","รัศมีสุวรรณ","AoE + ธาตุ DoT/CC"]]},
+ {id:"hero_chansuda",th:"จันทร์สุดา",r:"Epic",e:"Light",c:"Support",hp:1040,atk:150,def:100,spd:110,star:7,skills:[["✨","พรแสงจันทร์","ฮีล + บัฟพลังโจมตีทีม"],["✦","เกราะจันทรา","บัฟคริ + เติมพลังทีม"]]},
+ {id:"hero_arunrasami",th:"อรุณรัศมี",r:"Epic",e:"Fire",c:"Archer",hp:980,atk:178,def:88,spd:114,star:7,skills:[["🏹","ธนูอรุณ","ยิงเป้า HP ต่ำสุด"],["✦","ห่าศรสุริยา","เวทเดี่ยวหนักมาก"]]},
+ {id:"hero_saowakhon",th:"เสาวคนธ์",r:"Epic",e:"Nature",c:"Support",hp:1050,atk:160,def:100,spd:108,star:7,skills:[["✨","พรบุปผาสมุทร","ฮีล + บัฟพลังโจมตีทีม"],["✦","สวนสวรรค์การะเวก","บัฟคริ + เติมพลังทีม"]]},
+ {id:"hero_sulaliwan",th:"สุลาลีวัน",r:"Epic",e:"Fire",c:"Mage",hp:1010,atk:190,def:88,spd:104,star:7,skills:[["🔮","เพลิงเสน่หา","เวทเดี่ยว ลดเกราะ"],["✦","นภาเพลิงลังกา","AoE + ธาตุ DoT/CC"]]},
+ {id:"hero_yupaphaka",th:"ยุพาผกา",r:"Epic",e:"Water",c:"Priest",hp:1060,atk:140,def:98,spd:105,star:7,skills:[["💧","ธาราเยียวยา","ฮีล + ล้างสถานะร้าย"],["✦","วารีอมตะ","ฮีลหนัก + บัฟป้องกัน"]]},
+ {id:"hero_wayupat",th:"วายุพัฒน์",r:"Epic",e:"Water",c:"Warrior",hp:1350,atk:175,def:120,spd:96,star:7,skills:[["⚔️","ทุบคลื่นอสูร","โจมตีเดี่ยวหนัก ลดเกราะศัตรู"],["✦","พิโรธสายชล","AoE + ลดพลังโจมตี"]]},
+ {id:"hero_hatsakan",th:"หัสกัน",r:"Epic",e:"Nature",c:"Assassin",hp:1080,atk:188,def:90,spd:116,star:7,skills:[["🗡️","เขี้ยวพนา","ลอบโจมตีเดี่ยวหนัก"],["✦","ล่าเงาพงไพร","เบิร์สต์ + เลือดออก"]]},
+ {id:"hero_kritsana",th:"กฤษณา",r:"Epic",e:"Nature",c:"Assassin",hp:1020,atk:182,def:88,spd:115,star:7,skills:[["🗡️","กริชพิษ","ลอบโจมตีเดี่ยวหนัก"],["✦","เงามรณะ","เบิร์สต์ + เลือดออก"]]},
+ {id:"hero_walayuda",th:"วลายุดา",r:"Epic",e:"Water",c:"Mage",hp:990,atk:186,def:86,spd:107,star:7,skills:[["🔮","มายาคลื่น","เวทเดี่ยว ลดเกราะ"],["✦","วังวนสาคร","AoE + ธาตุ DoT/CC"]]},
+ {id:"hero_thao_suthat",th:"ท้าวสุทัศน์",r:"Epic",e:"Light",c:"Guardian",hp:1480,atk:155,def:145,spd:90,star:7,skills:[["🛡️","พระขรรค์รัตนา","AoE + ลดความเร็ว"],["✦","บารมีกษัตริย์","AoE + สตัน"]]},
+];
+const ELE={Water:'var(--water)',Fire:'var(--fire)',Nature:'var(--nature)',Light:'var(--light)',Dark:'var(--dark)'};
+const STAGES=[
+ ['1-1','เสียงปี่กลางสายลม','โจรสลัด',false],['1-3','ออกเดินทาง','โจรสลัด',false],
+ ['2-6','ถ้ำนางผีเสื้อสมุทร','ผีเสื้อสมุทร',true],['3-6','ศึกอสูรทะเล','อสูรทะเล',true],
+ ['4-4','เมืองผลึก','—',false],['5-7','ศึกอุศเรนชิงสมุทร','อุศเรน',true],
+ ['6-6','ปราบม้านิลมังกร','ม้านิลมังกร',true],['7-7','มหาศึกนางละเวง','นางละเวง',true],
+];
+
+function go(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on')); document.getElementById(id).classList.add('on'); }
+let toastT;
+function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('on'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('on'),1900); }
+
+function renderHeroes(){
+  document.getElementById('heroGrid').innerHTML = HEROES.map(h=>`
+    <div class="hcard ${h.r}" onclick="detail('${h.id}')">
+      <img src="portraits/${h.id}.jpg" alt="">
+      <span class="ele" style="background:${ELE[h.e]}"></span>
+      <span class="stars">${'★'.repeat(Math.min(5,h.star))}${h.star>5?'+':''}</span>
+      <div class="info">${h.th}<div class="cls">${h.r} · ${h.c}</div></div>
+    </div>`).join('');
+}
+function detail(id){
+  const h=HEROES.find(x=>x.id===id); go('detail');
+  document.getElementById('detailBody').innerHTML=`
+    <div class="dt-art"><img src="portraits/${h.id}.jpg" alt=""></div>
+    <div class="dt-info">
+      <h2>${h.th}</h2>
+      <div class="meta"><span style="color:${ELE[h.e]}">●</span> ${h.e} · ${h.r} · ${h.c} · ${'★'.repeat(Math.min(5,h.star))}${h.star>5?'+':''}</div>
+      <div class="statrow"><span>❤️ HP</span><b>${h.hp}</b></div>
+      <div class="statrow"><span>⚔️ ATK</span><b>${h.atk}</b></div>
+      <div class="statrow"><span>🛡️ DEF</span><b>${h.def}</b></div>
+      <div class="statrow"><span>⚡ SPD</span><b>${h.spd}</b></div>
+      <div style="margin:12px 0 4px;font-weight:800;font-size:13px">สกิล</div>
+      ${h.skills.map(s=>`<div class="skill"><div class="si">${s[0]}</div><div><div class="sn">${s[1]}</div><div class="sd">${s[2]}</div></div></div>`).join('')}
+      <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn" onclick="openUpgrade('${h.id}')">⬆ อัปเกรด</button>
+        <button class="back glass" onclick="openEquip('${h.id}')">🛡️ อุปกรณ์</button>
+        <button class="back glass" onclick="go('stages')">นำเข้าทีม ▶</button>
+      </div>
+    </div>`;
+}
+function renderStages(){
+  document.getElementById('stageList').innerHTML = STAGES.map(s=>`
+    <div class="navbtn glass" style="max-width:none;display:flex;align-items:center;gap:12px;text-align:left;margin-bottom:8px;padding:11px 14px" onclick="launch('${s[0]}')">
+      <div style="font-size:20px">${s[3]?'⚔️':'📜'}</div>
+      <div style="flex:1"><div class="t" style="font-size:13px">บท ${s[0]} — ${s[1]} ${s[3]?'<span style=\"color:var(--gold);font-size:10px\">บอส</span>':''}</div>
+        <div class="s">ศัตรู: ${s[2]}</div></div>
+      <div class="btn" style="padding:7px 16px;font-size:12px">เริ่มรบ</div>
+    </div>`).join('');
+}
+// ---------- Team Builder ----------
+const STAGE_NAME=Object.fromEntries(STAGES.map(s=>[s[0],s[1]]));
+let curStage=null, team=[]; // team = array of heroId (max 5, order = slot)
+function power(h){ return Math.round(h.hp*0.3 + h.atk*3 + h.def*2 + h.spd*4); }
+function launch(stage){ curStage=stage; team=[]; go('team');
+  document.getElementById('teamStage').textContent='บท '+stage+' · '+(STAGE_NAME[stage]||''); renderTeam(); }
+function toggleHero(id){
+  const i=team.indexOf(id);
+  if(i>=0) team.splice(i,1);
+  else { if(team.length>=5){ toast('ทีมเต็มแล้ว (5 ตัว) — แตะช่องเพื่อเอาออก'); return; } team.push(id); }
+  renderTeam();
+}
+function removeSlot(i){ if(team[i]){ team.splice(i,1); renderTeam(); } }
+function autoTeam(){ team=['hero_phraaphai','hero_sinsamut','hero_srisuwan','hero_sudsakorn','hero_nang_ngeuak']; renderTeam(); toast('จัดทีมแนะนำ: Tank+DPS+Support'); }
+function renderTeam(){
+  // slots
+  for(let i=0;i<5;i++){
+    const slot=document.querySelector(`.slot[data-i="${i}"]`); const id=team[i];
+    if(id){ const h=HEROES.find(x=>x.id===id);
+      slot.classList.add('filled');
+      slot.innerHTML=`<img src="portraits/${id}.jpg" alt=""><span class="x">✕</span><span class="nm">${h.th}</span>`;
+    } else { slot.classList.remove('filled'); slot.innerHTML='+'; }
+  }
+  // roster
+  document.getElementById('teamRoster').innerHTML = HEROES.map(h=>`
+    <div class="hcard ${h.r} ${team.includes(h.id)?'sel':''}" onclick="toggleHero('${h.id}')">
+      <img src="portraits/${h.id}.jpg" alt="">
+      <span class="ele" style="background:${ELE[h.e]}"></span>
+      <div class="info">${h.th}</div>
+    </div>`).join('');
+  const tp=team.reduce((s,id)=>s+power(HEROES.find(x=>x.id===id)),0);
+  document.getElementById('teamPower').textContent=tp.toLocaleString();
+  document.getElementById('teamCount').textContent=team.length+'/5';
+  const ok=team.length===5;
+  document.getElementById('startBtn').disabled=!ok;
+  document.getElementById('teamHint').textContent= ok?'พร้อมรบ!':'เลือกอีก '+(5-team.length)+' ตัว (แนวหน้า 2 / แนวหลัง 3)';
+}
+function startBattle(){
+  if(team.length!==5) return;
+  try{ localStorage.setItem('hlt_team', JSON.stringify({stage:curStage, team})); }catch(e){}
+  toast('เข้าสู่สนามรบ บท '+curStage+' …'); setTimeout(()=>location.href='battle.html', 700);
+}
+
+// ---------- Game Modes ----------
+const MODES=[['🗼','หอคอย','Tower · ชั้น 86','go("stages")'],['🐲','บอสโลก','World Boss · เหลือ 12ชม.','toast("World Boss: อสูรทะเลโบราณ — HP 48%")'],
+ ['🗝️','ดันเจียนรายวัน','ทอง/EXP/วัสดุ','toast("Daily Dungeon: เลือกธาตุที่ต้องการฟาร์ม")'],['🚢','เดินเรือสำรวจ','Expedition · 3/5 ทีม','toast("Expedition: ส่งทีมหาของรางวัลอัตโนมัติ")'],
+ ['♾️','ทะเลไร้ขอบ','Endless Sea · เวฟ 24','toast("Endless Sea: เอาตัวรอดให้นานที่สุด")'],['🏅','ด่านชนชั้นยอด','Elite Campaign','toast("Elite: ปลดล็อกเศษฮีโร่ Legendary")']];
+function renderModes(){ document.getElementById('modeTiles').innerHTML=MODES.map(m=>
+  `<div class="tile glass" onclick='${m[3]}'><div class="ic">${m[0]}</div><div class="t">${m[1]}</div><div class="s">${m[2]}</div></div>`).join(''); }
+
+// ---------- Arena ----------
+const OPP=[['ดวงใจ',7820,'Master I'],['ก้องภพ',7410,'Diamond I'],['นภัส',7180,'Diamond II']];
+function renderArena(){ document.getElementById('arenaList').innerHTML=OPP.map((o,i)=>{
+  const ic=['hero_phisuea_samut','hero_nang_laweng','hero_ma_nin_mangkorn'][i];
+  return `<div class="glass rankrow"><img src="portraits/${ic}.jpg"><div style="flex:1"><div style="font-weight:700;font-size:13px">${o[0]} <span class="badge2">${o[2]}</span></div><div class="pw">พลังทีม ${o[1].toLocaleString()}</div></div><button class="btn" style="padding:7px 18px;font-size:12px" onclick="toast('ท้าสู้ ${o[0]} — จัดทีมแล้วลุย!');setTimeout(()=>go('stages'),700)">ท้าสู้</button></div>`; }).join(''); }
+
+// ---------- Guild members ----------
+const GMEM=[['ราชาสมุทร','Leader',312000],['คลื่นเงิน','Officer',254000],['พายุใต้','Member',198000]];
+function renderGuild(){ document.getElementById('guildMembers').innerHTML=GMEM.map((m,i)=>
+  `<div class="glass rankrow"><div class="rk">${i+1}</div><div style="flex:1"><div style="font-weight:700;font-size:13px">${m[0]} <span class="badge2">${m[1]}</span></div><div class="pw">พลัง ${m[2].toLocaleString()}</div></div></div>`).join(''); }
+
+// ---------- Shop ----------
+const SHOP={
+ deals:[['🎁','กล่องของขวัญรายวัน','ฟรี · รีเซ็ตใน 8ชม.','รับฟรี'],['💎','เพชร ×980 +98 โบนัส','฿329','ซื้อ'],['🪙','ทอง ×500,000','💎 480','แลก'],['⚡','พลังงาน ×60','💎 100','ซื้อ']],
+ packs:[['🌟','Starter Pack','ฮีโร่ Epic + 1,000💎 · ครั้งเดียว','฿99'],['📅','Monthly Pass','+90💎/วัน 30วัน','฿299'],['🎖️','Battle Pass S1','รางวัล 50 ระดับ','฿349'],['📦','Growth Pack','ปลดเป็นช่วงตามเลเวล','฿199']],
+ exchange:[['🏅','เหรียญสังเวียน → เศษฮีโร่','Arena Coin','แลก'],['🏰','เหรียญกิลด์ → อุปกรณ์','Guild Coin','แลก'],['🎫','เหรียญอีเวนต์ → นางละเวง','Event Coin','แลก']]};
+function renderShop(tab){ document.getElementById('shopBody').innerHTML=SHOP[tab].map(s=>
+  `<div class="glass listcard"><div class="ic">${s[0]}</div><div class="gr"><div class="t">${s[1]}</div><div class="s">${s[2]}</div></div><button class="btn" style="padding:7px 16px;font-size:12px" onclick="toast('${s[1]} — เดโม')">${s[3]}</button></div>`).join(''); }
+function shopTab(el,t){ document.querySelectorAll('#shop .coltab .tb').forEach(x=>x.classList.remove('on')); el.classList.add('on'); renderShop(t); }
+
+// ---------- Daily & Mail ----------
+const DAILY=[['ล็อกอินเกม','100/100','✓ รับแล้ว'],['ผ่านด่าน 3 ครั้ง','2/3','+50💎'],['อัญเชิญ 1 ครั้ง','0/1','+ทอง'],['ชนะสังเวียน 2 ครั้ง','1/2','+เหรียญ']];
+function renderDaily(){ document.getElementById('dailyList').innerHTML=DAILY.map(d=>
+  `<div class="glass listcard"><div class="ic">${d[1].startsWith(d[1].split('/')[1])?'✅':'⏳'}</div><div class="gr"><div class="t">${d[0]}</div><div class="progress"><i style="width:${100*(+d[1].split('/')[0]/+d[1].split('/')[1])}%"></i></div></div><div class="rt">${d[2]}</div></div>`).join(''); }
+const MAILS=[['🎁','รางวัลอันดับสังเวียนประจำสัปดาห์','💎 ×300 + เหรียญ ×500','2ชม.'],['📢','ประกาศ: อีเวนต์นางละเวงเปิดแล้ว','เก็บเหรียญแลกฮีโร่ Mythic','1วัน'],['🛠️','ชดเชยปิดปรับปรุง','💎 ×200','3วัน']];
+function renderMail(){ document.getElementById('mailList').innerHTML=MAILS.map(m=>
+  `<div class="glass listcard"><div class="ic">${m[0]}</div><div class="gr"><div class="t">${m[1]}</div><div class="s">${m[2]} · ${m[3]}ที่แล้ว</div></div><button class="back glass" onclick="toast('รับ: ${m[2]}')">รับ</button></div>`).join(''); }
+
+// ---------- Hero Upgrade (interactive) ----------
+let upHero=null, upState=null, gold=1240500;
+function openUpgrade(id){ upHero=HEROES.find(h=>h.id===id); upState={lv:24,star:upHero.star,extra:{hp:0,atk:0,def:0,spd:0}}; go('upgrade'); document.getElementById('upBack').onclick=()=>detail(id); renderUpgrade(); }
+function renderUpgrade(){
+  const h=upHero,s=upState;
+  const cur={hp:h.hp+s.extra.hp,atk:h.atk+s.extra.atk,def:h.def+s.extra.def,spd:h.spd+s.extra.spd};
+  const lvCost=Math.round(s.lv*1500), starCost=s.star*40;
+  document.getElementById('upGold').textContent=gold.toLocaleString();
+  document.getElementById('upgradeBody').innerHTML=`
+    <div style="display:flex;gap:16px">
+      <div class="dt-art" style="width:200px"><img src="portraits/${h.id}.jpg"></div>
+      <div style="flex:1">
+        <h2 style="margin:0 0 2px;font-size:20px">${h.th}</h2>
+        <div class="meta" style="color:var(--gold);margin-bottom:8px">เลเวล ${s.lv}/60 · ${'★'.repeat(Math.min(6,s.star))}${s.star>6?'+':''}</div>
+        <div class="upgrade-stat"><span>❤️ HP</span><b>${cur.hp} <span class="up-delta">${s.extra.hp?'+'+s.extra.hp:''}</span></b></div>
+        <div class="upgrade-stat"><span>⚔️ ATK</span><b>${cur.atk} <span class="up-delta">${s.extra.atk?'+'+s.extra.atk:''}</span></b></div>
+        <div class="upgrade-stat"><span>🛡️ DEF</span><b>${cur.def} <span class="up-delta">${s.extra.def?'+'+s.extra.def:''}</span></b></div>
+        <div class="upgrade-stat"><span>⚡ SPD</span><b>${cur.spd}</b></div>
+        <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+          <button class="btn" onclick="doLevel()" ${gold<lvCost||s.lv>=60?'disabled':''}>⬆ เลเวลอัป <small style="opacity:.8">🪙${lvCost.toLocaleString()}</small></button>
+          <button class="back glass" onclick="doStar()">⭐ ติดดาว <small style="color:var(--gold)">shard ${starCost}</small></button>
+          <button class="back glass" onclick="toast('ตื่นรู้ (Awakening): ต้องเลเวล 60 + วัสดุตื่นรู้')">✦ ตื่นรู้</button>
+        </div>
+        <div class="s" style="color:var(--muted);font-size:10.5px;margin-top:8px">เลเวลอัป +HP/ATK/DEF ตาม growth curve · ติดดาวปลด stat/skill node (docs/06)</div>
+      </div></div>`;
+}
+function doLevel(){ const c=Math.round(upState.lv*1500); if(gold<c||upState.lv>=60)return; gold-=c; upState.lv+=1;
+  upState.extra.hp+=22; upState.extra.atk+=6; upState.extra.def+=4; toast('เลเวลอัป → '+upState.lv); renderUpgrade(); }
+function doStar(){ if(upState.star>=10){toast('ดาวสูงสุดแล้ว');return;} upState.star+=1; upState.extra.hp+=60; upState.extra.atk+=14; upState.extra.def+=8; toast('ติดดาว → '+upState.star+'★ (ปลด stat node)'); renderUpgrade(); }
+
+// ---------- Equipment ----------
+const GEAR=[['⚔️','อาวุธ','+ATK'],['⛑️','หมวก','+HP'],['🥋','เกราะ','+DEF'],['🧤','ถุงมือ','+CRIT'],['👢','รองเท้า','+SPD'],['📿','สร้อย','+HP%'],['💍','แหวน','+ATK%'],['🔯','เซ็ต','2/4/6']];
+function openEquip(id){ const h=HEROES.find(x=>x.id===id); go('equip'); document.getElementById('eqBack').onclick=()=>detail(id);
+  document.getElementById('equipBody').innerHTML=`
+    <div style="display:flex;gap:16px">
+      <div class="dt-art" style="width:180px"><img src="portraits/${h.id}.jpg"></div>
+      <div style="flex:1">
+        <h2 style="margin:0 0 8px;font-size:18px">${h.th} — ช่องอุปกรณ์</h2>
+        <div class="gear">${GEAR.map((g,i)=>`<div class="gslot ${i<3?'filled':''}" onclick="toast('${g[1]} ${g[2]} — แตะเพื่อสวม/อัปเกรด')">
+          <div class="gi">${g[0]}</div><div class="gn">${g[1]}</div>${i<3?'<div class="gn" style="color:var(--gold)">'+g[2]+'</div>':''}</div>`).join('')}</div>
+        <div class="glass listcard" style="margin-top:12px"><div class="ic">🔯</div><div class="gr"><div class="t">เซ็ตโบนัส: ผู้พิทักษ์สมุทร (3/6)</div><div class="s">2 ชิ้น: +15% DEF · 4 ชิ้น: ลดดาเมจ 10% · 6 ชิ้น: สะท้อน 20%</div></div></div>
+      </div></div>`;
+}
+
+renderHeroes(); renderStages(); renderModes(); renderArena(); renderGuild(); renderShop('deals'); renderDaily(); renderMail();
+</script>
+</body>
+</html>

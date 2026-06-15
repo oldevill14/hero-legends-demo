@@ -1,0 +1,94 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - heading "Hero Legends Thai — Battle Viewer" [level=1] [ref=e5]
+      - generic [ref=e6]: พระอภัยมณี · prototype ที่รัน engine จริง (deterministic replay) — แสง เงา วิญญาณ
+  - generic [ref=e7]:
+    - generic [ref=e8]:
+      - generic [ref=e9]: "ด่าน:"
+      - combobox [ref=e10] [cursor=pointer]:
+        - option "เสียงปี่กลางสายลม (stage_1_1)" [selected]
+        - option "ถ้ำนางผีเสื้อสมุทร ⚔ บอส (stage_2_6)"
+        - option "ศึกอสูรทะเล ⚔ บอส (stage_3_6)"
+        - option "ศึกอุศเรนชิงสมุทร ⚔ บอส (stage_5_7)"
+        - option "มหาศึกนางละเวง ⚔ บอส (stage_7_7)"
+      - button "▶ เล่น" [ref=e11] [cursor=pointer]
+      - button "⟲ รีเซ็ต" [ref=e12] [cursor=pointer]
+      - generic [ref=e13]: ความเร็ว
+      - combobox [ref=e14] [cursor=pointer]:
+        - option "0.5x"
+        - option "1x" [selected]
+        - option "2x"
+        - option "4x"
+      - generic [ref=e15]:
+        - text: seed 20690614 · 15 events
+        - text: "ผลจริง: WIN ใน 15 เทิร์น"
+    - generic [ref=e17]:
+      - generic [ref=e18]:
+        - generic [ref=e20]:
+          - generic [ref=e21]:
+            - generic [ref=e22]: พระอภัยมณี
+            - generic [ref=e24]: Legendary · Support
+          - generic [ref=e27]:
+            - generic [ref=e28]: 1050/1050
+            - generic [ref=e29]: SPD 102
+        - generic [ref=e32]:
+          - generic [ref=e33]:
+            - generic [ref=e34]: ศรีสุวรรณ
+            - generic [ref=e36]: Legendary · Warrior
+          - generic [ref=e39]:
+            - generic [ref=e40]: 1320/1320
+            - generic [ref=e41]: SPD 95
+        - generic [ref=e44]:
+          - generic [ref=e45]:
+            - generic [ref=e46]: สุดสาคร
+            - generic [ref=e48]: Legendary · Assassin
+          - generic [ref=e51]:
+            - generic [ref=e52]: 1100/1100
+            - generic [ref=e53]: SPD 118
+        - generic [ref=e56]:
+          - generic [ref=e57]:
+            - generic [ref=e58]: สินสมุทร
+            - generic [ref=e60]: Legendary · Guardian
+          - generic [ref=e63]:
+            - generic [ref=e64]: 1550/1550
+            - generic [ref=e65]: SPD 88
+        - generic [ref=e68]:
+          - generic [ref=e69]:
+            - generic [ref=e70]: นางเงือก
+            - generic [ref=e72]: Legendary · Priest
+          - generic [ref=e75]:
+            - generic [ref=e76]: 1080/1080
+            - generic [ref=e77]: SPD 108
+      - generic [ref=e79]: VS
+      - generic [ref=e80]:
+        - generic [ref=e82]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: โจรสลัดเลว
+            - generic [ref=e86]: Common · Warrior
+          - generic [ref=e89]:
+            - generic [ref=e90]: 620/620
+            - generic [ref=e91]: SPD 96
+        - generic [ref=e94]:
+          - generic [ref=e95]:
+            - generic [ref=e96]: โจรสลัดเลว
+            - generic [ref=e98]: Common · Warrior
+          - generic [ref=e101]:
+            - generic [ref=e102]: 620/620
+            - generic [ref=e103]: SPD 96
+        - generic [ref=e106]:
+          - generic [ref=e107]:
+            - generic [ref=e108]: โจรสลัดสอดแนม
+            - generic [ref=e110]: Common · Archer
+          - generic [ref=e113]:
+            - generic [ref=e114]: 540/540
+            - generic [ref=e115]: SPD 110
+    - generic [ref=e117]:
+      - generic [ref=e118]: เทิร์น 0
+      - slider [ref=e119]: "0"
+    - generic [ref=e121]:
+      - text: "Engine:"
+      - code [ref=e122]: backend/src/modules/battle/battle-simulator.ts
+      - text: (docs/08) · seed คงที่ → ผลเหมือนเดิมทุกครั้ง · หน้านี้เป็น presentation layer ไม่แตะ battle logic · สกิลในเดโมใช้ fallback by-hero_id (heroes.json
+      - code [ref=e123]: skill_ids
+      - text: 24/42 ตัวไม่ตรง skills.json — บั๊กที่ต้องแก้ที่ต้นทาง)

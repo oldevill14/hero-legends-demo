@@ -1,0 +1,3786 @@
+[
+  {
+    "skill_id": "sk_phraaphai_lullaby",
+    "hero_id": "hero_phraaphai",
+    "slot": "active",
+    "name_th": "เพลงปี่กล่อมนิทรา",
+    "name_en": "Lullaby of the Pi",
+    "type": "active",
+    "target_rule": "enemy_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.6
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 0.6
+        },
+        "hits": 1
+      },
+      {
+        "op": "cc",
+        "status": "sleep",
+        "chance": 0.6,
+        "duration": 2,
+        "vs": "res"
+      },
+      {
+        "op": "debuff",
+        "status": "atk_down",
+        "value": 0.2,
+        "duration": 2,
+        "chance": 1.0
+      }
+    ],
+    "level_curve": "skl_curve_cc"
+  },
+  {
+    "skill_id": "sk_phraaphai_dreamtide",
+    "hero_id": "hero_phraaphai",
+    "slot": "ultimate",
+    "name_th": "คลื่นนิทราสาคร",
+    "name_en": "Dreamtide Wave",
+    "type": "ultimate",
+    "target_rule": "enemy_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.9
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 0.9
+        },
+        "hits": 1
+      },
+      {
+        "op": "cc",
+        "status": "sleep",
+        "chance": 0.85,
+        "duration": 2,
+        "vs": "res",
+        "pvp_mult": 0.8
+      },
+      {
+        "op": "cleanse",
+        "target_rule": "ally_all",
+        "count": 1
+      },
+      {
+        "op": "energy",
+        "target_rule": "ally_all",
+        "value": 20
+      }
+    ],
+    "level_curve": "skl_curve_cc"
+  },
+  {
+    "skill_id": "sk_phraaphai_serenade",
+    "hero_id": "hero_phraaphai",
+    "slot": "passive",
+    "name_th": "มนตร์เสียงปี่",
+    "name_en": "Pacifying Serenade",
+    "type": "passive",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "cc_res_up",
+        "value": 0.2,
+        "duration": -1,
+        "trigger": "battle_start"
+      },
+      {
+        "op": "heal",
+        "target_rule": "enemy_all",
+        "scope": "asleep_only",
+        "scaling": {
+          "stat": "hp",
+          "mult": 0.0
+        },
+        "value": 0,
+        "trigger": "self_turn",
+        "note": "asleep enemies regen disabled; allies waking from sleep restore 8% max HP"
+      },
+      {
+        "op": "heal",
+        "target_rule": "self",
+        "scaling": {
+          "stat": "hp",
+          "mult": 0.0
+        },
+        "value_pct": 0.08,
+        "trigger": "ally_wake_from_sleep"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_phraaphai_leader_swiftcurrent",
+    "hero_id": "hero_phraaphai",
+    "slot": "leader",
+    "name_th": "ผู้นำสายชล",
+    "name_en": "Swiftcurrent Command",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "spd",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "spd_up",
+        "value": 0.18,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_srisuwan_cleave",
+    "hero_id": "hero_srisuwan",
+    "slot": "active",
+    "name_th": "ฟันสะท้านปฐพี",
+    "name_en": "Earthrend Cleave",
+    "type": "active",
+    "target_rule": "enemy_front",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.8
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.8
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "def_down",
+        "value": 0.3,
+        "duration": 2,
+        "chance": 1.0
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_srisuwan_twinblade",
+    "hero_id": "hero_srisuwan",
+    "slot": "ultimate",
+    "name_th": "ดาบคู่ทลายทัพ",
+    "name_en": "Twinblade Onslaught",
+    "type": "ultimate",
+    "target_rule": "enemy_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.4
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.4
+        },
+        "hits": 2
+      },
+      {
+        "op": "debuff",
+        "status": "bleed",
+        "value": 0.15,
+        "duration": 3,
+        "chance": 0.8,
+        "vs": "res",
+        "stack_max": 3
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_srisuwan_executioner",
+    "hero_id": "hero_srisuwan",
+    "slot": "passive",
+    "name_th": "สังหารผู้เพลี่ยงพล้ำ",
+    "name_en": "Executioner's Eye",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "crit_up",
+        "value": 0.4,
+        "duration": 1,
+        "trigger": "on_attack",
+        "condition": "target_hp_below:0.5"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_srisuwan_leader_warbanner",
+    "hero_id": "hero_srisuwan",
+    "slot": "leader",
+    "name_th": "ธงรบกรุงรัตนา",
+    "name_en": "Warbanner of Rattana",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "atk_up",
+        "value": 0.2,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_sudsakorn_leapstrike",
+    "hero_id": "hero_sudsakorn",
+    "slot": "active",
+    "name_th": "โผนตะลุยแนวหลัง",
+    "name_en": "Leaping Strike",
+    "type": "active",
+    "target_rule": "enemy_lowest_hp",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "atk",
+      "mult": 2.0
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 2.0
+        },
+        "hits": 1,
+        "ignore_aggro": true,
+        "pierce": 0.2
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_sudsakorn_dragonchargers",
+    "hero_id": "hero_sudsakorn",
+    "slot": "ultimate",
+    "name_th": "ม้านิลมังกรพุ่งทะยาน",
+    "name_en": "Dragon-Steed Charge",
+    "type": "ultimate",
+    "target_rule": "enemy_highest_atk",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 3.6
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 3.6
+        },
+        "hits": 1,
+        "pierce": 0.3
+      },
+      {
+        "op": "cc",
+        "status": "stun",
+        "chance": 0.7,
+        "duration": 1,
+        "vs": "res",
+        "pvp_mult": 0.8
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_sudsakorn_evasion",
+    "hero_id": "hero_sudsakorn",
+    "slot": "passive",
+    "name_th": "ไหวพริบนักผจญภัย",
+    "name_en": "Adventurer's Reflex",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "spd",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "dodge_up",
+        "value": 0.2,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_sudsakorn_leader_keeneye",
+    "hero_id": "hero_sudsakorn",
+    "slot": "leader",
+    "name_th": "ตาคมนักรบหนุ่ม",
+    "name_en": "Keen-Eyed Vanguard",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "crit",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "crit_rate_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_sinsamut_bulwark",
+    "hero_id": "hero_sinsamut",
+    "slot": "active",
+    "name_th": "ปราการสมุทร",
+    "name_en": "Tidal Bulwark",
+    "type": "active",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.25
+    },
+    "effect_ops": [
+      {
+        "op": "cc",
+        "status": "taunt",
+        "target_rule": "enemy_all",
+        "chance": 0.9,
+        "duration": 2,
+        "vs": "res",
+        "pvp_mult": 0.8
+      },
+      {
+        "op": "shield",
+        "target_rule": "self",
+        "scaling": {
+          "stat": "hp",
+          "mult": 0.25
+        },
+        "duration": 2
+      }
+    ],
+    "level_curve": "skl_curve_shield"
+  },
+  {
+    "skill_id": "sk_sinsamut_seawall",
+    "hero_id": "hero_sinsamut",
+    "slot": "ultimate",
+    "name_th": "กำแพงสมุทรคุ้มทัพ",
+    "name_en": "Seawall Aegis",
+    "type": "ultimate",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.2
+    },
+    "effect_ops": [
+      {
+        "op": "shield",
+        "target_rule": "ally_all",
+        "scaling": {
+          "stat": "hp",
+          "mult": 0.2
+        },
+        "duration": 2
+      },
+      {
+        "op": "buff",
+        "status": "dmg_reduce",
+        "target_rule": "ally_all",
+        "value": 0.3,
+        "duration": 2
+      }
+    ],
+    "level_curve": "skl_curve_shield"
+  },
+  {
+    "skill_id": "sk_sinsamut_thornmail",
+    "hero_id": "hero_sinsamut",
+    "slot": "passive",
+    "name_th": "เกราะสะท้อนคลื่น",
+    "name_en": "Reflecting Carapace",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "target_rule": "enemy_front",
+        "scaling": {
+          "stat": "hp",
+          "mult": 0.0
+        },
+        "reflect_pct": 0.25,
+        "trigger": "on_hit_taken"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_sinsamut_leader_deepvigor",
+    "hero_id": "hero_sinsamut",
+    "slot": "leader",
+    "name_th": "พลังสมุทรลึก",
+    "name_en": "Deep Vigor",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "hp_up",
+        "value": 0.22,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_nangngueak_mercysong",
+    "hero_id": "hero_nangngueak",
+    "slot": "active",
+    "name_th": "บทเพลงเยียวยา",
+    "name_en": "Song of Mercy",
+    "type": "active",
+    "target_rule": "ally_lowest_hp",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.4
+    },
+    "effect_ops": [
+      {
+        "op": "heal",
+        "target_rule": "ally_lowest_hp",
+        "scaling": {
+          "stat": "hp",
+          "mult": 0.4
+        }
+      },
+      {
+        "op": "cleanse",
+        "target_rule": "ally_lowest_hp",
+        "count": 2
+      }
+    ],
+    "level_curve": "skl_curve_heal"
+  },
+  {
+    "skill_id": "sk_nangngueak_healingtide",
+    "hero_id": "hero_nangngueak",
+    "slot": "ultimate",
+    "name_th": "คลื่นเยียวยาคืนชีพ",
+    "name_en": "Healing Tide",
+    "type": "ultimate",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.3
+    },
+    "effect_ops": [
+      {
+        "op": "heal",
+        "target_rule": "ally_all",
+        "scaling": {
+          "stat": "hp",
+          "mult": 0.3
+        }
+      },
+      {
+        "op": "revive",
+        "target_rule": "ally_lowest_hp",
+        "scope": "dead_only",
+        "hp_pct": 0.4,
+        "count": 1
+      }
+    ],
+    "level_curve": "skl_curve_heal"
+  },
+  {
+    "skill_id": "sk_nangngueak_lifesprings",
+    "hero_id": "hero_nangngueak",
+    "slot": "passive",
+    "name_th": "ธารชีวิต",
+    "name_en": "Lifesprings",
+    "type": "passive",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "heal",
+        "target_rule": "ally_all",
+        "scaling": {
+          "stat": "hp",
+          "mult": 0.08
+        },
+        "trigger": "self_turn",
+        "status": "regen"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_nangngueak_leader_tidewardens",
+    "hero_id": "hero_nangngueak",
+    "slot": "leader",
+    "name_th": "พรแห่งนางเงือก",
+    "name_en": "Mermaid's Blessing",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "heal_received_up",
+        "value": 0.2,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_phisuea_devourstrike",
+    "hero_id": "hero_phisuea",
+    "slot": "active",
+    "name_th": "ฟันเขมือบเลือด",
+    "name_en": "Devouring Strike",
+    "type": "active",
+    "target_rule": "enemy_front",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.9
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.9
+        },
+        "hits": 1,
+        "lifesteal": 0.4
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_phisuea_demonstorm",
+    "hero_id": "hero_phisuea",
+    "slot": "ultimate",
+    "name_th": "พายุอสูรสมุทร",
+    "name_en": "Demon Storm",
+    "type": "ultimate",
+    "target_rule": "enemy_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.6
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.6
+        },
+        "hits": 1,
+        "lifesteal": 0.3
+      },
+      {
+        "op": "cc",
+        "status": "fear",
+        "chance": 0.65,
+        "duration": 1,
+        "vs": "res",
+        "pvp_mult": 0.8
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_phisuea_wrath",
+    "hero_id": "hero_phisuea",
+    "slot": "passive",
+    "name_th": "โทสะอสูร",
+    "name_en": "Demon's Wrath",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "atk_up",
+        "value": 0.35,
+        "duration": 1,
+        "trigger": "self_turn",
+        "condition": "self_hp_below:0.5"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_phisuea_leader_demonrage",
+    "hero_id": "hero_phisuea",
+    "slot": "leader",
+    "name_th": "บัญชาฝูงอสูร",
+    "name_en": "Demon Horde Command",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "atk_up",
+        "value": 0.18,
+        "duration": -1,
+        "trigger": "battle_start",
+        "scope": "faction:seaogre"
+      },
+      {
+        "op": "buff",
+        "status": "atk_up",
+        "value": 0.1,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_laweng_emberspell",
+    "hero_id": "hero_laweng",
+    "slot": "active",
+    "name_th": "เวทเพลิงพิโรธ",
+    "name_en": "Ember Spell",
+    "type": "active",
+    "target_rule": "enemy_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.1
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.1
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "burn",
+        "value": 0.12,
+        "duration": 3,
+        "chance": 0.8,
+        "vs": "res",
+        "stack_max": 3
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_laweng_charmportrait",
+    "hero_id": "hero_laweng",
+    "slot": "ultimate",
+    "name_th": "รูปวาดต้องเสน่ห์",
+    "name_en": "Enchanting Portrait",
+    "type": "ultimate",
+    "target_rule": "enemy_highest_atk",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.3
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.3
+        },
+        "hits": 1
+      },
+      {
+        "op": "cc",
+        "status": "charm",
+        "chance": 0.7,
+        "duration": 2,
+        "vs": "res",
+        "pvp_mult": 0.8
+      }
+    ],
+    "level_curve": "skl_curve_cc"
+  },
+  {
+    "skill_id": "sk_laweng_hexmastery",
+    "hero_id": "hero_laweng",
+    "slot": "passive",
+    "name_th": "อาคมซ้ำเติม",
+    "name_en": "Hex Mastery",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "dmg_vs_afflicted_up",
+        "value": 0.25,
+        "duration": 1,
+        "trigger": "on_attack",
+        "condition": "target_has_status:any"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_laweng_leader_arcaneveil",
+    "hero_id": "hero_laweng",
+    "slot": "leader",
+    "name_th": "เวทเมืองลังกา",
+    "name_en": "Arcane Veil of Lanka",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "magic_dmg_up",
+        "value": 0.2,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_maninmangkorn_gore",
+    "hero_id": "hero_maninmangkorn",
+    "slot": "active",
+    "name_th": "พุ่งชนเขี้ยวมังกร",
+    "name_en": "Goring Charge",
+    "type": "active",
+    "target_rule": "enemy_front",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.6
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.6
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "def_down",
+        "value": 0.3,
+        "duration": 2,
+        "chance": 1.0
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_maninmangkorn_blackwrath",
+    "hero_id": "hero_maninmangkorn",
+    "slot": "ultimate",
+    "name_th": "นิลพิโรธ",
+    "name_en": "Onyx Wrath",
+    "type": "ultimate",
+    "target_rule": "enemy_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.5
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.5
+        },
+        "hits": 1
+      },
+      {
+        "op": "cc",
+        "status": "stun",
+        "chance": 0.6,
+        "duration": 1,
+        "vs": "res",
+        "pvp_mult": 0.8
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_maninmangkorn_darkward",
+    "hero_id": "hero_maninmangkorn",
+    "slot": "passive",
+    "name_th": "เกราะต้านมืด",
+    "name_en": "Darkward Hide",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "def",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "dmg_reduce",
+        "value": 0.25,
+        "duration": -1,
+        "trigger": "battle_start",
+        "condition": "vs_element:Dark"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_maninmangkorn_leader_ironscale",
+    "hero_id": "hero_maninmangkorn",
+    "slot": "leader",
+    "name_th": "เกล็ดเหล็กมังกร",
+    "name_en": "Ironscale Aura",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "def",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "def_up",
+        "value": 0.22,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_suwanmali_rallyingboon",
+    "hero_id": "hero_suwanmali",
+    "slot": "active",
+    "name_th": "พรปลุกขวัญทัพ",
+    "name_en": "Rallying Boon",
+    "type": "active",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.15
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "atk_up",
+        "target_rule": "ally_all",
+        "value": 0.25,
+        "duration": 2
+      },
+      {
+        "op": "shield",
+        "target_rule": "ally_all",
+        "scaling": {
+          "stat": "hp",
+          "mult": 0.15
+        },
+        "duration": 2
+      }
+    ],
+    "level_curve": "skl_curve_shield"
+  },
+  {
+    "skill_id": "sk_suwanmali_crystalblessing",
+    "hero_id": "hero_suwanmali",
+    "slot": "ultimate",
+    "name_th": "พรเมืองผลึก",
+    "name_en": "Crystal City Blessing",
+    "type": "ultimate",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "atk_up",
+        "target_rule": "ally_all",
+        "value": 0.3,
+        "duration": 3
+      },
+      {
+        "op": "buff",
+        "status": "spd_up",
+        "target_rule": "ally_all",
+        "value": 0.2,
+        "duration": 3
+      },
+      {
+        "op": "cleanse",
+        "target_rule": "ally_all",
+        "count": 2
+      }
+    ],
+    "level_curve": "skl_curve_buff"
+  },
+  {
+    "skill_id": "sk_suwanmali_energyflow",
+    "hero_id": "hero_suwanmali",
+    "slot": "passive",
+    "name_th": "กระแสพลังผลึก",
+    "name_en": "Crystal Energy Flow",
+    "type": "passive",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "energy",
+        "target_rule": "ally_all",
+        "value": 8,
+        "trigger": "round_start"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_suwanmali_leader_radiantgrace",
+    "hero_id": "hero_suwanmali",
+    "slot": "leader",
+    "name_th": "บารมีนางพญา",
+    "name_en": "Radiant Grace",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "all_stat_up",
+        "value": 0.1,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_phrarusi_sanctify",
+    "hero_id": "hero_phrarusi",
+    "slot": "active",
+    "name_th": "พรชำระกาย",
+    "name_en": "Sanctifying Grace",
+    "type": "active",
+    "target_rule": "ally_lowest_hp",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.45
+    },
+    "effect_ops": [
+      {
+        "op": "heal",
+        "target_rule": "ally_lowest_hp",
+        "scaling": {
+          "stat": "hp",
+          "mult": 0.45
+        }
+      },
+      {
+        "op": "buff",
+        "status": "immunity",
+        "target_rule": "ally_lowest_hp",
+        "value": 1,
+        "duration": 2
+      }
+    ],
+    "level_curve": "skl_curve_heal"
+  },
+  {
+    "skill_id": "sk_phrarusi_yogiblessing",
+    "hero_id": "hero_phrarusi",
+    "slot": "ultimate",
+    "name_th": "พรพระโยคี",
+    "name_en": "Yogi's Benediction",
+    "type": "ultimate",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.25
+    },
+    "effect_ops": [
+      {
+        "op": "revive",
+        "target_rule": "ally_all",
+        "scope": "dead_only",
+        "hp_pct": 0.5,
+        "count": 1
+      },
+      {
+        "op": "heal",
+        "target_rule": "ally_all",
+        "scaling": {
+          "stat": "hp",
+          "mult": 0.25
+        }
+      },
+      {
+        "op": "buff",
+        "status": "invincible",
+        "target_rule": "ally_all",
+        "value": 1,
+        "duration": 1
+      }
+    ],
+    "level_curve": "skl_curve_heal"
+  },
+  {
+    "skill_id": "sk_phrarusi_meditation",
+    "hero_id": "hero_phrarusi",
+    "slot": "passive",
+    "name_th": "ฌานป้องกันมนตร์",
+    "name_en": "Meditative Ward",
+    "type": "passive",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "debuff_res_up",
+        "target_rule": "ally_all",
+        "value": 0.2,
+        "duration": -1,
+        "trigger": "battle_start"
+      },
+      {
+        "op": "cleanse",
+        "target_rule": "ally_lowest_hp",
+        "count": 1,
+        "trigger": "round_start",
+        "chance": 0.5
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_phrarusi_leader_serenemind",
+    "hero_id": "hero_phrarusi",
+    "slot": "leader",
+    "name_th": "จิตสงบพระฤๅษี",
+    "name_en": "Serene Mind",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "res",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "res_up",
+        "value": 0.2,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_usaren_piercingshot",
+    "hero_id": "hero_usaren",
+    "slot": "active",
+    "name_th": "ลูกศรเจาะเกราะ",
+    "name_en": "Piercing Shot",
+    "type": "active",
+    "target_rule": "enemy_highest_atk",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "atk",
+      "mult": 2.1
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 2.1
+        },
+        "hits": 1,
+        "pierce": 0.35
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_usaren_lankacannon",
+    "hero_id": "hero_usaren",
+    "slot": "ultimate",
+    "name_th": "ปืนใหญ่ลังกา",
+    "name_en": "Lanka Cannon",
+    "type": "ultimate",
+    "target_rule": "spread",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.7
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "target_rule": "enemy_highest_atk",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.7
+        },
+        "hits": 1,
+        "pierce": 0.3,
+        "splash": {
+          "target_rule": "spread",
+          "mult": 0.5
+        }
+      },
+      {
+        "op": "debuff",
+        "status": "def_down",
+        "target_rule": "spread",
+        "value": 0.2,
+        "duration": 2,
+        "chance": 0.8,
+        "vs": "res"
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_usaren_marksman",
+    "hero_id": "hero_usaren",
+    "slot": "passive",
+    "name_th": "แม่นปืนระยะไกล",
+    "name_en": "Longshot Marksman",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "crit",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "crit_up",
+        "value": 0.3,
+        "duration": 1,
+        "trigger": "on_attack",
+        "condition": "target_position:back"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_usaren_leader_truesight",
+    "hero_id": "hero_usaren",
+    "slot": "leader",
+    "name_th": "สายตาเฉียบคม",
+    "name_en": "Truesight Aim",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "acc",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "acc_up",
+        "value": 0.2,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_recruit_basic",
+    "hero_id": null,
+    "slot": "active",
+    "name_th": "โจมตีพื้นฐาน",
+    "name_en": "Basic Strike",
+    "type": "active",
+    "target_rule": "enemy_front",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.0
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.0
+        },
+        "hits": 1
+      }
+    ],
+    "level_curve": "skl_curve_dmg",
+    "note": "Generic shared basic attack for recruit/fodder Common/Rare/Elite units (no signature kit)."
+  },
+  {
+    "skill_id": "sk_nang_ngeuak_blessing",
+    "hero_id": "hero_nang_ngeuak",
+    "slot": "active",
+    "name_th": "พรแห่งสมุทร",
+    "name_en": "Ocean's Blessing",
+    "type": "active",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.4
+    },
+    "effect_ops": [
+      {
+        "op": "heal",
+        "target_rule": "ally_all",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.4
+        }
+      },
+      {
+        "op": "cleanse",
+        "target_rule": "ally_all",
+        "count": 1
+      }
+    ],
+    "level_curve": "skl_curve_heal"
+  },
+  {
+    "skill_id": "sk_nang_ngeuak_renewal",
+    "hero_id": "hero_nang_ngeuak",
+    "slot": "ultimate",
+    "name_th": "คลื่นเยียวยาสมุทร",
+    "name_en": "Healing Sea Wave",
+    "type": "ultimate",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 2.2
+    },
+    "effect_ops": [
+      {
+        "op": "heal",
+        "target_rule": "ally_all",
+        "scaling": {
+          "stat": "atk",
+          "mult": 2.2
+        }
+      },
+      {
+        "op": "buff",
+        "status": "def_up",
+        "value": 0.25,
+        "duration": 2,
+        "trigger": "on_cast"
+      },
+      {
+        "op": "energy",
+        "target_rule": "ally_all",
+        "value": 15
+      }
+    ],
+    "level_curve": "skl_curve_heal"
+  },
+  {
+    "skill_id": "sk_nang_ngeuak_grace",
+    "hero_id": "hero_nang_ngeuak",
+    "slot": "passive",
+    "name_th": "หัวใจเสียสละ",
+    "name_en": "Selfless Heart",
+    "type": "passive",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.5
+    },
+    "effect_ops": [
+      {
+        "op": "heal",
+        "target_rule": "ally_all",
+        "scaling": {
+          "stat": "atk",
+          "mult": 0.5
+        },
+        "scope": "lowest_hp",
+        "trigger": "self_turn"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_nang_ngeuak_leader_tide",
+    "hero_id": "hero_nang_ngeuak",
+    "slot": "leader",
+    "name_th": "สายธารเมตตา",
+    "name_en": "Compassion Tide",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "hp_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_phisuea_samut_madlove",
+    "hero_id": "hero_phisuea_samut",
+    "slot": "active",
+    "name_th": "ความรักคลั่ง",
+    "name_en": "Obsessive Love",
+    "type": "active",
+    "target_rule": "enemy_single",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 2,
+    "scaling": {
+      "stat": "atk",
+      "mult": 2.0
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 2.0
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "def_down",
+        "value": 0.2,
+        "duration": 2,
+        "chance": 1.0
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_phisuea_samut_tempest",
+    "hero_id": "hero_phisuea_samut",
+    "slot": "ultimate",
+    "name_th": "อาละวาดสมุทร",
+    "name_en": "Sea Rampage",
+    "type": "ultimate",
+    "target_rule": "enemy_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.3
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.3
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "atk_down",
+        "value": 0.2,
+        "duration": 2,
+        "chance": 1.0
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_phisuea_samut_ogreblood",
+    "hero_id": "hero_phisuea_samut",
+    "slot": "passive",
+    "name_th": "เลือดอสูร",
+    "name_en": "Ogre Blood",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "atk_up",
+        "value": 0.2,
+        "duration": -1,
+        "trigger": "battle_start"
+      },
+      {
+        "op": "buff",
+        "status": "lifesteal",
+        "value": 0.18,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_phisuea_samut_leader_might",
+    "hero_id": "hero_phisuea_samut",
+    "slot": "leader",
+    "name_th": "บัญชาอสูรสมุทร",
+    "name_en": "Sea-Ogre Command",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "atk_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_nang_laweng_portrait",
+    "hero_id": "hero_nang_laweng",
+    "slot": "active",
+    "name_th": "รูปวาดเสน่ห์",
+    "name_en": "Enchanted Portrait",
+    "type": "active",
+    "target_rule": "enemy_single",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.2
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.2
+        },
+        "hits": 1
+      },
+      {
+        "op": "cc",
+        "status": "charm",
+        "chance": 0.7,
+        "duration": 1,
+        "vs": "res"
+      }
+    ],
+    "level_curve": "skl_curve_cc"
+  },
+  {
+    "skill_id": "sk_nang_laweng_lankafire",
+    "hero_id": "hero_nang_laweng",
+    "slot": "ultimate",
+    "name_th": "เพลิงลังกา",
+    "name_en": "Lanka Inferno",
+    "type": "ultimate",
+    "target_rule": "enemy_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.4
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.4
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "burn",
+        "value": 130,
+        "duration": 3,
+        "chance": 1.0,
+        "scaling": {
+          "stat": "atk",
+          "mult": 0.4
+        },
+        "note": "DoT — flat fallback; full engine should scale by ATK"
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_nang_laweng_allure",
+    "hero_id": "hero_nang_laweng",
+    "slot": "passive",
+    "name_th": "เสน่ห์ราชินี",
+    "name_en": "Queen's Allure",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "crit_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_nang_laweng_leader_lanka",
+    "hero_id": "hero_nang_laweng",
+    "slot": "leader",
+    "name_th": "บัญชาลังกา",
+    "name_en": "Lanka Command",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "atk_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_ma_nin_mangkorn_roar",
+    "hero_id": "hero_ma_nin_mangkorn",
+    "slot": "active",
+    "name_th": "คำรามนิล",
+    "name_en": "Obsidian Roar",
+    "type": "active",
+    "target_rule": "enemy_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.8
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 0.8
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "spd_down",
+        "value": 0.2,
+        "duration": 2,
+        "chance": 1.0
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_ma_nin_mangkorn_wrath",
+    "hero_id": "hero_ma_nin_mangkorn",
+    "slot": "ultimate",
+    "name_th": "พิโรธนิลมังกร",
+    "name_en": "Dragon's Wrath",
+    "type": "ultimate",
+    "target_rule": "enemy_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.1
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.1
+        },
+        "hits": 1
+      },
+      {
+        "op": "cc",
+        "status": "stun",
+        "chance": 0.5,
+        "duration": 1,
+        "vs": "res"
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_ma_nin_mangkorn_scales",
+    "hero_id": "hero_ma_nin_mangkorn",
+    "slot": "passive",
+    "name_th": "เกล็ดนิล",
+    "name_en": "Obsidian Scales",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "def_up",
+        "value": 0.25,
+        "duration": -1,
+        "trigger": "battle_start"
+      },
+      {
+        "op": "buff",
+        "status": "taunt",
+        "value": 1.0,
+        "duration": 2,
+        "trigger": "self_turn"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_ma_nin_mangkorn_leader_mount",
+    "hero_id": "hero_ma_nin_mangkorn",
+    "slot": "leader",
+    "name_th": "อานศึกนิลมังกร",
+    "name_en": "Obsidian War-Saddle",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "def_up",
+        "value": 0.18,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_phra_ruesi_meditation",
+    "hero_id": "hero_phra_ruesi",
+    "slot": "active",
+    "name_th": "ฌานบำบัด",
+    "name_en": "Healing Meditation",
+    "type": "active",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.5
+    },
+    "effect_ops": [
+      {
+        "op": "heal",
+        "target_rule": "ally_all",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.5
+        }
+      },
+      {
+        "op": "cleanse",
+        "target_rule": "ally_all",
+        "count": 2
+      }
+    ],
+    "level_curve": "skl_curve_heal"
+  },
+  {
+    "skill_id": "sk_phra_ruesi_sanctity",
+    "hero_id": "hero_phra_ruesi",
+    "slot": "ultimate",
+    "name_th": "มนตราศีลพิทักษ์",
+    "name_en": "Mantra of Sacred Ward",
+    "type": "ultimate",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 2.0
+    },
+    "effect_ops": [
+      {
+        "op": "heal",
+        "target_rule": "ally_all",
+        "scaling": {
+          "stat": "atk",
+          "mult": 2.0
+        }
+      },
+      {
+        "op": "buff",
+        "status": "immunity",
+        "value": 1,
+        "duration": 1,
+        "trigger": "on_cast"
+      },
+      {
+        "op": "energy",
+        "target_rule": "ally_all",
+        "value": 12
+      }
+    ],
+    "level_curve": "skl_curve_heal"
+  },
+  {
+    "skill_id": "sk_phra_ruesi_insight",
+    "hero_id": "hero_phra_ruesi",
+    "slot": "passive",
+    "name_th": "ทิพยญาณ",
+    "name_en": "Divine Insight",
+    "type": "passive",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "res_up",
+        "value": 0.2,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_phra_ruesi_leader_dharma",
+    "hero_id": "hero_phra_ruesi",
+    "slot": "leader",
+    "name_th": "ทางแห่งธรรม",
+    "name_en": "Path of Dharma",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "hp_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_mangkala_active",
+    "hero_id": "hero_mangkala",
+    "slot": "active",
+    "name_th": "ดาบทมิฬลังกา",
+    "name_en": "Lanka Dark Blade",
+    "type": "active",
+    "target_rule": "enemy_single",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 2,
+    "scaling": {
+      "stat": "atk",
+      "mult": 2.0
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 2.0
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "def_down",
+        "value": 0.2,
+        "duration": 2,
+        "chance": 1.0
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_mangkala_ultimate",
+    "hero_id": "hero_mangkala",
+    "slot": "ultimate",
+    "name_th": "คลั่งเลือดผสม",
+    "name_en": "Halfblood Fury",
+    "type": "ultimate",
+    "target_rule": "enemy_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.3
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.3
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "atk_down",
+        "value": 0.2,
+        "duration": 2,
+        "chance": 1.0
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_mangkala_passive",
+    "hero_id": "hero_mangkala",
+    "slot": "passive",
+    "name_th": "เลือดสองแผ่นดิน",
+    "name_en": "Blood of Two Realms",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "atk_up",
+        "value": 0.18,
+        "duration": -1,
+        "trigger": "battle_start"
+      },
+      {
+        "op": "buff",
+        "status": "lifesteal",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_mangkala_leader",
+    "hero_id": "hero_mangkala",
+    "slot": "leader",
+    "name_th": "บัญชาทายาทลังกา",
+    "name_en": "Lanka Heir's Command",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "atk_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_hatchai_active",
+    "hero_id": "hero_hatchai",
+    "slot": "active",
+    "name_th": "หอกพิทักษ์การะเวก",
+    "name_en": "Karawek Guard Spear",
+    "type": "active",
+    "target_rule": "enemy_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.8
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 0.8
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "spd_down",
+        "value": 0.2,
+        "duration": 2,
+        "chance": 1.0
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_hatchai_ultimate",
+    "hero_id": "hero_hatchai",
+    "slot": "ultimate",
+    "name_th": "กำแพงนครทอง",
+    "name_en": "Golden City Wall",
+    "type": "ultimate",
+    "target_rule": "enemy_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.1
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.1
+        },
+        "hits": 1
+      },
+      {
+        "op": "cc",
+        "status": "stun",
+        "chance": 0.5,
+        "duration": 1,
+        "vs": "res"
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_hatchai_passive",
+    "hero_id": "hero_hatchai",
+    "slot": "passive",
+    "name_th": "ปฐพีมั่นคง",
+    "name_en": "Steadfast Earth",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "def_up",
+        "value": 0.25,
+        "duration": -1,
+        "trigger": "battle_start"
+      },
+      {
+        "op": "buff",
+        "status": "taunt",
+        "value": 1.0,
+        "duration": 2,
+        "trigger": "self_turn"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_hatchai_leader",
+    "hero_id": "hero_hatchai",
+    "slot": "leader",
+    "name_th": "บัญชานครริมสมุทร",
+    "name_en": "Coastal City Command",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "def_up",
+        "value": 0.18,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_soisuwan_active",
+    "hero_id": "hero_soisuwan",
+    "slot": "active",
+    "name_th": "ลำแสงผลึก",
+    "name_en": "Crystal Beam",
+    "type": "active",
+    "target_rule": "enemy_single",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.3
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.3
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "def_down",
+        "value": 0.2,
+        "duration": 2,
+        "chance": 1.0
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_soisuwan_ultimate",
+    "hero_id": "hero_soisuwan",
+    "slot": "ultimate",
+    "name_th": "รัศมีสุวรรณ",
+    "name_en": "Golden Radiance",
+    "type": "ultimate",
+    "target_rule": "enemy_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.4
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.4
+        },
+        "hits": 1
+      },
+      {
+        "op": "cc",
+        "status": "silence",
+        "chance": 0.6,
+        "duration": 1,
+        "vs": "res"
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_soisuwan_passive",
+    "hero_id": "hero_soisuwan",
+    "slot": "passive",
+    "name_th": "พรแสงผลึก",
+    "name_en": "Crystal Light Blessing",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "crit_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_soisuwan_leader",
+    "hero_id": "hero_soisuwan",
+    "slot": "leader",
+    "name_th": "บัญชาเมืองผลึก",
+    "name_en": "Crystal City Command",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "atk_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_chansuda_active",
+    "hero_id": "hero_chansuda",
+    "slot": "active",
+    "name_th": "พรแสงจันทร์",
+    "name_en": "Moonlight Boon",
+    "type": "active",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.1
+    },
+    "effect_ops": [
+      {
+        "op": "heal",
+        "target_rule": "ally_all",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.1
+        }
+      },
+      {
+        "op": "buff",
+        "status": "atk_up",
+        "value": 0.2,
+        "duration": 2,
+        "trigger": "on_cast"
+      }
+    ],
+    "level_curve": "skl_curve_heal"
+  },
+  {
+    "skill_id": "sk_chansuda_ultimate",
+    "hero_id": "hero_chansuda",
+    "slot": "ultimate",
+    "name_th": "เกราะจันทรา",
+    "name_en": "Lunar Aegis",
+    "type": "ultimate",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "crit_up",
+        "value": 0.25,
+        "duration": 2,
+        "trigger": "on_cast"
+      },
+      {
+        "op": "energy",
+        "target_rule": "ally_all",
+        "value": 15
+      },
+      {
+        "op": "cleanse",
+        "target_rule": "ally_all",
+        "count": 2
+      }
+    ],
+    "level_curve": "skl_curve_heal"
+  },
+  {
+    "skill_id": "sk_chansuda_passive",
+    "hero_id": "hero_chansuda",
+    "slot": "passive",
+    "name_th": "เมตตาจันทร์",
+    "name_en": "Moon's Mercy",
+    "type": "passive",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "hp_up",
+        "value": 0.12,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_chansuda_leader",
+    "hero_id": "hero_chansuda",
+    "slot": "leader",
+    "name_th": "บัญชาสมดุล",
+    "name_en": "Command of Balance",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "spd",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "spd_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_arunrasami_active",
+    "hero_id": "hero_arunrasami",
+    "slot": "active",
+    "name_th": "ธนูอรุณ",
+    "name_en": "Dawn Arrow",
+    "type": "active",
+    "target_rule": "enemy_single",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 2,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.8
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.8
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "def_down",
+        "value": 0.15,
+        "duration": 2,
+        "chance": 1.0
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_arunrasami_ultimate",
+    "hero_id": "hero_arunrasami",
+    "slot": "ultimate",
+    "name_th": "ห่าศรสุริยา",
+    "name_en": "Solar Arrow Storm",
+    "type": "ultimate",
+    "target_rule": "enemy_single",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 2.4
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 2.4
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "atk_down",
+        "value": 0.2,
+        "duration": 2,
+        "chance": 1.0
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_arunrasami_passive",
+    "hero_id": "hero_arunrasami",
+    "slot": "passive",
+    "name_th": "สายตาอรุณ",
+    "name_en": "Dawnsight",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "crit_up",
+        "value": 0.2,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_arunrasami_leader",
+    "hero_id": "hero_arunrasami",
+    "slot": "leader",
+    "name_th": "บัญชาพรานแสง",
+    "name_en": "Light Archer's Command",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "crit_up",
+        "value": 0.12,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_saowakhon_active",
+    "hero_id": "hero_saowakhon",
+    "slot": "active",
+    "name_th": "พรบุปผาสมุทร",
+    "name_en": "Sea Blossom Boon",
+    "type": "active",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.1
+    },
+    "effect_ops": [
+      {
+        "op": "heal",
+        "target_rule": "ally_all",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.1
+        }
+      },
+      {
+        "op": "buff",
+        "status": "atk_up",
+        "value": 0.2,
+        "duration": 2,
+        "trigger": "on_cast"
+      }
+    ],
+    "level_curve": "skl_curve_heal"
+  },
+  {
+    "skill_id": "sk_saowakhon_ultimate",
+    "hero_id": "hero_saowakhon",
+    "slot": "ultimate",
+    "name_th": "สวนสวรรค์การะเวก",
+    "name_en": "Karawek Eden",
+    "type": "ultimate",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "crit_up",
+        "value": 0.25,
+        "duration": 2,
+        "trigger": "on_cast"
+      },
+      {
+        "op": "energy",
+        "target_rule": "ally_all",
+        "value": 15
+      },
+      {
+        "op": "cleanse",
+        "target_rule": "ally_all",
+        "count": 2
+      }
+    ],
+    "level_curve": "skl_curve_heal"
+  },
+  {
+    "skill_id": "sk_saowakhon_passive",
+    "hero_id": "hero_saowakhon",
+    "slot": "passive",
+    "name_th": "กลิ่นบุปผาเยียวยา",
+    "name_en": "Healing Fragrance",
+    "type": "passive",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "hp_up",
+        "value": 0.12,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_saowakhon_leader",
+    "hero_id": "hero_saowakhon",
+    "slot": "leader",
+    "name_th": "บัญชาพนาสมุทร",
+    "name_en": "Sea-Garden Command",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "spd",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "spd_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_sulaliwan_active",
+    "hero_id": "hero_sulaliwan",
+    "slot": "active",
+    "name_th": "เพลิงเสน่หา",
+    "name_en": "Charming Flame",
+    "type": "active",
+    "target_rule": "enemy_single",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.3
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.3
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "def_down",
+        "value": 0.2,
+        "duration": 2,
+        "chance": 1.0
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_sulaliwan_ultimate",
+    "hero_id": "hero_sulaliwan",
+    "slot": "ultimate",
+    "name_th": "นภาเพลิงลังกา",
+    "name_en": "Lanka Skyfire",
+    "type": "ultimate",
+    "target_rule": "enemy_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.4
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.4
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "burn",
+        "value": 130,
+        "scaling": {
+          "stat": "atk",
+          "mult": 0.4
+        },
+        "duration": 3,
+        "chance": 1.0,
+        "note": "DoT — flat fallback; full engine should scale by ATK"
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_sulaliwan_passive",
+    "hero_id": "hero_sulaliwan",
+    "slot": "passive",
+    "name_th": "เสน่ห์เพลิง",
+    "name_en": "Flame Allure",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "crit_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_sulaliwan_leader",
+    "hero_id": "hero_sulaliwan",
+    "slot": "leader",
+    "name_th": "บัญชาเพลิงลังกา",
+    "name_en": "Lanka Flame Command",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "atk_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_yupaphaka_active",
+    "hero_id": "hero_yupaphaka",
+    "slot": "active",
+    "name_th": "ธาราเยียวยา",
+    "name_en": "Healing Stream",
+    "type": "active",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.4
+    },
+    "effect_ops": [
+      {
+        "op": "heal",
+        "target_rule": "ally_all",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.4
+        }
+      },
+      {
+        "op": "cleanse",
+        "target_rule": "ally_all",
+        "count": 1
+      }
+    ],
+    "level_curve": "skl_curve_heal"
+  },
+  {
+    "skill_id": "sk_yupaphaka_ultimate",
+    "hero_id": "hero_yupaphaka",
+    "slot": "ultimate",
+    "name_th": "วารีอมตะ",
+    "name_en": "Eternal Water",
+    "type": "ultimate",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 2.0
+    },
+    "effect_ops": [
+      {
+        "op": "heal",
+        "target_rule": "ally_all",
+        "scaling": {
+          "stat": "atk",
+          "mult": 2.0
+        }
+      },
+      {
+        "op": "buff",
+        "status": "def_up",
+        "value": 0.2,
+        "duration": 2,
+        "trigger": "on_cast"
+      },
+      {
+        "op": "energy",
+        "target_rule": "ally_all",
+        "value": 12
+      }
+    ],
+    "level_curve": "skl_curve_heal"
+  },
+  {
+    "skill_id": "sk_yupaphaka_passive",
+    "hero_id": "hero_yupaphaka",
+    "slot": "passive",
+    "name_th": "เมตตาวารี",
+    "name_en": "Water's Compassion",
+    "type": "passive",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "res_up",
+        "value": 0.18,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_yupaphaka_leader",
+    "hero_id": "hero_yupaphaka",
+    "slot": "leader",
+    "name_th": "บัญชาธารชีวิต",
+    "name_en": "Lifestream Command",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "hp_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_wayupat_active",
+    "hero_id": "hero_wayupat",
+    "slot": "active",
+    "name_th": "ทุบคลื่นอสูร",
+    "name_en": "Ogre Wave Smash",
+    "type": "active",
+    "target_rule": "enemy_single",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 2,
+    "scaling": {
+      "stat": "atk",
+      "mult": 2.0
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 2.0
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "def_down",
+        "value": 0.2,
+        "duration": 2,
+        "chance": 1.0
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_wayupat_ultimate",
+    "hero_id": "hero_wayupat",
+    "slot": "ultimate",
+    "name_th": "พิโรธสายชล",
+    "name_en": "Tidal Wrath",
+    "type": "ultimate",
+    "target_rule": "enemy_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.3
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.3
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "atk_down",
+        "value": 0.2,
+        "duration": 2,
+        "chance": 1.0
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_wayupat_passive",
+    "hero_id": "hero_wayupat",
+    "slot": "passive",
+    "name_th": "เลือดอสูรสมุทร",
+    "name_en": "Sea-Ogre Blood",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "atk_up",
+        "value": 0.18,
+        "duration": -1,
+        "trigger": "battle_start"
+      },
+      {
+        "op": "buff",
+        "status": "lifesteal",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_wayupat_leader",
+    "hero_id": "hero_wayupat",
+    "slot": "leader",
+    "name_th": "บัญชาทายาทสมุทร",
+    "name_en": "Sea Heir's Command",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "atk_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_hatsakan_active",
+    "hero_id": "hero_hatsakan",
+    "slot": "active",
+    "name_th": "เขี้ยวพนา",
+    "name_en": "Wild Fang",
+    "type": "active",
+    "target_rule": "enemy_single",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 2,
+    "scaling": {
+      "stat": "atk",
+      "mult": 2.1
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 2.1
+        },
+        "hits": 1
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_hatsakan_ultimate",
+    "hero_id": "hero_hatsakan",
+    "slot": "ultimate",
+    "name_th": "ล่าเงาพงไพร",
+    "name_en": "Shadow Hunt",
+    "type": "ultimate",
+    "target_rule": "enemy_single",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.6
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.6
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "bleed",
+        "value": 110,
+        "scaling": {
+          "stat": "atk",
+          "mult": 0.4
+        },
+        "duration": 3,
+        "chance": 1.0,
+        "note": "DoT — flat fallback; full engine should scale by ATK"
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_hatsakan_passive",
+    "hero_id": "hero_hatsakan",
+    "slot": "passive",
+    "name_th": "สัญชาตญาณป่า",
+    "name_en": "Wild Instinct",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "spd",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "spd_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      },
+      {
+        "op": "buff",
+        "status": "crit_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_hatsakan_leader",
+    "hero_id": "hero_hatsakan",
+    "slot": "leader",
+    "name_th": "บัญชานักล่า",
+    "name_en": "Hunter's Command",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "spd",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "spd_up",
+        "value": 0.12,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_kritsana_active",
+    "hero_id": "hero_kritsana",
+    "slot": "active",
+    "name_th": "กริชพิษ",
+    "name_en": "Venom Dagger",
+    "type": "active",
+    "target_rule": "enemy_single",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 2,
+    "scaling": {
+      "stat": "atk",
+      "mult": 2.1
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 2.1
+        },
+        "hits": 1
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_kritsana_ultimate",
+    "hero_id": "hero_kritsana",
+    "slot": "ultimate",
+    "name_th": "เงามรณะ",
+    "name_en": "Death Shadow",
+    "type": "ultimate",
+    "target_rule": "enemy_single",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.6
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.6
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "bleed",
+        "value": 110,
+        "scaling": {
+          "stat": "atk",
+          "mult": 0.4
+        },
+        "duration": 3,
+        "chance": 1.0,
+        "note": "DoT — flat fallback; full engine should scale by ATK"
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_kritsana_passive",
+    "hero_id": "hero_kritsana",
+    "slot": "passive",
+    "name_th": "ฝีเท้าเงา",
+    "name_en": "Shadow Step",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "spd",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "spd_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      },
+      {
+        "op": "buff",
+        "status": "crit_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_kritsana_leader",
+    "hero_id": "hero_kritsana",
+    "slot": "leader",
+    "name_th": "บัญชาเงาผลึก",
+    "name_en": "Crystal Shadow Command",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "spd",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "spd_up",
+        "value": 0.12,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_walayuda_active",
+    "hero_id": "hero_walayuda",
+    "slot": "active",
+    "name_th": "มายาคลื่น",
+    "name_en": "Wave Illusion",
+    "type": "active",
+    "target_rule": "enemy_single",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.3
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.3
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "def_down",
+        "value": 0.2,
+        "duration": 2,
+        "chance": 1.0
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_walayuda_ultimate",
+    "hero_id": "hero_walayuda",
+    "slot": "ultimate",
+    "name_th": "วังวนสาคร",
+    "name_en": "Maelstrom",
+    "type": "ultimate",
+    "target_rule": "enemy_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.4
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.4
+        },
+        "hits": 1
+      },
+      {
+        "op": "cc",
+        "status": "freeze",
+        "chance": 0.6,
+        "duration": 1,
+        "vs": "res"
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_walayuda_passive",
+    "hero_id": "hero_walayuda",
+    "slot": "passive",
+    "name_th": "ปัญญาวารี",
+    "name_en": "Water Wisdom",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "crit_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_walayuda_leader",
+    "hero_id": "hero_walayuda",
+    "slot": "leader",
+    "name_th": "บัญชามายาคลื่น",
+    "name_en": "Wave Mystic Command",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "atk_up",
+        "value": 0.15,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  },
+  {
+    "skill_id": "sk_thao_suthat_active",
+    "hero_id": "hero_thao_suthat",
+    "slot": "active",
+    "name_th": "พระขรรค์รัตนา",
+    "name_en": "Rattana Royal Sword",
+    "type": "active",
+    "target_rule": "enemy_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 3,
+    "scaling": {
+      "stat": "atk",
+      "mult": 0.8
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 0.8
+        },
+        "hits": 1
+      },
+      {
+        "op": "debuff",
+        "status": "spd_down",
+        "value": 0.2,
+        "duration": 2,
+        "chance": 1.0
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_thao_suthat_ultimate",
+    "hero_id": "hero_thao_suthat",
+    "slot": "ultimate",
+    "name_th": "บารมีกษัตริย์",
+    "name_en": "Sovereign Majesty",
+    "type": "ultimate",
+    "target_rule": "enemy_all",
+    "cost": {
+      "energy": 100
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "atk",
+      "mult": 1.1
+    },
+    "effect_ops": [
+      {
+        "op": "damage",
+        "scaling": {
+          "stat": "atk",
+          "mult": 1.1
+        },
+        "hits": 1
+      },
+      {
+        "op": "cc",
+        "status": "stun",
+        "chance": 0.5,
+        "duration": 1,
+        "vs": "res"
+      }
+    ],
+    "level_curve": "skl_curve_dmg"
+  },
+  {
+    "skill_id": "sk_thao_suthat_passive",
+    "hero_id": "hero_thao_suthat",
+    "slot": "passive",
+    "name_th": "บัลลังก์มั่นคง",
+    "name_en": "Steadfast Throne",
+    "type": "passive",
+    "target_rule": "self",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "def_up",
+        "value": 0.25,
+        "duration": -1,
+        "trigger": "battle_start"
+      },
+      {
+        "op": "buff",
+        "status": "taunt",
+        "value": 1.0,
+        "duration": 2,
+        "trigger": "self_turn"
+      }
+    ],
+    "level_curve": "skl_curve_passive"
+  },
+  {
+    "skill_id": "sk_thao_suthat_leader",
+    "hero_id": "hero_thao_suthat",
+    "slot": "leader",
+    "name_th": "บัญชากรุงรัตนา",
+    "name_en": "Rattana Crown Command",
+    "type": "leader",
+    "target_rule": "ally_all",
+    "cost": {
+      "energy": 0
+    },
+    "cooldown": 0,
+    "scaling": {
+      "stat": "hp",
+      "mult": 0.0
+    },
+    "effect_ops": [
+      {
+        "op": "buff",
+        "status": "def_up",
+        "value": 0.18,
+        "duration": -1,
+        "trigger": "battle_start"
+      }
+    ],
+    "level_curve": "skl_curve_leader"
+  }
+]

@@ -1,0 +1,984 @@
+[
+  {
+    "stage_id": "stage_1_1",
+    "chapter": 1,
+    "name": "เสียงปี่กลางสายลม",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "pirate_grunt", "level": 1 },
+      { "enemy": "pirate_grunt", "level": 1 },
+      { "enemy": "pirate_scout", "level": 1 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 200,
+      "exp": 60,
+      "drops": [{ "item_id": "equip_common_weapon", "rate": 0.10 }],
+      "first_clear": { "ruby": 30, "shards": [{ "shard_id": "shard_phraaphai", "qty": 2 }] }
+    }
+  },
+  {
+    "stage_id": "stage_1_2",
+    "chapter": 1,
+    "name": "ออกจากกรุงรัตนา",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "pirate_grunt", "level": 2 },
+      { "enemy": "pirate_scout", "level": 2 },
+      { "enemy": "pirate_grunt", "level": 2 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 240,
+      "exp": 75,
+      "drops": [{ "item_id": "equip_common_armor", "rate": 0.10 }],
+      "first_clear": { "ruby": 30, "shards": [{ "shard_id": "shard_srisuwan", "qty": 2 }] }
+    }
+  },
+  {
+    "stage_id": "stage_1_3",
+    "chapter": 1,
+    "name": "ชายฝั่งคลื่นลม",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "sea_crab", "level": 3 },
+      { "enemy": "pirate_grunt", "level": 3 },
+      { "enemy": "sea_crab", "level": 3 },
+      { "enemy": "pirate_scout", "level": 3 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 280,
+      "exp": 90,
+      "drops": [{ "item_id": "mat_common_ore", "rate": 0.20 }],
+      "first_clear": { "ruby": 30, "shards": [{ "shard_id": "shard_phraaphai", "qty": 3 }] }
+    }
+  },
+  {
+    "stage_id": "stage_1_4",
+    "chapter": 1,
+    "name": "เรือสำเภาต้องสงสัย",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "pirate_grunt", "level": 4 },
+      { "enemy": "pirate_brute", "level": 4 },
+      { "enemy": "pirate_scout", "level": 4 },
+      { "enemy": "pirate_grunt", "level": 4 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 320,
+      "exp": 105,
+      "drops": [{ "item_id": "equip_common_weapon", "rate": 0.12 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_srisuwan", "qty": 3 }] }
+    }
+  },
+  {
+    "stage_id": "stage_1_5",
+    "chapter": 1,
+    "name": "พบโจรสลัดสุหรั่ง",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "pirate_brute", "level": 5 },
+      { "enemy": "pirate_scout", "level": 5 },
+      { "enemy": "pirate_grunt", "level": 5 },
+      { "enemy": "pirate_brute", "level": 5 },
+      { "enemy": "pirate_grunt", "level": 5 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 360,
+      "exp": 120,
+      "drops": [{ "item_id": "equip_common_armor", "rate": 0.12 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_phraaphai", "qty": 3 }] }
+    }
+  },
+  {
+    "stage_id": "stage_1_6",
+    "chapter": 1,
+    "name": "ลมพัดสู่ถ้ำลึก",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "pirate_captain", "level": 6 },
+      { "enemy": "pirate_brute", "level": 6 },
+      { "enemy": "pirate_brute", "level": 6 },
+      { "enemy": "pirate_scout", "level": 6 },
+      { "enemy": "pirate_grunt", "level": 6 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 420,
+      "exp": 140,
+      "drops": [{ "item_id": "mat_common_ore", "rate": 0.25 }],
+      "first_clear": { "ruby": 60, "shards": [{ "shard_id": "shard_srisuwan", "qty": 4 }], "summon_ticket": 1 }
+    }
+  },
+  {
+    "stage_id": "stage_2_1",
+    "chapter": 2,
+    "name": "ปากถ้ำยักษ์ทะเล",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "ogre_spawn", "level": 7 },
+      { "enemy": "ogre_spawn", "level": 7 },
+      { "enemy": "sea_crab", "level": 7 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 460,
+      "exp": 160,
+      "drops": [{ "item_id": "mat_uncommon_ore", "rate": 0.15 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_sinsamut", "qty": 3 }] }
+    }
+  },
+  {
+    "stage_id": "stage_2_2",
+    "chapter": 2,
+    "name": "ทางคดในถ้ำมืด",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "ogre_spawn", "level": 8 },
+      { "enemy": "cave_bat", "level": 8 },
+      { "enemy": "ogre_spawn", "level": 8 },
+      { "enemy": "cave_bat", "level": 8 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 500,
+      "exp": 175,
+      "drops": [{ "item_id": "equip_uncommon_weapon", "rate": 0.12 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_sinsamut", "qty": 3 }] }
+    }
+  },
+  {
+    "stage_id": "stage_2_3",
+    "chapter": 2,
+    "name": "บริวารยักษ์ทะเล",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "ogre_brute", "level": 9 },
+      { "enemy": "ogre_spawn", "level": 9 },
+      { "enemy": "ogre_spawn", "level": 9 },
+      { "enemy": "cave_bat", "level": 9 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 540,
+      "exp": 190,
+      "drops": [{ "item_id": "mat_uncommon_ore", "rate": 0.18 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_sinsamut", "qty": 4 }] }
+    }
+  },
+  {
+    "stage_id": "stage_2_4",
+    "chapter": 2,
+    "name": "ถ้ำในซอกหิน",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "ogre_brute", "level": 10 },
+      { "enemy": "ogre_brute", "level": 10 },
+      { "enemy": "cave_bat", "level": 10 },
+      { "enemy": "ogre_spawn", "level": 10 },
+      { "enemy": "sea_crab", "level": 10 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 580,
+      "exp": 205,
+      "drops": [{ "item_id": "equip_uncommon_armor", "rate": 0.12 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_sinsamut", "qty": 4 }] }
+    }
+  },
+  {
+    "stage_id": "stage_2_5",
+    "chapter": 2,
+    "name": "เสียงคำรามจากเบื้องลึก",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "ogre_shaman", "level": 11 },
+      { "enemy": "ogre_brute", "level": 11 },
+      { "enemy": "ogre_brute", "level": 11 },
+      { "enemy": "ogre_spawn", "level": 11 },
+      { "enemy": "ogre_spawn", "level": 11 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 620,
+      "exp": 220,
+      "drops": [{ "item_id": "mat_uncommon_ore", "rate": 0.20 }],
+      "first_clear": { "ruby": 50, "shards": [{ "shard_id": "shard_sinsamut", "qty": 5 }] }
+    }
+  },
+  {
+    "stage_id": "stage_2_6",
+    "chapter": 2,
+    "name": "ถ้ำนางผีเสื้อสมุทร",
+    "is_boss": true,
+    "boss_id": "hero_phisuasamut",
+    "boss_name": "ผีเสื้อสมุทร",
+    "boss_mechanic": ["enrage_timer", "phase", "weak_element_light", "add_summon"],
+    "enemy_team": [
+      { "hero_id": "hero_phisuasamut", "level": 13, "role": "boss" },
+      { "enemy": "ogre_brute", "level": 12 },
+      { "enemy": "ogre_brute", "level": 12 },
+      { "enemy": "ogre_shaman", "level": 12 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 900,
+      "exp": 320,
+      "drops": [{ "item_id": "mat_rare_essence", "rate": 0.25 }, { "item_id": "equip_uncommon_weapon", "rate": 0.20 }],
+      "first_clear": { "ruby": 120, "shards": [{ "shard_id": "shard_sinsamut", "qty": 8 }], "summon_ticket": 2, "unlock": "daily_dungeon" }
+    }
+  },
+  {
+    "stage_id": "stage_3_1",
+    "chapter": 3,
+    "name": "หนีลงสู่ทะเลลึก",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "sea_serpent", "level": 14 },
+      { "enemy": "merfolk_raider", "level": 14 },
+      { "enemy": "sea_serpent", "level": 14 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 660,
+      "exp": 240,
+      "drops": [{ "item_id": "mat_rare_essence", "rate": 0.15 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_mermaid", "qty": 3 }] }
+    }
+  },
+  {
+    "stage_id": "stage_3_2",
+    "chapter": 3,
+    "name": "กระแสน้ำวน",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "sea_serpent", "level": 15 },
+      { "enemy": "deep_jelly", "level": 15 },
+      { "enemy": "merfolk_raider", "level": 15 },
+      { "enemy": "deep_jelly", "level": 15 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 700,
+      "exp": 255,
+      "drops": [{ "item_id": "equip_uncommon_accessory", "rate": 0.14 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_mermaid", "qty": 4 }] }
+    }
+  },
+  {
+    "stage_id": "stage_3_3",
+    "chapter": 3,
+    "name": "ประตูนครเงือก",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "merfolk_guard", "level": 16 },
+      { "enemy": "merfolk_raider", "level": 16 },
+      { "enemy": "sea_serpent", "level": 16 },
+      { "enemy": "deep_jelly", "level": 16 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 740,
+      "exp": 270,
+      "drops": [{ "item_id": "mat_rare_essence", "rate": 0.18 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_sutsakorn", "qty": 3 }] }
+    }
+  },
+  {
+    "stage_id": "stage_3_4",
+    "chapter": 3,
+    "name": "เงาอสูรใต้บาดาล",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "abyss_horror", "level": 17 },
+      { "enemy": "merfolk_guard", "level": 17 },
+      { "enemy": "deep_jelly", "level": 17 },
+      { "enemy": "sea_serpent", "level": 17 },
+      { "enemy": "merfolk_raider", "level": 17 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 780,
+      "exp": 285,
+      "drops": [{ "item_id": "equip_rare_armor", "rate": 0.10 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_sutsakorn", "qty": 4 }] }
+    }
+  },
+  {
+    "stage_id": "stage_3_5",
+    "chapter": 3,
+    "name": "ลางร้ายกลางสมุทร",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "abyss_horror", "level": 18 },
+      { "enemy": "abyss_horror", "level": 18 },
+      { "enemy": "merfolk_guard", "level": 18 },
+      { "enemy": "deep_jelly", "level": 18 },
+      { "enemy": "sea_serpent", "level": 18 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 820,
+      "exp": 300,
+      "drops": [{ "item_id": "mat_rare_essence", "rate": 0.22 }],
+      "first_clear": { "ruby": 50, "shards": [{ "shard_id": "shard_mermaid", "qty": 5 }] }
+    }
+  },
+  {
+    "stage_id": "stage_3_6",
+    "chapter": 3,
+    "name": "ศึกอสูรทะเล",
+    "is_boss": true,
+    "boss_id": "enemy_sea_demon_lord",
+    "boss_name": "อสูรทะเล",
+    "boss_mechanic": ["enrage_timer", "phase", "weak_element_nature", "add_summon"],
+    "enemy_team": [
+      { "enemy": "sea_demon_lord", "level": 20, "role": "boss" },
+      { "enemy": "abyss_horror", "level": 19 },
+      { "enemy": "abyss_horror", "level": 19 },
+      { "enemy": "merfolk_guard", "level": 19 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1100,
+      "exp": 420,
+      "drops": [{ "item_id": "mat_rare_essence", "rate": 0.30 }, { "item_id": "equip_rare_weapon", "rate": 0.18 }],
+      "first_clear": { "ruby": 100, "shards": [{ "shard_id": "shard_sutsakorn", "qty": 6 }], "summon_ticket": 2 }
+    }
+  },
+  {
+    "stage_id": "stage_4_1",
+    "chapter": 4,
+    "name": "ประตูเมืองผลึก",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "crystal_sentinel", "level": 21 },
+      { "enemy": "crystal_sprite", "level": 21 },
+      { "enemy": "crystal_sentinel", "level": 21 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 860,
+      "exp": 320,
+      "drops": [{ "item_id": "mat_rare_essence", "rate": 0.18 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_suwannamali", "qty": 3 }] }
+    }
+  },
+  {
+    "stage_id": "stage_4_2",
+    "chapter": 4,
+    "name": "ลานผลึกแสง",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "crystal_sprite", "level": 22 },
+      { "enemy": "crystal_mage", "level": 22 },
+      { "enemy": "crystal_sentinel", "level": 22 },
+      { "enemy": "crystal_sprite", "level": 22 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 900,
+      "exp": 335,
+      "drops": [{ "item_id": "equip_rare_accessory", "rate": 0.12 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_suwannamali", "qty": 4 }] }
+    }
+  },
+  {
+    "stage_id": "stage_4_3",
+    "chapter": 4,
+    "name": "ทหารรักษาวัง",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "crystal_sentinel", "level": 23 },
+      { "enemy": "crystal_mage", "level": 23 },
+      { "enemy": "crystal_mage", "level": 23 },
+      { "enemy": "crystal_sprite", "level": 23 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 940,
+      "exp": 350,
+      "drops": [{ "item_id": "mat_rare_essence", "rate": 0.20 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_suwannamali", "qty": 4 }] }
+    }
+  },
+  {
+    "stage_id": "stage_4_4",
+    "chapter": 4,
+    "name": "ราชสำนักสุวรรณมาลี",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "crystal_guardian", "level": 24 },
+      { "enemy": "crystal_sentinel", "level": 24 },
+      { "enemy": "crystal_mage", "level": 24 },
+      { "enemy": "crystal_sprite", "level": 24 },
+      { "enemy": "crystal_sprite", "level": 24 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 980,
+      "exp": 365,
+      "drops": [{ "item_id": "equip_rare_armor", "rate": 0.14 }],
+      "first_clear": { "ruby": 50, "shards": [{ "shard_id": "shard_suwannamali", "qty": 5 }] }
+    }
+  },
+  {
+    "stage_id": "stage_4_5",
+    "chapter": 4,
+    "name": "พันธมิตรหรือกับดัก",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "crystal_guardian", "level": 25 },
+      { "enemy": "crystal_guardian", "level": 25 },
+      { "enemy": "crystal_mage", "level": 25 },
+      { "enemy": "crystal_mage", "level": 25 },
+      { "enemy": "crystal_sentinel", "level": 25 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1020,
+      "exp": 380,
+      "drops": [{ "item_id": "mat_epic_crystal", "rate": 0.12 }],
+      "first_clear": { "ruby": 50, "shards": [{ "shard_id": "shard_suwannamali", "qty": 5 }] }
+    }
+  },
+  {
+    "stage_id": "stage_4_6",
+    "chapter": 4,
+    "name": "คำสัญญาแห่งเมืองผลึก",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "crystal_warlord", "level": 26 },
+      { "enemy": "crystal_guardian", "level": 26 },
+      { "enemy": "crystal_guardian", "level": 26 },
+      { "enemy": "crystal_mage", "level": 26 },
+      { "enemy": "crystal_mage", "level": 26 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1080,
+      "exp": 400,
+      "drops": [{ "item_id": "mat_epic_crystal", "rate": 0.15 }],
+      "first_clear": { "ruby": 60, "shards": [{ "shard_id": "shard_suwannamali", "qty": 6 }], "summon_ticket": 1, "unlock": "arena" }
+    }
+  },
+  {
+    "stage_id": "stage_5_1",
+    "chapter": 5,
+    "name": "ทัพลังกายกพล",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "lanka_soldier", "level": 27 },
+      { "enemy": "lanka_soldier", "level": 27 },
+      { "enemy": "lanka_archer", "level": 27 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1120,
+      "exp": 420,
+      "drops": [{ "item_id": "mat_epic_crystal", "rate": 0.14 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_usaren", "qty": 3 }] }
+    }
+  },
+  {
+    "stage_id": "stage_5_2",
+    "chapter": 5,
+    "name": "แนวหน้าชายฝั่ง",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "lanka_soldier", "level": 28 },
+      { "enemy": "lanka_archer", "level": 28 },
+      { "enemy": "lanka_cavalry", "level": 28 },
+      { "enemy": "lanka_soldier", "level": 28 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1160,
+      "exp": 435,
+      "drops": [{ "item_id": "equip_epic_weapon", "rate": 0.10 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_usaren", "qty": 4 }] }
+    }
+  },
+  {
+    "stage_id": "stage_5_3",
+    "chapter": 5,
+    "name": "กองเรือศึกอุศเรน",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "lanka_cavalry", "level": 29 },
+      { "enemy": "lanka_archer", "level": 29 },
+      { "enemy": "lanka_archer", "level": 29 },
+      { "enemy": "lanka_soldier", "level": 29 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1200,
+      "exp": 450,
+      "drops": [{ "item_id": "mat_epic_crystal", "rate": 0.16 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_usaren", "qty": 4 }] }
+    }
+  },
+  {
+    "stage_id": "stage_5_4",
+    "chapter": 5,
+    "name": "ปะทะแนวกลาง",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "lanka_captain", "level": 30 },
+      { "enemy": "lanka_cavalry", "level": 30 },
+      { "enemy": "lanka_archer", "level": 30 },
+      { "enemy": "lanka_soldier", "level": 30 },
+      { "enemy": "lanka_soldier", "level": 30 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1240,
+      "exp": 465,
+      "drops": [{ "item_id": "equip_epic_armor", "rate": 0.12 }],
+      "first_clear": { "ruby": 50, "shards": [{ "shard_id": "shard_usaren", "qty": 5 }] }
+    }
+  },
+  {
+    "stage_id": "stage_5_5",
+    "chapter": 5,
+    "name": "ทัพหลวงกรุงลังกา",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "lanka_captain", "level": 31 },
+      { "enemy": "lanka_captain", "level": 31 },
+      { "enemy": "lanka_cavalry", "level": 31 },
+      { "enemy": "lanka_archer", "level": 31 },
+      { "enemy": "lanka_soldier", "level": 31 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1280,
+      "exp": 480,
+      "drops": [{ "item_id": "mat_epic_crystal", "rate": 0.18 }],
+      "first_clear": { "ruby": 50, "shards": [{ "shard_id": "shard_usaren", "qty": 5 }] }
+    }
+  },
+  {
+    "stage_id": "stage_5_6",
+    "chapter": 5,
+    "name": "หน้าประตูกรุงลังกา",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "lanka_warlord", "level": 32 },
+      { "enemy": "lanka_captain", "level": 32 },
+      { "enemy": "lanka_captain", "level": 32 },
+      { "enemy": "lanka_cavalry", "level": 32 },
+      { "enemy": "lanka_archer", "level": 32 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1320,
+      "exp": 500,
+      "drops": [{ "item_id": "equip_epic_accessory", "rate": 0.12 }],
+      "first_clear": { "ruby": 50, "shards": [{ "shard_id": "shard_usaren", "qty": 6 }] }
+    }
+  },
+  {
+    "stage_id": "stage_5_7",
+    "chapter": 5,
+    "name": "ศึกอุศเรนชิงสมุทร",
+    "is_boss": true,
+    "boss_id": "hero_usaren",
+    "boss_name": "อุศเรน",
+    "boss_mechanic": ["enrage_timer", "phase", "weak_element_water", "add_summon"],
+    "enemy_team": [
+      { "hero_id": "hero_usaren", "level": 35, "role": "boss" },
+      { "enemy": "lanka_warlord", "level": 33 },
+      { "enemy": "lanka_captain", "level": 33 },
+      { "enemy": "lanka_cavalry", "level": 33 },
+      { "enemy": "lanka_archer", "level": 33 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1600,
+      "exp": 650,
+      "drops": [{ "item_id": "mat_legendary_ember", "rate": 0.22 }, { "item_id": "equip_epic_weapon", "rate": 0.20 }],
+      "first_clear": { "ruby": 150, "shards": [{ "shard_id": "shard_usaren", "qty": 8 }], "summon_ticket": 3, "unlock": ["guild", "tower"] }
+    }
+  },
+  {
+    "stage_id": "stage_6_1",
+    "chapter": 6,
+    "name": "หมู่เกาะลึกลับ",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "island_beast", "level": 36 },
+      { "enemy": "reef_lizard", "level": 36 },
+      { "enemy": "island_beast", "level": 36 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1360,
+      "exp": 520,
+      "drops": [{ "item_id": "mat_legendary_ember", "rate": 0.12 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_sutsakorn", "qty": 4 }] }
+    }
+  },
+  {
+    "stage_id": "stage_6_2",
+    "chapter": 6,
+    "name": "ป่าทึบบนเกาะ",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "reef_lizard", "level": 37 },
+      { "enemy": "jungle_stalker", "level": 37 },
+      { "enemy": "island_beast", "level": 37 },
+      { "enemy": "reef_lizard", "level": 37 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1400,
+      "exp": 535,
+      "drops": [{ "item_id": "equip_epic_armor", "rate": 0.12 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_sutsakorn", "qty": 5 }] }
+    }
+  },
+  {
+    "stage_id": "stage_6_3",
+    "chapter": 6,
+    "name": "รอยเท้าม้านิลมังกร",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "jungle_stalker", "level": 38 },
+      { "enemy": "island_beast", "level": 38 },
+      { "enemy": "wild_drake", "level": 38 },
+      { "enemy": "reef_lizard", "level": 38 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1440,
+      "exp": 550,
+      "drops": [{ "item_id": "mat_legendary_ember", "rate": 0.15 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_ninmangkorn", "qty": 3 }] }
+    }
+  },
+  {
+    "stage_id": "stage_6_4",
+    "chapter": 6,
+    "name": "ถ้ำสัตว์อาคม",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "wild_drake", "level": 39 },
+      { "enemy": "jungle_stalker", "level": 39 },
+      { "enemy": "jungle_stalker", "level": 39 },
+      { "enemy": "island_beast", "level": 39 },
+      { "enemy": "reef_lizard", "level": 39 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1480,
+      "exp": 565,
+      "drops": [{ "item_id": "equip_epic_accessory", "rate": 0.13 }],
+      "first_clear": { "ruby": 50, "shards": [{ "shard_id": "shard_ninmangkorn", "qty": 4 }] }
+    }
+  },
+  {
+    "stage_id": "stage_6_5",
+    "chapter": 6,
+    "name": "ผู้พิทักษ์เกาะ",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "island_guardian", "level": 40 },
+      { "enemy": "wild_drake", "level": 40 },
+      { "enemy": "wild_drake", "level": 40 },
+      { "enemy": "jungle_stalker", "level": 40 },
+      { "enemy": "island_beast", "level": 40 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1520,
+      "exp": 580,
+      "drops": [{ "item_id": "mat_legendary_ember", "rate": 0.18 }],
+      "first_clear": { "ruby": 50, "shards": [{ "shard_id": "shard_ninmangkorn", "qty": 5 }] }
+    }
+  },
+  {
+    "stage_id": "stage_6_6",
+    "chapter": 6,
+    "name": "ปราบม้านิลมังกร",
+    "is_boss": true,
+    "boss_id": "hero_ninmangkorn",
+    "boss_name": "ม้านิลมังกร",
+    "boss_type": "tame",
+    "boss_mechanic": ["enrage_timer", "phase", "weak_element_light", "tame_on_clear"],
+    "enemy_team": [
+      { "hero_id": "hero_ninmangkorn", "level": 43, "role": "boss" },
+      { "enemy": "island_guardian", "level": 41 },
+      { "enemy": "wild_drake", "level": 41 },
+      { "enemy": "jungle_stalker", "level": 41 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1900,
+      "exp": 760,
+      "drops": [{ "item_id": "mat_legendary_ember", "rate": 0.25 }, { "item_id": "mount_token_ninmangkorn", "rate": 1.0 }],
+      "first_clear": { "ruby": 150, "shards": [{ "shard_id": "shard_ninmangkorn", "qty": 8 }], "summon_ticket": 3, "unlock": ["mount_ninmangkorn", "expedition"] }
+    }
+  },
+  {
+    "stage_id": "stage_7_1",
+    "chapter": 7,
+    "name": "เงานางละเวงคืนสู่ลังกา",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "lanka_zealot", "level": 44 },
+      { "enemy": "lanka_sorcerer", "level": 44 },
+      { "enemy": "lanka_zealot", "level": 44 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1560,
+      "exp": 600,
+      "drops": [{ "item_id": "mat_legendary_ember", "rate": 0.16 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_laweng", "qty": 3 }] }
+    }
+  },
+  {
+    "stage_id": "stage_7_2",
+    "chapter": 7,
+    "name": "มนตราเสน่ห์",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "lanka_sorcerer", "level": 45 },
+      { "enemy": "lanka_zealot", "level": 45 },
+      { "enemy": "lanka_cavalry", "level": 45 },
+      { "enemy": "lanka_sorcerer", "level": 45 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1600,
+      "exp": 615,
+      "drops": [{ "item_id": "equip_legendary_weapon", "rate": 0.08 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_laweng", "qty": 4 }] }
+    }
+  },
+  {
+    "stage_id": "stage_7_3",
+    "chapter": 7,
+    "name": "กองทัพศรัทธา",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "lanka_zealot", "level": 46 },
+      { "enemy": "lanka_sorcerer", "level": 46 },
+      { "enemy": "lanka_warlord", "level": 46 },
+      { "enemy": "lanka_zealot", "level": 46 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1640,
+      "exp": 630,
+      "drops": [{ "item_id": "mat_legendary_ember", "rate": 0.18 }],
+      "first_clear": { "ruby": 40, "shards": [{ "shard_id": "shard_laweng", "qty": 4 }] }
+    }
+  },
+  {
+    "stage_id": "stage_7_4",
+    "chapter": 7,
+    "name": "ศึกใจกลางลังกา",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "lanka_warlord", "level": 47 },
+      { "enemy": "lanka_zealot", "level": 47 },
+      { "enemy": "lanka_sorcerer", "level": 47 },
+      { "enemy": "lanka_sorcerer", "level": 47 },
+      { "enemy": "lanka_cavalry", "level": 47 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1680,
+      "exp": 645,
+      "drops": [{ "item_id": "equip_legendary_armor", "rate": 0.08 }],
+      "first_clear": { "ruby": 50, "shards": [{ "shard_id": "shard_laweng", "qty": 5 }] }
+    }
+  },
+  {
+    "stage_id": "stage_7_5",
+    "chapter": 7,
+    "name": "ราชสำนักนางละเวง",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "lanka_warlord", "level": 48 },
+      { "enemy": "lanka_warlord", "level": 48 },
+      { "enemy": "lanka_sorcerer", "level": 48 },
+      { "enemy": "lanka_zealot", "level": 48 },
+      { "enemy": "lanka_zealot", "level": 48 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1720,
+      "exp": 660,
+      "drops": [{ "item_id": "mat_legendary_ember", "rate": 0.20 }],
+      "first_clear": { "ruby": 50, "shards": [{ "shard_id": "shard_laweng", "qty": 5 }] }
+    }
+  },
+  {
+    "stage_id": "stage_7_6",
+    "chapter": 7,
+    "name": "องครักษ์นางละเวง",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "lanka_royal_guard", "level": 49 },
+      { "enemy": "lanka_warlord", "level": 49 },
+      { "enemy": "lanka_warlord", "level": 49 },
+      { "enemy": "lanka_sorcerer", "level": 49 },
+      { "enemy": "lanka_sorcerer", "level": 49 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1760,
+      "exp": 680,
+      "drops": [{ "item_id": "equip_legendary_accessory", "rate": 0.08 }],
+      "first_clear": { "ruby": 60, "shards": [{ "shard_id": "shard_laweng", "qty": 6 }] }
+    }
+  },
+  {
+    "stage_id": "stage_7_7",
+    "chapter": 7,
+    "name": "มหาศึกนางละเวง",
+    "is_boss": true,
+    "boss_id": "hero_laweng",
+    "boss_name": "นางละเวง",
+    "boss_mechanic": ["enrage_timer", "phase_3", "weak_element_water", "add_summon", "charm_aura"],
+    "enemy_team": [
+      { "hero_id": "hero_laweng", "level": 52, "role": "boss" },
+      { "enemy": "lanka_royal_guard", "level": 50 },
+      { "enemy": "lanka_royal_guard", "level": 50 },
+      { "enemy": "lanka_sorcerer", "level": 50 },
+      { "enemy": "lanka_warlord", "level": 50 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 2200,
+      "exp": 950,
+      "drops": [{ "item_id": "mat_mythic_core", "rate": 0.20 }, { "item_id": "equip_legendary_weapon", "rate": 0.18 }],
+      "first_clear": { "ruby": 180, "shards": [{ "shard_id": "shard_laweng", "qty": 8 }], "summon_ticket": 3, "unlock": "world_boss" }
+    }
+  },
+  {
+    "stage_id": "stage_8_1",
+    "chapter": 8,
+    "name": "คลื่นศึกชิงสมุทร",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "lanka_marine", "level": 53 },
+      { "enemy": "lanka_warship_gun", "level": 53 },
+      { "enemy": "lanka_marine", "level": 53 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1800,
+      "exp": 700,
+      "drops": [{ "item_id": "mat_mythic_core", "rate": 0.12 }],
+      "first_clear": { "ruby": 50, "shards": [{ "shard_id": "shard_phraaphai", "qty": 5 }] }
+    }
+  },
+  {
+    "stage_id": "stage_8_2",
+    "chapter": 8,
+    "name": "ทัพเรือมหาสมุทร",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "lanka_warship_gun", "level": 54 },
+      { "enemy": "lanka_marine", "level": 54 },
+      { "enemy": "lanka_admiral_guard", "level": 54 },
+      { "enemy": "lanka_marine", "level": 54 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1840,
+      "exp": 715,
+      "drops": [{ "item_id": "equip_legendary_armor", "rate": 0.10 }],
+      "first_clear": { "ruby": 50, "shards": [{ "shard_id": "shard_sinsamut", "qty": 5 }] }
+    }
+  },
+  {
+    "stage_id": "stage_8_3",
+    "chapter": 8,
+    "name": "แนวรบสุดท้าย",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "lanka_admiral_guard", "level": 55 },
+      { "enemy": "lanka_warship_gun", "level": 55 },
+      { "enemy": "lanka_warship_gun", "level": 55 },
+      { "enemy": "lanka_marine", "level": 55 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1880,
+      "exp": 730,
+      "drops": [{ "item_id": "mat_mythic_core", "rate": 0.16 }],
+      "first_clear": { "ruby": 50, "shards": [{ "shard_id": "shard_sutsakorn", "qty": 5 }] }
+    }
+  },
+  {
+    "stage_id": "stage_8_4",
+    "chapter": 8,
+    "name": "ฝ่าวงล้อมกองเรือ",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "lanka_admiral_guard", "level": 56 },
+      { "enemy": "lanka_admiral_guard", "level": 56 },
+      { "enemy": "lanka_warship_gun", "level": 56 },
+      { "enemy": "lanka_marine", "level": 56 },
+      { "enemy": "lanka_marine", "level": 56 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1920,
+      "exp": 745,
+      "drops": [{ "item_id": "equip_legendary_accessory", "rate": 0.10 }],
+      "first_clear": { "ruby": 60, "shards": [{ "shard_id": "shard_suwannamali", "qty": 5 }] }
+    }
+  },
+  {
+    "stage_id": "stage_8_5",
+    "chapter": 8,
+    "name": "ทัพหน้าแม่ทัพลังกา",
+    "is_boss": false,
+    "enemy_team": [
+      { "enemy": "lanka_vanguard", "level": 57 },
+      { "enemy": "lanka_admiral_guard", "level": 57 },
+      { "enemy": "lanka_admiral_guard", "level": 57 },
+      { "enemy": "lanka_warship_gun", "level": 57 },
+      { "enemy": "lanka_marine", "level": 57 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 1960,
+      "exp": 760,
+      "drops": [{ "item_id": "mat_mythic_core", "rate": 0.20 }],
+      "first_clear": { "ruby": 60, "shards": [{ "shard_id": "shard_mermaid", "qty": 5 }] }
+    }
+  },
+  {
+    "stage_id": "stage_8_6",
+    "chapter": 8,
+    "name": "ศึกใหญ่ปรองดองลังกา",
+    "is_boss": true,
+    "boss_id": "enemy_lanka_supreme_commander",
+    "boss_name": "แม่ทัพลังกา",
+    "boss_mechanic": ["enrage_timer", "phase_3", "weak_element_water", "add_summon", "berserk_final_phase"],
+    "enemy_team": [
+      { "enemy": "lanka_supreme_commander", "level": 60, "role": "boss" },
+      { "enemy": "lanka_vanguard", "level": 58 },
+      { "enemy": "lanka_vanguard", "level": 58 },
+      { "enemy": "lanka_admiral_guard", "level": 58 },
+      { "enemy": "lanka_sorcerer", "level": 58 }
+    ],
+    "energy_cost": 6,
+    "rewards": {
+      "gold": 2800,
+      "exp": 1300,
+      "drops": [{ "item_id": "mat_mythic_core", "rate": 0.30 }, { "item_id": "equip_legendary_weapon", "rate": 0.22 }],
+      "first_clear": { "ruby": 250, "shards": [{ "shard_id": "shard_phraaphai", "qty": 10 }], "summon_ticket": 5, "unlock": "endless_sea" }
+    }
+  }
+]
