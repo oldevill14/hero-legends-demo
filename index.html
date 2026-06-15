@@ -618,7 +618,21 @@ function openEquip(id){ const h=HEROES.find(x=>x.id===id); go('equip'); document
       </div></div>`;
 }
 
+window.HEROES = HEROES; window.ELE = ELE; window.STAGES = STAGES; window.MODES = MODES; window.OPP = OPP; window.GMEM = GMEM;
 renderHeroes(); renderStages(); renderModes(); renderArena(); renderGuild(); renderShop('deals'); renderDaily(); renderMail();
 </script>
+<script src="game-core.js"></script>
+<script src="feat-economy.js"></script>
+<script src="feat-collection.js"></script>
+<script src="feat-gacha.js"></script>
+<script src="feat-campaign.js"></script>
+<script src="feat-equipment.js"></script>
+<script src="feat-inventory.js"></script>
+<script src="feat-arena.js"></script>
+<script src="feat-guild.js"></script>
+<script src="feat-shop.js"></script>
+<script src="feat-modes.js"></script>
+<script src="feat-upgradeplus.js"></script>
+<script>if(window.GAME){GAME.ensureOwned();GAME.refresh();}</script>
 </body>
 </html>

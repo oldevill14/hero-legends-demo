@@ -65,6 +65,29 @@
   .turnbar input{flex:1}
   .footnote{color:var(--muted);font-size:11px;margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
   .footnote code{color:#c4b5fd}
+
+  /* ===== feat:battlemanual — manual ultimate control (additive UI layer) ===== */
+  .bm-modebtn{border-color:#3a3358}
+  .bm-modebtn.bm-manual{background:linear-gradient(135deg,#b45309,#f59e0b);border:none;color:#1a1208;font-weight:700;
+    box-shadow:0 0 14px rgba(245,158,11,.45)}
+  /* energy bar turns gold when full (a player ult is charged) */
+  .card.bm-charged .en > i{background:linear-gradient(90deg,#f59e0b,#fde047)!important;box-shadow:0 0 8px rgba(253,224,71,.7)}
+  .card.bm-charged{box-shadow:0 0 0 1px #f59e0b88,0 0 16px rgba(245,158,11,.28)}
+  /* the unit whose ultimate is ready & awaiting a click */
+  .card.bm-ready{cursor:pointer;box-shadow:0 0 0 2px #fde047,0 0 26px rgba(245,158,11,.55);transform:translateY(-2px)}
+  .card.bm-ready:hover{box-shadow:0 0 0 2px #fff7cc,0 0 30px rgba(245,158,11,.7)}
+  .bm-prompt{position:absolute;left:50%;bottom:-12px;transform:translateX(-50%);white-space:nowrap;z-index:6;
+    background:linear-gradient(135deg,#b45309,#f59e0b);color:#1a1208;font-weight:800;font-size:11px;
+    padding:3px 11px;border-radius:9px;box-shadow:0 3px 14px rgba(0,0,0,.5),0 0 14px rgba(245,158,11,.55);
+    animation:bm-pulse 1.05s ease-in-out infinite}
+  .team.enemy .card .bm-prompt{} /* enemies never get prompts; here for clarity */
+  @keyframes bm-pulse{0%,100%{transform:translateX(-50%) scale(1);opacity:.92}50%{transform:translateX(-50%) scale(1.07);opacity:1}}
+  /* ult activation flash overlay on the card */
+  .bm-flash{position:absolute;inset:0;border-radius:12px;pointer-events:none;z-index:5;
+    background:radial-gradient(circle at 50% 50%,rgba(253,224,71,.55),rgba(245,158,11,.18) 55%,transparent 75%);
+    opacity:0;animation:bm-flash 0.7s ease-out forwards}
+  @keyframes bm-flash{0%{opacity:0;transform:scale(.6)}25%{opacity:1}100%{opacity:0;transform:scale(1.25)}}
+  .bm-hint{color:#fbbf24;font-size:11.5px;margin-left:6px}
 </style>
 </head>
 <body>
@@ -82,6 +105,7 @@
     <select id="stage"></select>
     <button class="primary" id="play">▶ เล่น</button>
     <button id="reset">⟲ รีเซ็ต</button>
+    <button id="bmMode" class="bm-modebtn" title="โหมดควบคุมอัลติเมท">⚙ โหมด: อัตโนมัติ</button>
     <label class="sub">ความเร็ว</label>
     <select id="speed">
       <option value="900">0.5x</option>
@@ -254,6 +278,14 @@ function finish(){
   const r=battle.meta.result;
   $('result').className='result '+(r==='win'?'win':'lose');
   $('result').textContent = r==='win'?'★ ชัยชนะ ★': r==='lose'?'พ่ายแพ้':'เสมอ';
+  // hand result back to the game shell (campaign stars / first-clear rewards)
+  try {
+    const win = r==='win';
+    const hp = (battle.meta.finalHpPercent && battle.meta.finalHpPercent.player) || 0;
+    const stars = win ? (hp>0.8?3:hp>0.4?2:1) : 0;
+    const sel = JSON.parse(localStorage.getItem('hlt_team')||'{}');
+    localStorage.setItem('hlt_result', JSON.stringify({ stage: sel.stage || battle.meta.stageId, win, stars, result: r }));
+  } catch(e){}
 }
 
 function play(){
@@ -296,6 +328,170 @@ async function bootstrap(){
   initStages();
   buildBoard(0);
 }
+
+/* ===== feat:battlemanual — manual ultimate control (additive UI layer, in-scope) =====
+ * Adds a Manual/Auto toggle. Default AUTO keeps the original behavior 100% intact.
+ * In MANUAL mode, auto-advance pauses right before a *player* ultimate event (the
+ * deterministic replay decides which/when), the unit's energy bar fills gold and a
+ * "✦ ปล่อยอัลติเมท" prompt appears on its card. Clicking the card unleashes the ult
+ * (flash + toast) and resumes playback. Energy bars are a presentation-only layer
+ * derived from the replay's ultimate schedule — no battle logic is touched.        */
+var BM = { manual:false, schedule:{}, pending:null, wasPlaying:false };
+function bmIsPlayer(uid){ return typeof uid==='string' && uid.indexOf('player')===0; }
+
+// Map each player unit -> the step indices where it casts an ultimate (from replay).
+function bmBuildSchedule(){
+  BM.schedule = {}; BM.pending=null; BM.wasPlaying=false;
+  if(!battle || !battle.events) return;
+  battle.events.forEach(function(ev,i){
+    if(ev.skill==='ultimate' && bmIsPlayer(ev.actor)){
+      (BM.schedule[ev.actor] = BM.schedule[ev.actor]||[]).push(i);
+    }
+  });
+}
+
+// Presentation energy 0..100 for a player unit at the current `step`.
+function bmEnergyOf(uid){
+  var u=units[uid]; if(!u || u.dead) return 0;
+  var ults = BM.schedule[uid] || [];
+  var nextUlt=Infinity, prevReset=-1;
+  for(var k=0;k<ults.length;k++){ if(ults[k]<step) prevReset=ults[k]; else if(ults[k]<nextUlt) nextUlt=ults[k]; }
+  if(nextUlt!==Infinity){
+    var span=nextUlt-(prevReset+1); if(span<=0) span=1;
+    var done=step-(prevReset+1);
+    var e=Math.max(0,Math.min(100,Math.round(100*done/span)));
+    if(step>=nextUlt) e=100;
+    return e;
+  }
+  // unit with no (more) ultimates: gentle trickle, capped so it never reads "ready"
+  return Math.min(80, 12 + step*4);
+}
+
+// Repaint energy bars + the gold "charged" glow. Called after every render().
+function bmPaintEnergy(){
+  if(!units) return;
+  for(var uid in units){
+    if(!bmIsPlayer(uid)) continue;
+    var en=$('en_'+uid), card=$('c_'+uid); if(!en||!card) continue;
+    var e=bmEnergyOf(uid);
+    en.style.width=Math.min(100,e)+'%';
+    var charged = e>=100 && !units[uid].dead;
+    card.classList.toggle('bm-charged', charged && BM.pending!==uid);
+  }
+}
+
+function bmClearPrompts(){
+  var ps=document.querySelectorAll('.bm-prompt'); for(var i=0;i<ps.length;i++) ps[i].remove();
+  var rs=document.querySelectorAll('.card.bm-ready'); for(var j=0;j<rs.length;j++){ rs[j].classList.remove('bm-ready'); rs[j].onclick=null; }
+}
+function bmShowPrompt(uid){
+  var card=$('c_'+uid); if(!card) return;
+  bmClearPrompts();
+  card.classList.add('bm-ready');
+  var en=$('en_'+uid); if(en) en.style.width='100%';
+  card.classList.add('bm-charged');
+  var p=document.createElement('div'); p.className='bm-prompt'; p.textContent='✦ ปล่อยอัลติเมท';
+  card.appendChild(p);
+  card.onclick=function(e){ if(e) e.stopPropagation(); bmFireUltimate(uid); };
+  BM.pending=uid;
+}
+function bmFlash(uid){
+  var card=$('c_'+uid); if(!card) return;
+  var f=document.createElement('div'); f.className='bm-flash'; card.appendChild(f);
+  setTimeout(function(){ if(f.parentNode) f.parentNode.removeChild(f); }, 760);
+}
+function bmFireUltimate(uid){
+  if(BM.pending!==uid) return;
+  BM.pending=null;
+  bmClearPrompts();
+  bmFlash(uid);
+  try{ if(window.GAME && GAME.toast){ GAME.toast('✦ '+(units[uid]?units[uid].name_th:'') + ' ปล่อยอัลติเมท!'); } }catch(e){}
+  // process the queued ultimate event(s) for this unit at the held step.
+  // NOTE: call the *unwrapped* _bmNext() — the wrapped next() would just re-prompt
+  // this same ultimate instead of executing it.
+  var guard=0;
+  while(step<battle.events.length && guard++<20){
+    var ev=battle.events[step];
+    if(ev && ev.skill==='ultimate' && bmIsPlayer(ev.actor)){ _bmNext(); }
+    else break;
+  }
+  if(BM.wasPlaying){ BM.wasPlaying=false; bmResume(); }
+}
+
+// restart the auto loop (same cadence as play()) after a manual ult, without toggling
+function bmResume(){
+  if(timer) return;
+  if(step>=battle.events.length) return;
+  $('play').textContent='⏸ หยุด';
+  var speed=+$('speed').value;
+  timer=setInterval(function(){
+    if(step>=battle.events.length){ $('play').textContent='▶ เล่น'; finish(); return; }
+    next();
+  }, speed);
+}
+
+// ---- wrap render(): drive energy bars after the engine paints HP/statuses ----
+var _bmRender = render;
+render = function(){ _bmRender(); bmPaintEnergy(); };
+
+// ---- wrap next(): in MANUAL, halt just BEFORE a player ult and prompt for a click ----
+var _bmNext = next;
+next = function(){
+  if(BM.manual && !BM.pending && battle && step<battle.events.length){
+    var ev=battle.events[step];
+    if(ev && ev.skill==='ultimate' && bmIsPlayer(ev.actor) && !(units[ev.actor] && units[ev.actor].dead)){
+      if(timer){ clearInterval(timer); timer=null; BM.wasPlaying=true; $('play').textContent='▶ เล่น'; }
+      bmShowPrompt(ev.actor);
+      return; // hold here until the user clicks
+    }
+  }
+  return _bmNext();
+};
+
+// ---- wrap buildBoard(): rebuild the ult schedule + clear manual UI on every reset ----
+var _bmBuild = buildBoard;
+buildBoard = function(idx){
+  var r=_bmBuild(idx);
+  bmClearPrompts(); BM.pending=null; BM.wasPlaying=false;
+  bmBuildSchedule();
+  render();
+  return r;
+};
+
+// ---- wrap play(): while a prompt is pending, the card-click owns resume ----
+var _bmPlay = play;
+play = function(){
+  if(BM.manual && BM.pending) return; // waiting on the user's ult click
+  return _bmPlay();
+};
+
+// ---- mode toggle ----
+function bmSetMode(manual){
+  BM.manual=!!manual;
+  var btn=$('bmMode');
+  if(btn){
+    btn.classList.toggle('bm-manual', BM.manual);
+    btn.textContent = BM.manual ? '⚔ โหมด: แมนนวล' : '⚙ โหมด: อัตโนมัติ';
+    btn.title = BM.manual ? 'หยุดเองเมื่ออัลติเมทพร้อม แล้วคลิกการ์ดเพื่อปล่อย' : 'เล่นรีเพลย์ต่อเนื่องอัตโนมัติ';
+  }
+  var meta=$('meta');
+  if(meta){
+    var hint=meta.querySelector('.bm-hint');
+    if(BM.manual){ if(!hint){ var s=document.createElement('span'); s.className='bm-hint'; s.textContent=' · คลิกการ์ดที่เรืองทองเพื่อปล่อยอัลติเมท'; meta.appendChild(s); } }
+    else if(hint){ hint.remove(); }
+  }
+  if(!BM.manual && BM.pending){
+    // leaving manual with a held ult: clear prompt; the auto loop will process it normally
+    var was=BM.wasPlaying; bmClearPrompts(); BM.pending=null;
+    if(was){ BM.wasPlaying=false; bmResume(); }
+  }
+}
+
+(function bmWireToggle(){
+  var btn=$('bmMode');
+  if(btn) btn.onclick=function(){ bmSetMode(!BM.manual); };
+})();
+
 bootstrap();
 </script>
 </body>
