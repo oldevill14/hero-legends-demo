@@ -131,7 +131,7 @@
     lullaby: [[4,4],[3,2],[2,2],[1,4],[-1,2],[3,2],[2,2],[1,2],[0,6],[-1,3],[2,2],[1,2],[0,8],[-1,5],[5,3],[4,3],[3,2],[2,2],[1,4],[0,8],[-1,6]],
     mystic:  [[2,3],[4,3],[5,4],[-1,2],[6,3],[4,3],[3,5],[-1,3],[4,2],[5,2],[6,6],[-1,5]],
     voyage:  [[1,2],[2,2],[3,3],[4,3],[-1,1],[3,2],[4,2],[5,3],[4,3],[-1,2],[2,2],[3,2],[1,5],[-1,3]],
-    duel:    [[0,1],[2,1],[3,2],[2,1],[0,1],[3,2],[-1,1],[4,1],[3,1],[2,2],[0,3],[-1,2],[4,1],[5,1],[4,2],[2,3],[-1,2]],
+    duel:    [[0,1],[0,1],[3,1],[2,1],[0,1],[3,1],[4,2],[-1,1],[5,1],[4,1],[5,1],[6,1],[5,2],[3,1],[2,1],[0,2],[3,1],[4,1],[6,3],[-1,1]],
     hall:    [[0,2],[1,2],[2,3],[1,2],[3,3],[2,2],[1,2],[0,4],[-1,2],[2,2],[3,2],[4,4],[-1,3]]
   };
   // each screen-mood: scale + phrase + tempo + flute tone (cut) + pad chord + reverb wet + nature ambience mix
@@ -139,7 +139,8 @@
     calm:   { scale: SCALES.pentaG,   beat: 0.95, mel: PHRASES.lullaby, cut: 2100, pad: [110, 164.81, 220],    wet: 0.55, amb: { ocean: 0.8, crickets: 0.5 } },
     mystic: { scale: SCALES.pentaDhi, beat: 0.80, mel: PHRASES.mystic,  cut: 3200, pad: [146.83, 220, 293.66], wet: 0.72, amb: { wind: 0.5, ocean: 0.4 } },
     voyage: { scale: SCALES.pentaG,   beat: 0.72, mel: PHRASES.voyage,  cut: 2500, pad: [98, 146.83, 196],     wet: 0.50, amb: { ocean: 1.0 } },
-    duel:   { scale: SCALES.minorA,   beat: 0.54, mel: PHRASES.duel,    cut: 2700, pad: [110, 130.81, 164.81], wet: 0.38, amb: { wind: 0.6 } },
+    duel:   { scale: SCALES.minorA,   beat: 0.46, mel: PHRASES.duel,    cut: 3100, pad: [110, 164.81, 220],    wet: 0.30, amb: { wind: 0.5 },
+              perc: { steps: 16, kick: [0, 3, 6, 8, 11, 13], tom: [2, 5, 10, 12, 14, 15], snare: [4, 12], hat: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] } },
     hall:   { scale: SCALES.pentaC,   beat: 0.74, mel: PHRASES.hall,    cut: 2200, pad: [130.81, 196, 261.63], wet: 0.50, amb: { ocean: 0.6, crickets: 0.3 } }
   };
   var SCREEN_MOOD = {
@@ -264,11 +265,14 @@
     // CRICKETS: scheduled high trills, gated by cricketLevel
     var cricketLevel = ctx.createGain(); cricketLevel.gain.value = 0; cricketLevel.connect(ambBus);
 
+    // WAR-DRUM bus (used only by intense moods that define a perc pattern)
+    var drumBus = ctx.createGain(); drumBus.gain.value = 1.25; drumBus.connect(master);
+
     return {
       ambBus: ambBus,
       ocean: ocean, oceanLP: oceanLP, oceanWave: oceanWave, oceanLevel: oceanLevel, waveLfo: waveLfo, waveAmt: waveAmt,
       wind: wind, windBP: windBP, windLevel: windLevel, windLfo: windLfo, windAmt: windAmt,
-      cricketLevel: cricketLevel
+      cricketLevel: cricketLevel, drumBus: drumBus
     };
   }
 
@@ -286,6 +290,65 @@
       o.connect(g).connect(dest);
       o.start(t); o.stop(t + 0.04);
       o.onended = (function (oo, gg) { return function () { try { oo.disconnect(); gg.disconnect(); } catch (e) {} }; })(o, g);
+    }
+  }
+
+  // ---------------------------------------------------------------
+  //  WAR DRUMS — driving percussion for intense moods (กลองศึก)
+  // ---------------------------------------------------------------
+  function drumKick(ctx, when, vel, dest) {
+    var o = ctx.createOscillator(); o.type = 'sine';
+    o.frequency.setValueAtTime(155, when); o.frequency.exponentialRampToValueAtTime(45, when + 0.11);
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, when); g.gain.exponentialRampToValueAtTime(vel, when + 0.005); g.gain.exponentialRampToValueAtTime(0.0001, when + 0.22);
+    o.connect(g).connect(dest); o.start(when); o.stop(when + 0.26);
+    o.onended = function () { try { o.disconnect(); g.disconnect(); } catch (e) {} };
+  }
+  function drumTom(ctx, when, vel, dest) { // taiko-ish war drum
+    var o = ctx.createOscillator(); o.type = 'sine';
+    o.frequency.setValueAtTime(184, when); o.frequency.exponentialRampToValueAtTime(92, when + 0.14);
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, when); g.gain.exponentialRampToValueAtTime(vel, when + 0.006); g.gain.exponentialRampToValueAtTime(0.0001, when + 0.3);
+    var nb = ctx.createBufferSource(); nb.buffer = getNoise(ctx);
+    var lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 1100;
+    var ng = ctx.createGain(); ng.gain.setValueAtTime(vel * 0.5, when); ng.gain.exponentialRampToValueAtTime(0.0001, when + 0.05);
+    o.connect(g).connect(dest); nb.connect(lp).connect(ng).connect(dest);
+    o.start(when); o.stop(when + 0.34); nb.start(when); nb.stop(when + 0.07);
+    o.onended = function () { try { o.disconnect(); g.disconnect(); nb.disconnect(); lp.disconnect(); ng.disconnect(); } catch (e) {} };
+  }
+  function drumSnare(ctx, when, vel, dest) {
+    var nb = ctx.createBufferSource(); nb.buffer = getNoise(ctx);
+    var hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 1500;
+    var g = ctx.createGain(); g.gain.setValueAtTime(0.0001, when); g.gain.exponentialRampToValueAtTime(vel * 0.8, when + 0.004); g.gain.exponentialRampToValueAtTime(0.0001, when + 0.14);
+    var o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = 220;
+    var og = ctx.createGain(); og.gain.setValueAtTime(vel * 0.28, when); og.gain.exponentialRampToValueAtTime(0.0001, when + 0.1);
+    nb.connect(hp).connect(g).connect(dest); o.connect(og).connect(dest);
+    nb.start(when); nb.stop(when + 0.16); o.start(when); o.stop(when + 0.12);
+    nb.onended = function () { try { nb.disconnect(); hp.disconnect(); g.disconnect(); o.disconnect(); og.disconnect(); } catch (e) {} };
+  }
+  function drumHat(ctx, when, vel, dest) {
+    var nb = ctx.createBufferSource(); nb.buffer = getNoise(ctx);
+    var hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 7000;
+    var g = ctx.createGain(); g.gain.setValueAtTime(0.0001, when); g.gain.exponentialRampToValueAtTime(vel * 0.4, when + 0.002); g.gain.exponentialRampToValueAtTime(0.0001, when + 0.04);
+    nb.connect(hp).connect(g).connect(dest); nb.start(when); nb.stop(when + 0.06);
+    nb.onended = function () { try { nb.disconnect(); hp.disconnect(); g.disconnect(); } catch (e) {} };
+  }
+
+  // look-ahead drum scheduler — runs only when the current mood has a `perc` pattern
+  function percSchedule() {
+    if (!bgmRunning || !bgmNodes || !AC) return;
+    var p = bgmNodes.perc; if (!p) return;
+    var ctx = AC, n = bgmNodes, dest = n.amb && n.amb.drumBus; if (!dest) return;
+    var stepDur = n.beat * 0.5;                 // eighth-note grid
+    var lookahead = ctx.currentTime + 0.7;
+    while (n.percTime < lookahead) {
+      var s = n.percStep % p.steps;
+      if (p.kick && p.kick.indexOf(s) >= 0) drumKick(ctx, n.percTime, 0.95, dest);
+      if (p.tom && p.tom.indexOf(s) >= 0) drumTom(ctx, n.percTime, 0.72, dest);
+      if (p.snare && p.snare.indexOf(s) >= 0) drumSnare(ctx, n.percTime, 0.8, dest);
+      if (p.hat && p.hat.indexOf(s) >= 0) drumHat(ctx, n.percTime, (s % 2 ? 0.42 : 0.7), dest);
+      n.percTime += stepDur;
+      n.percStep = (n.percStep + 1) % p.steps;
     }
   }
 
@@ -317,6 +380,8 @@
     var m = MOODS[key] || MOODS.calm;
     bgmNodes.scale = m.scale; bgmNodes.mel = m.mel; bgmNodes.beat = m.beat;
     bgmNodes.mi = 0; // start the new motif cleanly at the next scheduled note
+    bgmNodes.perc = m.perc || null;                 // war drums only on intense moods
+    if (m.perc) { bgmNodes.percStep = 0; bgmNodes.percTime = AC.currentTime + 0.25; }
     // glide the pad chord to the new harmony
     var now = AC.currentTime;
     m.pad.forEach(function (f, i) {
@@ -406,8 +471,9 @@
       nextNote: ctx.currentTime + 0.35, mi: 0, schedId: 0
     };
     bgmRunning = true;
+    bgmNodes.perc = null; bgmNodes.percStep = 0; bgmNodes.percTime = ctx.currentTime + 0.35;
     fluteSchedule();                                  // prime the first notes
-    bgmNodes.schedId = setInterval(fluteSchedule, 140); // keep the melody flowing + looping
+    bgmNodes.schedId = setInterval(function () { fluteSchedule(); percSchedule(); }, 130); // melody + drums
     // cricket trills (only when the current mood asks for them)
     bgmNodes.cricketId = setInterval(function () {
       if (!bgmRunning || !bgmNodes || !bgmNodes.cricketsOn || !AC) return;
@@ -458,6 +524,7 @@
           try { a.waveLfo.stop(); a.waveLfo.disconnect(); a.windLfo.stop(); a.windLfo.disconnect(); } catch (e) {}
           try { a.oceanLP.disconnect(); a.oceanWave.disconnect(); a.oceanLevel.disconnect(); a.waveAmt.disconnect(); } catch (e) {}
           try { a.windBP.disconnect(); a.windLevel.disconnect(); a.windAmt.disconnect(); a.cricketLevel.disconnect(); a.ambBus.disconnect(); } catch (e) {}
+          try { a.drumBus.disconnect(); } catch (e) {}
         }
         try { nodes.analyser.disconnect(); nodes.lfoGain.disconnect(); nodes.master.disconnect(); } catch (e) {}
       } catch (e) {}
@@ -499,6 +566,7 @@
       var a = bgmNodes.amb || {};
       return {
         mood: currentMood, beat: bgmNodes.beat, scale0: bgmNodes.scale && bgmNodes.scale[0],
+        drums: !!bgmNodes.perc,
         padF: bgmNodes.oscs[0] && Math.round(bgmNodes.oscs[0].frequency.value),
         ocean: a.oceanLevel && +a.oceanLevel.gain.value.toFixed(3),
         wind: a.windLevel && +a.windLevel.gain.value.toFixed(3),

@@ -131,6 +131,14 @@
       '#equip .dt-art{width:clamp(200px,22vw,360px)!important;align-self:flex-start}',
       '#upgrade .upgrade-stat{font-size:clamp(13px,1.15vw,18px)}',
       '#upgrade h2,#equip h2{font-size:clamp(20px,2vw,30px)!important}',
+      // INVENTORY (คลังของ): bigger card art + cells on large screens
+      '#inventory .inv-grid{grid-template-columns:repeat(auto-fill,minmax(clamp(120px,13vw,200px),1fr))!important;gap:14px}',
+      '#inventory .inv-cell{padding:clamp(14px,1.5vw,24px) 10px clamp(11px,1.2vw,18px)!important}',
+      '#inventory .inv-art{width:clamp(46px,7vw,110px)!important;height:clamp(46px,7vw,110px)!important;border-radius:14px}',
+      '#inventory .inv-ic{font-size:clamp(30px,4.2vw,58px)!important}',
+      '#inventory .inv-nm{font-size:clamp(11px,1.1vw,17px)!important;margin-top:9px}',
+      '#inventory .inv-sub{font-size:clamp(9px,.9vw,14px)!important}',
+      '#inventory .inv-qty{font-size:clamp(11px,1vw,15px)!important}',
     ].join('');
     var b = document.createElement('style');
     b.id = 'fs-big';
