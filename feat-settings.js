@@ -120,16 +120,38 @@
   //  A breathy synthesized flute playing a slow, spacious pentatonic
   //  melody → hypnotic / sleep-inducing, like the magic ปี่ in the tale.
   // ---------------------------------------------------------------
-  // pentatonic voice (G3 A3 B3 D4 E4 G4 A4) — anhemitonic, gentle/Eastern
-  var SCALE = [196.00, 220.00, 246.94, 293.66, 329.63, 392.00, 440.00];
-  var BEAT = 0.92;                       // seconds per beat — very slow
-  // [scaleIndex, beats]  (index < 0 = rest). Descending, settling phrases.
-  var MELODY = [
-    [4, 4], [3, 2], [2, 2], [1, 4], [-1, 2],
-    [3, 2], [2, 2], [1, 2], [0, 6], [-1, 3],
-    [2, 2], [1, 2], [0, 8], [-1, 5],
-    [5, 3], [4, 3], [3, 2], [2, 2], [1, 4], [0, 8], [-1, 6]
-  ];
+  // ---- scales (Hz, 7 voices) + melodic phrases [scaleIndex, beats] (idx<0 = rest) ----
+  var SCALES = {
+    pentaG:   [196.00, 220.00, 246.94, 293.66, 329.63, 392.00, 440.00], // G A B D E G A
+    pentaDhi: [293.66, 329.63, 369.99, 440.00, 493.88, 587.33, 659.25], // D E F# A B D E (bright)
+    minorA:   [220.00, 261.63, 293.66, 329.63, 392.00, 440.00, 523.25], // A C D E G A C (tense)
+    pentaC:   [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33]  // C D E G A C D (warm)
+  };
+  var PHRASES = {
+    lullaby: [[4,4],[3,2],[2,2],[1,4],[-1,2],[3,2],[2,2],[1,2],[0,6],[-1,3],[2,2],[1,2],[0,8],[-1,5],[5,3],[4,3],[3,2],[2,2],[1,4],[0,8],[-1,6]],
+    mystic:  [[2,3],[4,3],[5,4],[-1,2],[6,3],[4,3],[3,5],[-1,3],[4,2],[5,2],[6,6],[-1,5]],
+    voyage:  [[1,2],[2,2],[3,3],[4,3],[-1,1],[3,2],[4,2],[5,3],[4,3],[-1,2],[2,2],[3,2],[1,5],[-1,3]],
+    duel:    [[0,1],[2,1],[3,2],[2,1],[0,1],[3,2],[-1,1],[4,1],[3,1],[2,2],[0,3],[-1,2],[4,1],[5,1],[4,2],[2,3],[-1,2]],
+    hall:    [[0,2],[1,2],[2,3],[1,2],[3,3],[2,2],[1,2],[0,4],[-1,2],[2,2],[3,2],[4,4],[-1,3]]
+  };
+  // each screen-mood: scale + phrase + tempo + flute tone (cut) + pad chord + reverb wet + nature ambience mix
+  var MOODS = {
+    calm:   { scale: SCALES.pentaG,   beat: 0.95, mel: PHRASES.lullaby, cut: 2100, pad: [110, 164.81, 220],    wet: 0.55, amb: { ocean: 0.8, crickets: 0.5 } },
+    mystic: { scale: SCALES.pentaDhi, beat: 0.80, mel: PHRASES.mystic,  cut: 3200, pad: [146.83, 220, 293.66], wet: 0.72, amb: { wind: 0.5, ocean: 0.4 } },
+    voyage: { scale: SCALES.pentaG,   beat: 0.72, mel: PHRASES.voyage,  cut: 2500, pad: [98, 146.83, 196],     wet: 0.50, amb: { ocean: 1.0 } },
+    duel:   { scale: SCALES.minorA,   beat: 0.54, mel: PHRASES.duel,    cut: 2700, pad: [110, 130.81, 164.81], wet: 0.38, amb: { wind: 0.6 } },
+    hall:   { scale: SCALES.pentaC,   beat: 0.74, mel: PHRASES.hall,    cut: 2200, pad: [130.81, 196, 261.63], wet: 0.50, amb: { ocean: 0.6, crickets: 0.3 } }
+  };
+  var SCREEN_MOOD = {
+    hub: 'calm', heroes: 'calm', detail: 'calm', profile: 'calm', upgrade: 'calm', equip: 'calm', inventory: 'calm', mail: 'calm',
+    summon: 'mystic', events: 'mystic',
+    stages: 'voyage', team: 'voyage', modes: 'voyage',
+    arena: 'duel',
+    guild: 'hall', shop: 'hall'
+  };
+  function moodFor(id) { return SCREEN_MOOD[id] || 'calm'; }
+  var currentMood = 'calm';
+  var brownBuf = null;
 
   var noiseBuf = null, reverbBuf = null;
   function getNoise(ctx) {
@@ -182,22 +204,129 @@
     o1.onended = function () { try { o1.disconnect(); o2.disconnect(); g1.disconnect(); g2.disconnect(); nb.disconnect(); bp.disconnect(); gn.disconnect(); } catch (e) {} };
   }
 
-  // look-ahead scheduler: keeps the melody flowing + loops seamlessly
+  // look-ahead scheduler: plays the CURRENT scene's phrase + loops seamlessly
   function fluteSchedule() {
     if (!bgmRunning || !bgmNodes || !AC) return;
     var ctx = AC, nodes = bgmNodes;
+    var mel = nodes.mel, scale = nodes.scale, beat = nodes.beat;
+    if (!mel || !scale) return;
     var lookahead = ctx.currentTime + 0.7;
     while (nodes.nextNote < lookahead) {
-      var step = MELODY[nodes.mi];
+      var step = mel[nodes.mi % mel.length];
       var beats = step[1], idx = step[0];
       if (idx >= 0) {
-        var dur = beats * BEAT * 0.92;
+        var dur = beats * beat * 0.92;
         var vel = 0.5 + ((nodes.mi % 3) * 0.04);   // tiny per-note variation
-        fluteNote(ctx, SCALE[idx], nodes.nextNote, dur, vel, nodes.fluteLP, nodes.vibGain);
+        fluteNote(ctx, scale[idx], nodes.nextNote, dur, vel, nodes.fluteLP, nodes.vibGain);
       }
-      nodes.nextNote += beats * BEAT;
-      nodes.mi = (nodes.mi + 1) % MELODY.length;   // loop the phrase
+      nodes.nextNote += beats * beat;
+      nodes.mi = (nodes.mi + 1) % mel.length;      // loop the phrase
     }
+  }
+
+  // ---------------------------------------------------------------
+  //  NATURE AMBIENCE — ocean waves / wind / night crickets (เสียงธรรมชาติคลอ)
+  // ---------------------------------------------------------------
+  function getBrown(ctx) {
+    if (brownBuf) return brownBuf;
+    var len = Math.floor(ctx.sampleRate * 3);
+    brownBuf = ctx.createBuffer(1, len, ctx.sampleRate);
+    var d = brownBuf.getChannelData(0), last = 0;
+    for (var i = 0; i < len; i++) { var w = Math.random() * 2 - 1; last = (last + 0.02 * w) / 1.02; d[i] = last * 3.5; }
+    return brownBuf;
+  }
+
+  // build the ambience generators once → ambBus → master. Returns handles.
+  function buildAmbience(ctx, master) {
+    var ambBus = ctx.createGain(); ambBus.gain.value = 1; ambBus.connect(master);
+
+    // OCEAN: brown noise → lowpass, amplitude swelling on a slow wave LFO
+    var ocean = ctx.createBufferSource(); ocean.buffer = getBrown(ctx); ocean.loop = true;
+    var oceanLP = ctx.createBiquadFilter(); oceanLP.type = 'lowpass'; oceanLP.frequency.value = 480; oceanLP.Q.value = 0.6;
+    var oceanWave = ctx.createGain(); oceanWave.gain.value = 0.5;       // swelled by LFO
+    var oceanLevel = ctx.createGain(); oceanLevel.gain.value = 0;       // scene-controlled
+    ocean.connect(oceanLP).connect(oceanWave).connect(oceanLevel).connect(ambBus);
+    var waveLfo = ctx.createOscillator(); waveLfo.type = 'sine'; waveLfo.frequency.value = 0.09; // ~11s swell
+    var waveAmt = ctx.createGain(); waveAmt.gain.value = 0.34;
+    waveLfo.connect(waveAmt).connect(oceanWave.gain); waveLfo.start();
+    ocean.start();
+
+    // WIND: white noise → bandpass that drifts
+    var wind = ctx.createBufferSource(); wind.buffer = getNoise(ctx); wind.loop = true;
+    var windBP = ctx.createBiquadFilter(); windBP.type = 'bandpass'; windBP.frequency.value = 650; windBP.Q.value = 0.8;
+    var windLevel = ctx.createGain(); windLevel.gain.value = 0;
+    wind.connect(windBP).connect(windLevel).connect(ambBus);
+    var windLfo = ctx.createOscillator(); windLfo.type = 'sine'; windLfo.frequency.value = 0.05;
+    var windAmt = ctx.createGain(); windAmt.gain.value = 320;
+    windLfo.connect(windAmt).connect(windBP.frequency); windLfo.start();
+    wind.start();
+
+    // CRICKETS: scheduled high trills, gated by cricketLevel
+    var cricketLevel = ctx.createGain(); cricketLevel.gain.value = 0; cricketLevel.connect(ambBus);
+
+    return {
+      ambBus: ambBus,
+      ocean: ocean, oceanLP: oceanLP, oceanWave: oceanWave, oceanLevel: oceanLevel, waveLfo: waveLfo, waveAmt: waveAmt,
+      wind: wind, windBP: windBP, windLevel: windLevel, windLfo: windLfo, windAmt: windAmt,
+      cricketLevel: cricketLevel
+    };
+  }
+
+  // one cricket trill: a few short high chirps
+  function cricketChirp(ctx, when, dest) {
+    var base = 4200 + Math.random() * 1100;
+    var n = 2 + (Math.random() * 3 | 0);
+    for (var i = 0; i < n; i++) {
+      var t = when + i * 0.035;
+      var o = ctx.createOscillator(); o.type = 'sine'; o.frequency.value = base + (Math.random() * 120 - 60);
+      var g = ctx.createGain();
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.5, t + 0.004);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.026);
+      o.connect(g).connect(dest);
+      o.start(t); o.stop(t + 0.04);
+      o.onended = (function (oo, gg) { return function () { try { oo.disconnect(); gg.disconnect(); } catch (e) {} }; })(o, g);
+    }
+  }
+
+  // ramp an AudioParam smoothly to a target
+  function ramp(param, to, sec) {
+    if (!AC) { try { param.value = to; } catch (e) {} return; }
+    var now = AC.currentTime;
+    try {
+      param.cancelScheduledValues(now);
+      param.setValueAtTime(param.value, now);
+      param.linearRampToValueAtTime(to, now + (sec || 1));
+    } catch (e) { try { param.value = to; } catch (e2) {} }
+  }
+
+  // crossfade ambience generators to a mood's mix (name→level)
+  function setAmbience(mix, sec) {
+    if (!bgmNodes || !bgmNodes.amb) return;
+    var a = bgmNodes.amb;
+    ramp(a.oceanLevel.gain, (mix.ocean || 0) * 0.6, sec);
+    ramp(a.windLevel.gain, (mix.wind || 0) * 0.18, sec);
+    ramp(a.cricketLevel.gain, (mix.crickets || 0) * 0.6, sec);
+    bgmNodes.cricketsOn = (mix.crickets || 0) > 0;
+  }
+
+  // morph the running BGM to a screen's mood (smooth — no teardown)
+  function applyScene(key) {
+    currentMood = key;
+    if (!bgmRunning || !bgmNodes || !AC) return;
+    var m = MOODS[key] || MOODS.calm;
+    bgmNodes.scale = m.scale; bgmNodes.mel = m.mel; bgmNodes.beat = m.beat;
+    bgmNodes.mi = 0; // start the new motif cleanly at the next scheduled note
+    // glide the pad chord to the new harmony
+    var now = AC.currentTime;
+    m.pad.forEach(function (f, i) {
+      var o = bgmNodes.oscs[i]; if (!o) return;
+      try { o.frequency.cancelScheduledValues(now); o.frequency.setValueAtTime(o.frequency.value, now); o.frequency.linearRampToValueAtTime(f, now + 1.6); }
+      catch (e) { try { o.frequency.value = f; } catch (e2) {} }
+    });
+    ramp(bgmNodes.fluteLP.frequency, m.cut, 1.2);   // flute brightness
+    ramp(bgmNodes.revGain.gain, m.wet, 1.0);        // reverb depth
+    setAmbience(m.amb, 1.6);                         // nature bed
   }
 
   // ---- BGM: enchanted flute melody over a subtle ambient pad ----
@@ -263,17 +392,29 @@
     var vibGain = ctx.createGain(); vibGain.gain.value = 7;
     vib.connect(vibGain); vib.start();
 
+    // --- nature ambience bed (ocean / wind / crickets) ---
+    var amb = buildAmbience(ctx, master);
+
+    var m0 = MOODS[currentMood] || MOODS.calm;
     bgmNodes = {
       oscs: oscs, lp: lp, padGain: padGain, master: master, analyser: analyser,
       lfo: lfo, lfoGain: lfoGain,
       fluteLP: fluteLP, fluteGain: fluteGain, reverb: reverb, revGain: revGain,
       vib: vib, vibGain: vibGain,
+      amb: amb, cricketId: 0, cricketsOn: false,
+      scale: m0.scale, mel: m0.mel, beat: m0.beat,
       nextNote: ctx.currentTime + 0.35, mi: 0, schedId: 0
     };
     bgmRunning = true;
     fluteSchedule();                                  // prime the first notes
     bgmNodes.schedId = setInterval(fluteSchedule, 140); // keep the melody flowing + looping
-    bgmApplyVol(1.4);                  // fade up over ~1.4s
+    // cricket trills (only when the current mood asks for them)
+    bgmNodes.cricketId = setInterval(function () {
+      if (!bgmRunning || !bgmNodes || !bgmNodes.cricketsOn || !AC) return;
+      if (Math.random() < 0.4) cricketChirp(AC, AC.currentTime + 0.05, bgmNodes.amb.cricketLevel);
+    }, 150);
+    applyScene(currentMood);            // set mood tone/pad/ambience for the active screen
+    bgmApplyVol(1.4);                   // fade up over ~1.4s
   }
 
   function bgmApplyVol(fadeSec) {
@@ -295,7 +436,8 @@
     var nodes = bgmNodes;
     var now = AC.currentTime;
     var fs = (fadeSec == null) ? 0.6 : fadeSec;
-    if (nodes.schedId) { try { clearInterval(nodes.schedId); } catch (e) {} } // stop melody scheduler now
+    if (nodes.schedId) { try { clearInterval(nodes.schedId); } catch (e) {} }   // stop melody scheduler
+    if (nodes.cricketId) { try { clearInterval(nodes.cricketId); } catch (e) {} } // stop cricket scheduler
     try {
       nodes.master.gain.cancelScheduledValues(now);
       nodes.master.gain.setValueAtTime(Math.max(0.0001, nodes.master.gain.value), now);
@@ -308,6 +450,15 @@
         try { nodes.vib.stop(); nodes.vib.disconnect(); } catch (e) {}
         try { nodes.lp.disconnect(); nodes.padGain.disconnect(); } catch (e) {}
         try { nodes.fluteLP.disconnect(); nodes.fluteGain.disconnect(); nodes.reverb.disconnect(); nodes.revGain.disconnect(); nodes.vibGain.disconnect(); } catch (e) {}
+        // ambience
+        var a = nodes.amb;
+        if (a) {
+          try { a.ocean.stop(); a.ocean.disconnect(); } catch (e) {}
+          try { a.wind.stop(); a.wind.disconnect(); } catch (e) {}
+          try { a.waveLfo.stop(); a.waveLfo.disconnect(); a.windLfo.stop(); a.windLfo.disconnect(); } catch (e) {}
+          try { a.oceanLP.disconnect(); a.oceanWave.disconnect(); a.oceanLevel.disconnect(); a.waveAmt.disconnect(); } catch (e) {}
+          try { a.windBP.disconnect(); a.windLevel.disconnect(); a.windAmt.disconnect(); a.cricketLevel.disconnect(); a.ambBus.disconnect(); } catch (e) {}
+        }
         try { nodes.analyser.disconnect(); nodes.lfoGain.disconnect(); nodes.master.disconnect(); } catch (e) {}
       } catch (e) {}
     }, Math.round(fs * 1000) + 60);
@@ -341,7 +492,19 @@
     stop: bgmStop,
     apply: applyAudio,
     isPlaying: function () { return bgmRunning; },
-    level: bgmLevel
+    level: bgmLevel,
+    mood: function () { return currentMood; },
+    debug: function () {
+      if (!bgmRunning || !bgmNodes) return { mood: currentMood, running: false };
+      var a = bgmNodes.amb || {};
+      return {
+        mood: currentMood, beat: bgmNodes.beat, scale0: bgmNodes.scale && bgmNodes.scale[0],
+        padF: bgmNodes.oscs[0] && Math.round(bgmNodes.oscs[0].frequency.value),
+        ocean: a.oceanLevel && +a.oceanLevel.gain.value.toFixed(3),
+        wind: a.windLevel && +a.windLevel.gain.value.toFixed(3),
+        cricket: a.cricketLevel && +a.cricketLevel.gain.value.toFixed(3)
+      };
+    }
   };
 
   // ---------------------------------------------------------------
@@ -613,6 +776,8 @@
       var r = _origGo.apply(this, arguments);
       try {
         if (id === 'profile') { injectStyle(); decorateProfile(); }
+        var nm = moodFor(id);                 // per-screen music mood
+        if (nm !== currentMood) applyScene(nm); // morph the BGM (sets currentMood even if idle)
       } catch (e) {}
       return r;
     };
