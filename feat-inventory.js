@@ -75,6 +75,7 @@
 
   // metadata for materials (icon + thai label + sub)
   var MAT_META = {
+    soul:      ['🔮', 'วิญญาณตื่นรู้', 'ตื่นรู้ฮีโร่'],
     stone:     ['🪨', 'หินเสริมพลัง', 'อัปเกรดอุปกรณ์'],
     dust:      ['✨', 'ผงดารา', 'รีโรลค่าสเตตัส'],
     essence:   ['🔮', 'แก่นวิญญาณ', 'ตื่นรู้ฮีโร่'],
@@ -152,7 +153,8 @@
       return '<div class="inv-cell" title="' + esc(meta[1]) + '" ' +
         'onclick="invMatClick(\'' + esc(k) + '\')">' +
         '<span class="inv-qty">' + (mats[k] || 0) + '</span>' +
-        '<div class="inv-ic">' + meta[0] + '</div>' +
+        '<img class="inv-art" src="items/mat_' + esc(k) + '.png" alt="' + meta[0] + '" ' +
+          'onerror="this.replaceWith(Object.assign(document.createElement(\'div\'),{className:\'inv-ic\',textContent:this.alt}))">' +
         '<div class="inv-nm">' + esc(meta[1]) + '</div>' +
         '<div class="inv-sub">' + esc(meta[2]) + '</div>' +
         '</div>';
@@ -173,7 +175,8 @@
       return '<div class="inv-cell ' + esc(r) + '" title="' + esc(it.name || lbl) + '" ' +
         'onclick="invEquipClick(' + i + ')">' +
         (it.qty && it.qty > 1 ? '<span class="inv-qty">×' + it.qty + '</span>' : '') +
-        '<div class="inv-ic">' + ic + '</div>' +
+        '<img class="inv-art" src="items/eq_' + esc(it.slot) + '.png" alt="' + ic + '" ' +
+          'onerror="this.replaceWith(Object.assign(document.createElement(\'div\'),{className:\'inv-ic\',textContent:this.alt}))">' +
         '<div class="inv-nm">' + esc(it.name || lbl) + '</div>' +
         '<div class="inv-sub">' + esc(lbl) + (it.stat ? ' · ' + esc(it.stat) : '') + '</div>' +
         '</div>';

@@ -25,6 +25,8 @@
     padding:9px 14px;font-size:13px;cursor:pointer;font-family:inherit}
   button.primary{background:linear-gradient(135deg,var(--glow),var(--glow2));border:none;font-weight:600}
   button:disabled{opacity:.4;cursor:default}
+  .bv-back{background:rgba(255,255,255,.06);border-color:#3a3358;font-weight:600}
+  .bv-back:hover{background:rgba(139,92,246,.18);border-color:var(--glow)}
   .meta{color:var(--muted);font-size:12px;margin-left:auto;text-align:right}
   .field{display:grid;grid-template-columns:1fr 64px 1fr;gap:14px;align-items:start;margin-bottom:16px}
   .vs{align-self:center;text-align:center;color:var(--muted);font-weight:700;font-size:13px}
@@ -101,6 +103,7 @@
 
 <div class="wrap">
   <div class="controls">
+    <button class="bv-back" onclick="if(history.length>1){history.back()}else{location.href=(location.pathname.endsWith('battle.html')?'index.html':'game.html')}">‹ กลับเข้าเกม</button>
     <label class="sub">ด่าน:</label>
     <select id="stage"></select>
     <button class="primary" id="play">▶ เล่น</button>
