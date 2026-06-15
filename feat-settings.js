@@ -115,7 +115,92 @@
     osc.onended = function () { try { osc.disconnect(); g.disconnect(); } catch (e) {} };
   }
 
-  // ---- BGM: subtle ambient pad (detuned oscillators → low-pass → gain) ----
+  // ---------------------------------------------------------------
+  //  FLUTE LULLABY — "เพลงปี่กล่อมนิทรา" (พระอภัยมณี's enchanted flute)
+  //  A breathy synthesized flute playing a slow, spacious pentatonic
+  //  melody → hypnotic / sleep-inducing, like the magic ปี่ in the tale.
+  // ---------------------------------------------------------------
+  // pentatonic voice (G3 A3 B3 D4 E4 G4 A4) — anhemitonic, gentle/Eastern
+  var SCALE = [196.00, 220.00, 246.94, 293.66, 329.63, 392.00, 440.00];
+  var BEAT = 0.92;                       // seconds per beat — very slow
+  // [scaleIndex, beats]  (index < 0 = rest). Descending, settling phrases.
+  var MELODY = [
+    [4, 4], [3, 2], [2, 2], [1, 4], [-1, 2],
+    [3, 2], [2, 2], [1, 2], [0, 6], [-1, 3],
+    [2, 2], [1, 2], [0, 8], [-1, 5],
+    [5, 3], [4, 3], [3, 2], [2, 2], [1, 4], [0, 8], [-1, 6]
+  ];
+
+  var noiseBuf = null, reverbBuf = null;
+  function getNoise(ctx) {
+    if (noiseBuf) return noiseBuf;
+    var len = Math.floor(ctx.sampleRate * 2);
+    noiseBuf = ctx.createBuffer(1, len, ctx.sampleRate);
+    var d = noiseBuf.getChannelData(0);
+    for (var i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+    return noiseBuf;
+  }
+  function getReverb(ctx) {
+    if (reverbBuf) return reverbBuf;
+    var secs = 2.8, len = Math.floor(ctx.sampleRate * secs);
+    reverbBuf = ctx.createBuffer(2, len, ctx.sampleRate);
+    for (var ch = 0; ch < 2; ch++) {
+      var c = reverbBuf.getChannelData(ch);
+      for (var i = 0; i < len; i++) c[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6);
+    }
+    return reverbBuf;
+  }
+
+  // a soft envelope: gentle attack, sustain, gentle release (legato, breathy)
+  function aenv(param, when, dur, peak, atk, rel) {
+    peak = Math.max(0.0003, peak);
+    param.setValueAtTime(0.0001, when);
+    param.exponentialRampToValueAtTime(peak, when + atk);
+    param.setValueAtTime(peak, when + Math.max(atk + 0.02, dur));
+    param.exponentialRampToValueAtTime(0.0001, when + dur + rel);
+  }
+
+  // one flute note: fundamental (sine) + soft octave (triangle) + breath noise,
+  // shared vibrato on detune, into the flute bus.
+  function fluteNote(ctx, freq, when, dur, vel, bus, vibGain) {
+    var atk = 0.12, rel = Math.min(0.7, dur * 0.5);
+    var o1 = ctx.createOscillator(); o1.type = 'sine';     o1.frequency.value = freq;
+    var o2 = ctx.createOscillator(); o2.type = 'triangle'; o2.frequency.value = freq * 2;
+    if (vibGain) { try { vibGain.connect(o1.detune); vibGain.connect(o2.detune); } catch (e) {} }
+    var g1 = ctx.createGain(); aenv(g1.gain, when, dur, vel,        atk, rel);
+    var g2 = ctx.createGain(); aenv(g2.gain, when, dur, vel * 0.18, atk, rel);
+    // breath air: band-passed noise around the note, very soft
+    var nb = ctx.createBufferSource(); nb.buffer = getNoise(ctx); nb.loop = true;
+    var bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = freq * 2.0; bp.Q.value = 5;
+    var gn = ctx.createGain(); aenv(gn.gain, when, dur, vel * 0.05, atk * 1.6, rel);
+    o1.connect(g1).connect(bus);
+    o2.connect(g2).connect(bus);
+    nb.connect(bp).connect(gn).connect(bus);
+    var end = when + dur + rel + 0.12;
+    o1.start(when); o2.start(when); nb.start(when);
+    o1.stop(end); o2.stop(end); nb.stop(end);
+    o1.onended = function () { try { o1.disconnect(); o2.disconnect(); g1.disconnect(); g2.disconnect(); nb.disconnect(); bp.disconnect(); gn.disconnect(); } catch (e) {} };
+  }
+
+  // look-ahead scheduler: keeps the melody flowing + loops seamlessly
+  function fluteSchedule() {
+    if (!bgmRunning || !bgmNodes || !AC) return;
+    var ctx = AC, nodes = bgmNodes;
+    var lookahead = ctx.currentTime + 0.7;
+    while (nodes.nextNote < lookahead) {
+      var step = MELODY[nodes.mi];
+      var beats = step[1], idx = step[0];
+      if (idx >= 0) {
+        var dur = beats * BEAT * 0.92;
+        var vel = 0.5 + ((nodes.mi % 3) * 0.04);   // tiny per-note variation
+        fluteNote(ctx, SCALE[idx], nodes.nextNote, dur, vel, nodes.fluteLP, nodes.vibGain);
+      }
+      nodes.nextNote += beats * BEAT;
+      nodes.mi = (nodes.mi + 1) % MELODY.length;   // loop the phrase
+    }
+  }
+
+  // ---- BGM: enchanted flute melody over a subtle ambient pad ----
   function bgmStart() {
     var s = st();
     if (!s.bgm || s.bgmVol <= 0) return;
@@ -125,12 +210,19 @@
 
     var master = ctx.createGain();
     master.gain.value = 0; // fade in
+    // analyser tap for level metering / verification: master → analyser → out
+    var analyser = ctx.createAnalyser(); analyser.fftSize = 1024;
+    master.connect(analyser);
+    analyser.connect(ctx.destination);
+
+    // --- ambient pad bed (kept subtle — sits UNDER the flute) ---
     var lp = ctx.createBiquadFilter();
     lp.type = 'lowpass';
     lp.frequency.value = 620;          // warm, muffled pad
     lp.Q.value = 0.7;
-    lp.connect(master);
-    master.connect(ctx.destination);
+    var padGain = ctx.createGain();
+    padGain.gain.value = 0.5;           // pad quieter than the flute melody
+    lp.connect(padGain).connect(master);
 
     // a soft minor-ish chord (A2 / E3 / A3) with slight detune per voice for movement
     var base = [110, 164.81, 220];
@@ -142,7 +234,7 @@
       o.frequency.value = f;
       o.detune.value = detunes[i];
       var vg = ctx.createGain();
-      vg.gain.value = i === 0 ? 0.5 : 0.32; // bass louder, harmonics softer
+      vg.gain.value = i === 0 ? 0.42 : 0.24; // bass louder, harmonics softer
       o.connect(vg).connect(lp);
       o.start();
       oscs.push(o);
@@ -157,15 +249,37 @@
     lfo.connect(lfoGain).connect(lp.frequency);
     lfo.start();
 
-    bgmNodes = { oscs: oscs, lp: lp, master: master, lfo: lfo, lfoGain: lfoGain };
+    // --- enchanted flute layer (the melody — เพลงปี่กล่อมนิทรา) ---
+    var fluteLP = ctx.createBiquadFilter();
+    fluteLP.type = 'lowpass'; fluteLP.frequency.value = 2300; fluteLP.Q.value = 0.6;
+    var fluteGain = ctx.createGain(); fluteGain.gain.value = 0.9; // flute = the focus
+    fluteLP.connect(fluteGain).connect(master);
+    // dreamy reverb (temple-hall tail)
+    var reverb = ctx.createConvolver(); reverb.buffer = getReverb(ctx);
+    var revGain = ctx.createGain(); revGain.gain.value = 0.55;
+    fluteGain.connect(reverb).connect(revGain).connect(master);
+    // one shared slow vibrato on note pitch (±7 cents) for the breathy flute feel
+    var vib = ctx.createOscillator(); vib.type = 'sine'; vib.frequency.value = 5.0;
+    var vibGain = ctx.createGain(); vibGain.gain.value = 7;
+    vib.connect(vibGain); vib.start();
+
+    bgmNodes = {
+      oscs: oscs, lp: lp, padGain: padGain, master: master, analyser: analyser,
+      lfo: lfo, lfoGain: lfoGain,
+      fluteLP: fluteLP, fluteGain: fluteGain, reverb: reverb, revGain: revGain,
+      vib: vib, vibGain: vibGain,
+      nextNote: ctx.currentTime + 0.35, mi: 0, schedId: 0
+    };
     bgmRunning = true;
-    bgmApplyVol(1.2);                  // fade up over ~1.2s
+    fluteSchedule();                                  // prime the first notes
+    bgmNodes.schedId = setInterval(fluteSchedule, 140); // keep the melody flowing + looping
+    bgmApplyVol(1.4);                  // fade up over ~1.4s
   }
 
   function bgmApplyVol(fadeSec) {
     if (!bgmRunning || !bgmNodes || !AC) return;
     var s = st();
-    var target = 0.10 * clamp01(s.bgmVol); // keep ceiling low → subtle bed
+    var target = 0.20 * clamp01(s.bgmVol); // gentle ceiling — flute audible but soft
     var now = AC.currentTime;
     try {
       bgmNodes.master.gain.cancelScheduledValues(now);
@@ -181,6 +295,7 @@
     var nodes = bgmNodes;
     var now = AC.currentTime;
     var fs = (fadeSec == null) ? 0.6 : fadeSec;
+    if (nodes.schedId) { try { clearInterval(nodes.schedId); } catch (e) {} } // stop melody scheduler now
     try {
       nodes.master.gain.cancelScheduledValues(now);
       nodes.master.gain.setValueAtTime(Math.max(0.0001, nodes.master.gain.value), now);
@@ -190,11 +305,23 @@
       try {
         nodes.oscs.forEach(function (o) { try { o.stop(); o.disconnect(); } catch (e) {} });
         try { nodes.lfo.stop(); nodes.lfo.disconnect(); } catch (e) {}
-        try { nodes.lp.disconnect(); nodes.master.disconnect(); nodes.lfoGain.disconnect(); } catch (e) {}
+        try { nodes.vib.stop(); nodes.vib.disconnect(); } catch (e) {}
+        try { nodes.lp.disconnect(); nodes.padGain.disconnect(); } catch (e) {}
+        try { nodes.fluteLP.disconnect(); nodes.fluteGain.disconnect(); nodes.reverb.disconnect(); nodes.revGain.disconnect(); nodes.vibGain.disconnect(); } catch (e) {}
+        try { nodes.analyser.disconnect(); nodes.lfoGain.disconnect(); nodes.master.disconnect(); } catch (e) {}
       } catch (e) {}
     }, Math.round(fs * 1000) + 60);
     bgmRunning = false;
     bgmNodes = null;
+  }
+
+  // RMS level off the master analyser (0..~1) — for verification / VU
+  function bgmLevel() {
+    if (!bgmRunning || !bgmNodes || !bgmNodes.analyser) return 0;
+    var a = bgmNodes.analyser, buf = new Uint8Array(a.fftSize);
+    a.getByteTimeDomainData(buf);
+    var sum = 0; for (var i = 0; i < buf.length; i++) { var v = (buf[i] - 128) / 128; sum += v * v; }
+    return Math.sqrt(sum / buf.length);
   }
 
   // Reconcile audio engine with current settings (call after any settings change / gesture)
@@ -213,7 +340,8 @@
     start: bgmStart,
     stop: bgmStop,
     apply: applyAudio,
-    isPlaying: function () { return bgmRunning; }
+    isPlaying: function () { return bgmRunning; },
+    level: bgmLevel
   };
 
   // ---------------------------------------------------------------

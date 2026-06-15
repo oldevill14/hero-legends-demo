@@ -25,7 +25,7 @@
   if (!document.getElementById('fs-style')) {
     var css = [
       // full-bleed background layer (only visible when the screen is .on)
-      '.fs-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center right;background-repeat:no-repeat}',
+      '.fs-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center top;background-repeat:no-repeat}',
       // left scrim + bottom vignette for legibility (art already carries a soft left fade)
       '.fs-bg::after{content:"";position:absolute;inset:0;background:'
         + 'linear-gradient(90deg,rgba(6,6,12,.86) 0%,rgba(6,6,12,.5) 44%,rgba(6,6,12,.06) 74%,rgba(6,6,12,0) 100%),'
