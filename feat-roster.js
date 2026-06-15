@@ -226,7 +226,7 @@
       var active = (h.id === STATE.featured) ? ' active' : '';
       var lock = owned ? '' : '<span class="lk">🔒</span>';
       return '<div class="ros-card ' + h.r + (owned ? '' : ' locked') + active + '" data-id="' + h.id + '" onclick="rosterSelect(\'' + h.id + '\')">' +
-        '<img src="portraits/' + h.id + '.jpg" alt="">' +
+        '<img src="portraits/' + h.id + '.jpg" alt="" onerror="this.style.display=\'none\'">' +
         '<span class="ele" style="background:' + (ELEMAP[h.e] || 'var(--muted)') + '"></span>' +
         '<span class="stars">' + starStr(star) + '</span>' + lv + lock +
         '<span class="nm">' + h.th + '</span>' +

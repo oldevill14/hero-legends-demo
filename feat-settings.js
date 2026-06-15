@@ -561,6 +561,7 @@
     isPlaying: function () { return bgmRunning; },
     level: bgmLevel,
     mood: function () { return currentMood; },
+    scene: function (k) { applyScene(k); },   // set per-context mood (e.g. battle page → 'duel')
     debug: function () {
       if (!bgmRunning || !bgmNodes) return { mood: currentMood, running: false };
       var a = bgmNodes.amb || {};

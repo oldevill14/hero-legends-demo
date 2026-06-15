@@ -497,5 +497,23 @@ function bmSetMode(manual){
 
 bootstrap();
 </script>
+<!-- battle audio: reuse the game's WebAudio engine → duel mood (war drums) on first click -->
+<script src="game-core.js"></script>
+<script src="feat-settings.js"></script>
+<script>
+  if (window.BGM) { try { BGM.scene('duel'); } catch (e) {} }
+  // little victory fanfare when a battle ends in a win
+  (function () {
+    if (typeof window.finish !== 'function') return;
+    var _fin = window.finish;
+    window.finish = function () {
+      var r = _fin.apply(this, arguments);
+      try { if (window.SFX) { var won = /WIN|ชนะ/i.test((document.body.innerText || '')); SFX(won ? 'reward' : 'cancel'); } } catch (e) {}
+      return r;
+    };
+  })();
+  // register the PWA service worker (offline + always-fresh assets)
+  if ('serviceWorker' in navigator) { try { navigator.serviceWorker.register('sw.js'); } catch (e) {} }
+</script>
 </body>
 </html>

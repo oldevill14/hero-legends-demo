@@ -239,7 +239,7 @@
       <div class="feat glass" onclick="go('summon')"><span class="badge">ใหม่</span><b style="font-size:13px">อัญเชิญ: นางละเวง ✦ Limited</b></div>
     </div>
     <div class="hub-nav">
-      <div class="navbtn glass" onclick="go('heroes')"><div class="ic">🛡️</div><div class="t">ฮีโร่</div><div class="s">24 ตัว</div></div>
+      <div class="navbtn glass" onclick="go('heroes')"><div class="ic">🛡️</div><div class="t">ฮีโร่</div><div class="s">42 ตัว</div></div>
       <div class="navbtn glass" onclick="go('summon')"><div class="ic">🔮</div><div class="t">อัญเชิญ</div><div class="s">มี Limited</div></div>
       <div class="navbtn primary" onclick="go('stages')"><div class="ic">⚔️</div><div class="t">ผจญภัย</div><div class="s">บทที่ 1-8</div></div>
       <div class="navbtn glass" onclick="go('arena')"><div class="ic">🏆</div><div class="t">สังเวียน</div><div class="s">Diamond III</div></div>
@@ -451,6 +451,25 @@ const HEROES=[
  {id:"hero_kritsana",th:"กฤษณา",r:"Epic",e:"Nature",c:"Assassin",hp:1020,atk:182,def:88,spd:115,star:7,skills:[["🗡️","กริชพิษ","ลอบโจมตีเดี่ยวหนัก"],["✦","เงามรณะ","เบิร์สต์ + เลือดออก"]]},
  {id:"hero_walayuda",th:"วลายุดา",r:"Epic",e:"Water",c:"Mage",hp:990,atk:186,def:86,spd:107,star:7,skills:[["🔮","มายาคลื่น","เวทเดี่ยว ลดเกราะ"],["✦","วังวนสาคร","AoE + ธาตุ DoT/CC"]]},
  {id:"hero_thao_suthat",th:"ท้าวสุทัศน์",r:"Epic",e:"Light",c:"Guardian",hp:1480,atk:155,def:145,spd:90,star:7,skills:[["🛡️","พระขรรค์รัตนา","AoE + ลดความเร็ว"],["✦","บารมีกษัตริย์","AoE + สตัน"]]},
+ // --- generic recruit troops (6 factions × 3 tiers) — faction-template art ---
+ {id:'hero_crystal_footsoldier',th:'ทหารราบเมืองผลึก',r:'Common',e:'Light',c:'Warrior',hp:620,atk:62,def:48,spd:94,star:1,skills:[['⚔️','โจมตีพื้นฐาน','โจมตีศัตรูเดี่ยวตามพลังโจมตี']]},
+ {id:'hero_crystal_guardsman',th:'พลโล่เมืองผลึก',r:'Common',e:'Light',c:'Guardian',hp:720,atk:50,def:60,spd:86,star:1,skills:[['⚔️','โจมตีพื้นฐาน','โจมตีศัตรูเดี่ยวตามพลังโจมตี']]},
+ {id:'hero_lanka_bowman',th:'พลธนูลังกา',r:'Common',e:'Fire',c:'Archer',hp:540,atk:70,def:38,spd:100,star:1,skills:[['⚔️','โจมตีพื้นฐาน','โจมตีศัตรูเดี่ยวตามพลังโจมตี']]},
+ {id:'hero_sea_deckhand',th:'ลูกเรือชาวสมุทร',r:'Common',e:'Water',c:'Warrior',hp:640,atk:60,def:46,spd:92,star:1,skills:[['⚔️','โจมตีพื้นฐาน','โจมตีศัตรูเดี่ยวตามพลังโจมตี']]},
+ {id:'hero_ogre_lackey',th:'ยักษ์บริวารน้อย',r:'Common',e:'Dark',c:'Warrior',hp:700,atk:64,def:50,spd:80,star:1,skills:[['⚔️','โจมตีพื้นฐาน','โจมตีศัตรูเดี่ยวตามพลังโจมตี']]},
+ {id:'hero_hermit_novice',th:'ศิษย์ฤๅษีฝึกหัด',r:'Common',e:'Light',c:'Priest',hp:560,atk:52,def:42,spd:96,star:1,skills:[['⚔️','โจมตีพื้นฐาน','โจมตีศัตรูเดี่ยวตามพลังโจมตี']]},
+ {id:'hero_crystal_lancer',th:'พลทวนเมืองผลึก',r:'Rare',e:'Light',c:'Warrior',hp:820,atk:92,def:64,spd:96,star:2,skills:[['⚔️','โจมตีพื้นฐาน','โจมตีศัตรูเดี่ยวตามพลังโจมตี']]},
+ {id:'hero_lanka_crossbowman',th:'พลหน้าไม้ลังกา',r:'Rare',e:'Fire',c:'Archer',hp:660,atk:100,def:52,spd:104,star:2,skills:[['⚔️','โจมตีพื้นฐาน','โจมตีศัตรูเดี่ยวตามพลังโจมตี']]},
+ {id:'hero_island_raider',th:'นักรบเกาะร้าง',r:'Rare',e:'Nature',c:'Assassin',hp:700,atk:96,def:54,spd:108,star:2,skills:[['⚔️','โจมตีพื้นฐาน','โจมตีศัตรูเดี่ยวตามพลังโจมตี']]},
+ {id:'hero_sea_navigator',th:'ต้นหนชาวเรือสมุทร',r:'Rare',e:'Water',c:'Support',hp:720,atk:82,def:60,spd:102,star:2,skills:[['⚔️','โจมตีพื้นฐาน','โจมตีศัตรูเดี่ยวตามพลังโจมตี']]},
+ {id:'hero_ogre_brute',th:'ยักษ์บริวารคำราม',r:'Rare',e:'Dark',c:'Guardian',hp:880,atk:80,def:70,spd:82,star:2,skills:[['⚔️','โจมตีพื้นฐาน','โจมตีศัตรูเดี่ยวตามพลังโจมตี']]},
+ {id:'hero_hermit_adept',th:'ศิษย์ฤๅษีชำนาญ',r:'Rare',e:'Light',c:'Mage',hp:640,atk:98,def:50,spd:100,star:2,skills:[['⚔️','โจมตีพื้นฐาน','โจมตีศัตรูเดี่ยวตามพลังโจมตี']]},
+ {id:'hero_crystal_captain',th:'นายกองเมืองผลึก',r:'Elite',e:'Light',c:'Warrior',hp:1040,atk:124,def:88,spd:98,star:3,skills:[['⚔️','โจมตีพื้นฐาน','โจมตีศัตรูเดี่ยวตามพลังโจมตี']]},
+ {id:'hero_lanka_sharpshooter',th:'พลแม่นธนูลังกา',r:'Elite',e:'Fire',c:'Archer',hp:820,atk:132,def:66,spd:110,star:3,skills:[['⚔️','โจมตีพื้นฐาน','โจมตีศัตรูเดี่ยวตามพลังโจมตี']]},
+ {id:'hero_island_champion',th:'ขุนพลเกาะร้าง',r:'Elite',e:'Nature',c:'Assassin',hp:860,atk:128,def:70,spd:112,star:3,skills:[['⚔️','โจมตีพื้นฐาน','โจมตีศัตรูเดี่ยวตามพลังโจมตี']]},
+ {id:'hero_sea_boatswain',th:'สรั่งเรือชาวสมุทร',r:'Elite',e:'Water',c:'Priest',hp:900,atk:110,def:78,spd:100,star:3,skills:[['⚔️','โจมตีพื้นฐาน','โจมตีศัตรูเดี่ยวตามพลังโจมตี']]},
+ {id:'hero_ogre_warlord',th:'ยักษ์บริวารหัวหน้า',r:'Elite',e:'Dark',c:'Guardian',hp:1100,atk:112,def:95,spd:84,star:3,skills:[['⚔️','โจมตีพื้นฐาน','โจมตีศัตรูเดี่ยวตามพลังโจมตี']]},
+ {id:'hero_hermit_sage',th:'ศิษย์ฤๅษีปราชญ์',r:'Elite',e:'Light',c:'Mage',hp:800,atk:130,def:64,spd:104,star:3,skills:[['⚔️','โจมตีพื้นฐาน','โจมตีศัตรูเดี่ยวตามพลังโจมตี']]},
 ];
 const ELE={Water:'var(--water)',Fire:'var(--fire)',Nature:'var(--nature)',Light:'var(--light)',Dark:'var(--dark)'};
 const STAGES=[
@@ -645,6 +664,7 @@ renderHeroes(); renderStages(); renderModes(); renderArena(); renderGuild(); ren
 <script src="feat-settings.js"></script>
 <script src="feat-artifact.js"></script>
 <script src="feat-fullscreen.js"></script>
-<script>if(window.GAME){GAME.ensureOwned();GAME.refresh();}</script>
+<script>if(window.GAME){GAME.ensureOwned();GAME.refresh();}
+if('serviceWorker' in navigator){try{navigator.serviceWorker.register('sw.js');}catch(e){}}</script>
 </body>
 </html>
