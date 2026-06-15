@@ -126,6 +126,11 @@
       // profile header card
       '.guildhead{padding:clamp(11px,1.2vw,19px);border-radius:14px}',
       '.guildhead img{width:clamp(54px,4.2vw,78px)!important;height:clamp(54px,4.2vw,78px)!important}',
+      // hero UPGRADE / EQUIPMENT: bigger character portrait + readable stats on large screens
+      '#upgrade .dt-art{width:clamp(220px,24vw,400px)!important;align-self:flex-start}',
+      '#equip .dt-art{width:clamp(200px,22vw,360px)!important;align-self:flex-start}',
+      '#upgrade .upgrade-stat{font-size:clamp(13px,1.15vw,18px)}',
+      '#upgrade h2,#equip h2{font-size:clamp(20px,2vw,30px)!important}',
     ].join('');
     var b = document.createElement('style');
     b.id = 'fs-big';
