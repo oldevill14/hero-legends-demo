@@ -28,8 +28,9 @@
       '.fs-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center right;background-repeat:no-repeat}',
       // left scrim + bottom vignette for legibility (art already carries a soft left fade)
       '.fs-bg::after{content:"";position:absolute;inset:0;background:'
-        + 'linear-gradient(90deg,rgba(6,6,12,.92) 0%,rgba(6,6,12,.66) 40%,rgba(6,6,12,.12) 68%,rgba(6,6,12,0) 100%),'
-        + 'linear-gradient(0deg,rgba(6,6,12,.85) 0%,rgba(6,6,12,.10) 34%,rgba(6,6,12,0) 60%)}',
+        + 'linear-gradient(90deg,rgba(6,6,12,.86) 0%,rgba(6,6,12,.5) 44%,rgba(6,6,12,.06) 74%,rgba(6,6,12,0) 100%),'
+        + 'linear-gradient(270deg,rgba(6,6,12,.45) 0%,rgba(6,6,12,0) 16%),'
+        + 'linear-gradient(0deg,rgba(6,6,12,.5) 0%,rgba(6,6,12,.04) 30%,rgba(6,6,12,0) 52%)}',
       '.fs-summon{background-image:url("portraits/summon-bg.jpg")}',
       '.fs-stages{background-image:url("portraits/stages-bg.jpg")}',
       '.fs-arena{background-image:url("portraits/arena-bg.jpg")}',
@@ -38,7 +39,7 @@
       '#summon>.topbar,#summon>.body,#stages>.topbar,#stages>.body,'
         + '#arena>.topbar,#arena>.body,#guild>.topbar,#guild>.body{position:relative;z-index:2}',
       // content sits in a left column; the hero art breathes on the right
-      '#stages>.body,#arena>.body,#guild>.body{max-width:min(64%,820px)}',
+      '#stages>.body,#arena>.body,#guild>.body{max-width:min(66%,960px)}',
       // give list cards a touch more presence on big screens
       '#stages .cmpg-chap,#arena .glass,#guild .glass{backdrop-filter:blur(3px)}',
 
@@ -70,6 +71,66 @@
     s.id = 'fs-style';
     s.textContent = css;
     document.head.appendChild(s);
+  }
+
+  // ---------------------------------------------------------------- big-screen scale
+  // The UI was sized for a small viewport → tiny on large monitors. Scale the shared
+  // chrome + menu components with clamp(min, vw, max): unchanged on small screens,
+  // comfortably larger on big ones.
+  if (!document.getElementById('fs-big')) {
+    var big = [
+      // hub top-right: currency pills + side buttons + profile chip
+      '#hub .curr{gap:9px}',
+      '#hub .curr .pill{font-size:clamp(13px,1.05vw,19px);padding:9px 16px;border-radius:16px}',
+      '#hub .curr .pill .ic{font-size:clamp(14px,1.1vw,21px)}',
+      '#hub .side{top:64px;right:16px;gap:10px}',
+      '#hub .sbtn{width:clamp(46px,3.6vw,64px);height:clamp(46px,3.6vw,64px);font-size:clamp(19px,1.7vw,29px);border-radius:15px}',
+      '#hub .pf{padding:7px 16px 7px 7px}',
+      '#hub .pf img{width:clamp(42px,3vw,58px)!important;height:clamp(42px,3vw,58px)!important}',
+      '#hub .pf .nm{font-size:clamp(13px,1.05vw,18px)}',
+      '#hub .pf .lv{font-size:clamp(10px,.85vw,14px)}',
+      // hub bottom nav
+      '#hub .hub-nav{gap:14px;padding:clamp(12px,1.6vw,26px)}',
+      '#hub .navbtn{max-width:clamp(150px,15vw,240px);padding:clamp(13px,1.5vw,24px) 10px;border-radius:16px}',
+      '#hub .navbtn .ic{font-size:clamp(24px,2.4vw,40px)}',
+      '#hub .navbtn .t{font-size:clamp(12px,1.2vw,19px);margin-top:6px}',
+      '#hub .navbtn .s{font-size:clamp(9.5px,.92vw,14px)}',
+      '#hub .feat{padding:10px 18px}',
+      '#hub .feat b{font-size:clamp(13px,1.1vw,17px)!important}',
+      // shared headings / back buttons / primary buttons
+      '.h2{font-size:clamp(16px,1.65vw,27px)}',
+      '.h2 .sub{font-size:clamp(11px,1vw,16px)}',
+      '.topbar .back{font-size:clamp(12px,1.05vw,17px);padding:9px 17px}',
+      '.btn{font-size:clamp(14px,1.25vw,19px)}',
+      // list cards (profile / shop / mail / daily / events)
+      '.listcard{padding:clamp(11px,1.15vw,19px) clamp(13px,1.2vw,21px);border-radius:14px;margin-bottom:10px}',
+      '.listcard .ic{font-size:clamp(22px,1.9vw,31px);width:clamp(30px,2.4vw,42px)}',
+      '.listcard .gr .t{font-size:clamp(13px,1.2vw,19px)}',
+      '.listcard .gr .s{font-size:clamp(10.5px,.95vw,15px)}',
+      '.listcard .rt{font-size:clamp(11px,1vw,16px)}',
+      // game-mode tiles
+      '.tile{padding:clamp(15px,1.7vw,28px) 10px;border-radius:16px}',
+      '.tile .ic{font-size:clamp(28px,2.7vw,44px)}',
+      '.tile .t{font-size:clamp(12.5px,1.25vw,19px);margin-top:8px}',
+      '.tile .s{font-size:clamp(9.5px,.9vw,14px)}',
+      // rank rows (arena / guild)
+      '.rankrow{padding:clamp(10px,1.05vw,17px) clamp(12px,1.15vw,19px);border-radius:13px;gap:14px}',
+      '.rankrow img{width:clamp(40px,3vw,58px)!important;height:clamp(40px,3vw,58px)!important}',
+      '.rankrow .badge2,.badge2{font-size:clamp(9px,.82vw,13px)}',
+      // campaign chapter tabs + stage rows
+      '#stages .cmpg-chap{font-size:clamp(11.5px,1.05vw,17px);padding:8px 15px}',
+      '#stages .cmpg-row{padding:clamp(10px,1.1vw,18px) clamp(12px,1.2vw,19px)}',
+      '#stages .cmpg-ic{font-size:clamp(20px,1.9vw,30px)}',
+      '#stages .cmpg-t{font-size:clamp(13px,1.2vw,19px)}',
+      '#stages .cmpg-sub{font-size:clamp(10.5px,.95vw,15px)}',
+      // profile header card
+      '.guildhead{padding:clamp(11px,1.2vw,19px);border-radius:14px}',
+      '.guildhead img{width:clamp(54px,4.2vw,78px)!important;height:clamp(54px,4.2vw,78px)!important}',
+    ].join('');
+    var b = document.createElement('style');
+    b.id = 'fs-big';
+    b.textContent = big;
+    document.head.appendChild(b);
   }
 
   // ---------------------------------------------------------------- bg layers
