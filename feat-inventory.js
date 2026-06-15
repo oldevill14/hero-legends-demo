@@ -84,8 +84,10 @@
     ember:     ['🔥', 'ถ่านเพลิงลังกา', 'หลอมอาวุธไฟ'],
     moonlight: ['🌙', 'น้ำค้างจันทรา', 'ตื่นรู้ Light']
   };
-  var EQ_ICON = { weapon: '⚔️', armor: '🥋', helm: '⛑️', boots: '👢', glove: '🧤', amulet: '📿', ring: '💍', set: '🔯' };
-  var EQ_LABEL = { weapon: 'อาวุธ', armor: 'เกราะ', helm: 'หมวก', boots: 'รองเท้า', glove: 'ถุงมือ', amulet: 'สร้อย', ring: 'แหวน', set: 'เซ็ต' };
+  var EQ_ICON = { weapon: '⚔️', armor: '🥋', helm: '⛑️', helmet: '⛑️', boots: '👢', glove: '🧤', gloves: '🧤', amulet: '📿', necklace: '📿', ring: '💍', set: '🔯' };
+  var EQ_LABEL = { weapon: 'อาวุธ', armor: 'เกราะ', helm: 'หมวก', helmet: 'หมวก', boots: 'รองเท้า', glove: 'ถุงมือ', gloves: 'ถุงมือ', amulet: 'สร้อย', necklace: 'สร้อยคอ', ring: 'แหวน', set: 'เซ็ต' };
+  // map gameplay slot names → the icon file we generated
+  var EQ_ICONFILE = { helmet: 'helm', gloves: 'glove', necklace: 'amulet' };
 
   // remember active tab across re-renders
   if (!window.__invTab) window.__invTab = 'shard';
@@ -175,7 +177,7 @@
       return '<div class="inv-cell ' + esc(r) + '" title="' + esc(it.name || lbl) + '" ' +
         'onclick="invEquipClick(' + i + ')">' +
         (it.qty && it.qty > 1 ? '<span class="inv-qty">×' + it.qty + '</span>' : '') +
-        '<img class="inv-art" src="items/eq_' + esc(it.slot) + '.png" alt="' + ic + '" ' +
+        '<img class="inv-art" src="items/eq_' + esc(EQ_ICONFILE[it.slot] || it.slot) + '.png" alt="' + ic + '" ' +
           'onerror="this.replaceWith(Object.assign(document.createElement(\'div\'),{className:\'inv-ic\',textContent:this.alt}))">' +
         '<div class="inv-nm">' + esc(it.name || lbl) + '</div>' +
         '<div class="inv-sub">' + esc(lbl) + (it.stat ? ' · ' + esc(it.stat) : '') + '</div>' +
