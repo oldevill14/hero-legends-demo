@@ -62,11 +62,10 @@
 
   /* ---------- HUB ---------- */
   #hub{justify-content:space-between}
-  .hub-hero{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,18,.1),rgba(10,10,18,.85)),
-      url('portraits/hero_suwanmali.jpg') right 20%/contain no-repeat;opacity:.9}
+  .hub-hero{position:absolute;inset:0;background:linear-gradient(rgba(10,10,18,0) 50%,rgba(10,10,18,.55) 78%,rgba(10,10,18,.94)),
+      url('portraits/hub-bg.jpg') center/cover no-repeat;opacity:1}
   .hub-mid{position:relative;z-index:2;padding:0 18px;align-self:flex-start;margin-top:6px;max-width:54%}
-  .hub-mid h2{margin:6px 0 2px;font-size:22px}
-  .hub-mid p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
+  .hub-mid h2,.hub-mid p{display:none}  /* key-art already carries the title */
   .feat{margin-top:12px;display:inline-flex;gap:8px;align-items:center;padding:8px 14px;border-radius:14px;cursor:pointer}
   .feat .badge{background:var(--epic);color:#fff;font-size:9px;padding:2px 7px;border-radius:8px;font-weight:800}
   .hub-nav{position:relative;z-index:3;display:flex;gap:9px;padding:12px;justify-content:center}
@@ -633,6 +632,10 @@ renderHeroes(); renderStages(); renderModes(); renderArena(); renderGuild(); ren
 <script src="feat-shop.js"></script>
 <script src="feat-modes.js"></script>
 <script src="feat-upgradeplus.js"></script>
+<script src="feat-potential.js"></script>
+<script src="feat-mail.js"></script>
+<script src="feat-settings.js"></script>
+<script src="feat-artifact.js"></script>
 <script>if(window.GAME){GAME.ensureOwned();GAME.refresh();}</script>
 </body>
 </html>
