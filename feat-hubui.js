@@ -11,22 +11,19 @@
 
   if (!document.getElementById('hubui-style')) {
     var css = [
-      // ---- horizontal utility toolbar (was a vertical right rail) ----
-      '#hub .side{position:absolute;top:clamp(60px,7.2vw,106px);left:50%;transform:translateX(-50%);right:auto;bottom:auto;' +
-        'flex-direction:row;align-items:flex-start;gap:clamp(6px,.8vw,14px);z-index:4;max-width:95vw;overflow-x:auto;overflow-y:visible;' +
-        'padding:4px 8px 6px;background:none;scrollbar-width:thin}',
-      '#hub .side::-webkit-scrollbar{height:5px}',
+      // ---- vertical right sidebar: each item = icon + label pill ----
+      '#hub .side{position:absolute;top:clamp(58px,7vw,104px);right:clamp(12px,1.4vw,26px);left:auto;bottom:auto;transform:none;' +
+        'flex-direction:column;align-items:stretch;gap:clamp(7px,.85vw,13px);z-index:4;max-height:78vh;overflow-y:auto;overflow-x:visible;padding:2px;scrollbar-width:thin}',
+      '#hub .side::-webkit-scrollbar{width:5px}',
       '#hub .side::-webkit-scrollbar-thumb{background:#3a3358;border-radius:5px}',
-      '#hub .sbtn{width:auto;height:auto;flex:none;min-width:clamp(62px,6.6vw,100px);display:flex;flex-direction:column;align-items:center;' +
-        'gap:5px;padding:8px 7px 7px;border-radius:15px;position:relative;transition:transform .14s,box-shadow .14s}',
-      '#hub .sbtn:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(139,92,246,.45)}',
-      '#hub .sbtn .hub-ico{width:clamp(34px,3.1vw,52px);height:clamp(34px,3.1vw,52px);background-size:contain;background-position:center;' +
-        'background-repeat:no-repeat;display:flex;align-items:center;justify-content:center;font-size:clamp(20px,1.8vw,28px)}',
+      '#hub .sbtn{width:auto;height:auto;flex:none;display:flex;flex-direction:row;align-items:center;justify-content:flex-start;' +
+        'gap:10px;padding:8px 17px 8px 9px;border-radius:16px;position:relative;transition:transform .14s,box-shadow .14s}',
+      '#hub .sbtn:hover{transform:translateX(-3px);box-shadow:0 6px 22px rgba(139,92,246,.45)}',
+      '#hub .sbtn .hub-ico{flex:none;width:clamp(32px,2.7vw,46px);height:clamp(32px,2.7vw,46px);background-size:contain;background-position:center;' +
+        'background-repeat:no-repeat;display:flex;align-items:center;justify-content:center;font-size:clamp(19px,1.7vw,26px)}',
       '#hub .sbtn .hub-ico.on{font-size:0}',
-      '#hub .sbtn .hub-lbl{font-size:clamp(10px,.92vw,14px);font-weight:800;color:var(--ink);white-space:nowrap;text-shadow:0 1px 4px rgba(0,0,0,.9)}',
-      '#hub .sbtn .mail-sidebadge{top:2px;right:6px}',
-      // free up the top: hide the small promo banner (อัญเชิญ is in the main nav)
-      '#hub .hub-mid{display:none}',
+      '#hub .sbtn .hub-lbl{font-size:clamp(11px,1vw,16px);font-weight:800;color:var(--ink);white-space:nowrap;text-shadow:0 1px 4px rgba(0,0,0,.9)}',
+      '#hub .sbtn .mail-sidebadge{top:3px;left:34px;right:auto}',
       // ---- bigger currency pills + graphic icons ----
       '#hub .curr{gap:clamp(8px,1vw,14px)}',
       '#hub .curr .pill{font-size:clamp(14px,1.25vw,22px);padding:clamp(9px,1vw,15px) clamp(15px,1.4vw,23px);border-radius:18px;gap:9px;font-weight:800}',
