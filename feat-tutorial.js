@@ -190,11 +190,22 @@
   // --- boot ---
   function boot() {
     ensureHelpBtn();
-    // show tutorial after short delay so title screen renders first
+    // show the tutorial the FIRST time the player reaches the hub — never over the title screen
+    if (!window.__tutGoHooked && typeof window.go === 'function') {
+      var _go = window.go;
+      window.go = function (id) {
+        var r = _go.apply(this, arguments);
+        if (id === 'hub' && !S.tutorialDone) {
+          setTimeout(function () { if (!S.tutorialDone) window.showTutorial(); }, 350);
+        }
+        return r;
+      };
+      window.__tutGoHooked = true;
+    }
+    // reloaded straight onto the hub (mid-game) → show it too
     if (!S.tutorialDone) {
-      setTimeout(function () {
-        if (!S.tutorialDone) window.showTutorial();
-      }, 800);
+      var on = document.querySelector('.screen.on');
+      if (on && on.id === 'hub') setTimeout(function () { if (!S.tutorialDone) window.showTutorial(); }, 600);
     }
   }
 

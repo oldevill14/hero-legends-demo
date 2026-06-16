@@ -40,16 +40,17 @@
 
   /* ---------- TITLE ---------- */
   #title{justify-content:center;align-items:center;
-    background:linear-gradient(rgba(10,10,18,.45),rgba(10,10,18,.92)),
-      url('portraits/hero_phraaphai.jpg') center 18%/cover no-repeat}
-  .logo{ text-align:center }
+    background:linear-gradient(rgba(8,8,16,.28),rgba(8,8,16,.5) 46%,rgba(8,8,16,.92)),
+      url('portraits/title-bg.jpg') center 26%/cover no-repeat}
+  .logo{ text-align:center;position:relative;z-index:2;padding:34px 50px;border-radius:26px;
+    background:radial-gradient(ellipse at center,rgba(8,8,16,.66),rgba(8,8,16,0) 72%) }
   .logo .orb{width:46px;height:46px;border-radius:50%;margin:0 auto 12px;
     background:radial-gradient(circle at 35% 30%,#e9d5ff,var(--glow) 45%,var(--glow2));
     box-shadow:0 0 34px 8px rgba(139,92,246,.6)}
-  .logo h1{margin:0;font-size:40px;font-weight:900;letter-spacing:1px;
+  .logo h1{margin:0;font-size:clamp(40px,5.6vw,76px);font-weight:900;letter-spacing:1px;
     background:linear-gradient(180deg,#fff,#f5c451);-webkit-background-clip:text;background-clip:text;color:transparent;
-    text-shadow:0 2px 30px rgba(245,196,81,.25)}
-  .logo .th{font-size:19px;color:#e9d5ff;margin-top:2px;letter-spacing:3px}
+    filter:drop-shadow(0 3px 22px rgba(245,196,81,.45))}
+  .logo .th{font-size:clamp(18px,2vw,28px);color:#f3e6c8;margin-top:6px;letter-spacing:3px;font-weight:700;text-shadow:0 2px 10px rgba(0,0,0,.8)}
   .logo .tag{color:var(--muted);font-size:12px;margin-top:10px;font-style:italic}
   .start{margin-top:34px;padding:13px 40px;border:none;border-radius:30px;cursor:pointer;
     background:linear-gradient(135deg,var(--glow),var(--glow2));color:#fff;font-weight:800;font-size:16px;
