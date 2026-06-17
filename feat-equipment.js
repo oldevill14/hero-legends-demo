@@ -5,7 +5,7 @@
  * - Inventory of gear lives in GAME.state.inventory.equip (auto-seeded if empty),
  *   each item: {id, slot, rarity, mainStat, value, set}
  * - Equipped gear: GAME.state.equipment[heroId][slot] = itemId
- * - window.equipBonus(heroId) -> {hp,atk,def,spd}  (other screens add these)
+ * - window.equipBonus(heroId) -> {hp,atk,def,spd,crit,critdmg,acc,res}  (other screens add these)
  * - Set-bonus summary (count by set), persisted via GAME.save.
  * Theme: Light / Shadow / Spirit — violet glow + gold. All UI text Thai.
  */
@@ -32,6 +32,7 @@
   var RARITY = {
     Common:    { th: 'ธรรมดา',   col: 'var(--muted)', mul: 1,   stars: 1 },
     Rare:      { th: 'หายาก',    col: 'var(--water)', mul: 1.7, stars: 2 },
+    Elite:     { th: 'อีลิท',     col: 'var(--epic)',  mul: 2.1, stars: 3 },
     Epic:      { th: 'เอพิก',     col: 'var(--epic)',  mul: 2.6, stars: 3 },
     Legendary: { th: 'ตำนาน',    col: 'var(--leg)',   mul: 3.8, stars: 4 },
     Mythic:    { th: 'อมตะ',      col: 'var(--myth)',  mul: 5.2, stars: 5 },
@@ -52,6 +53,26 @@
   // base stat value per slot's main stat (before rarity multiplier)
   var BASE = { hp: 90, atk: 16, def: 14, spd: 7 };
 
+  // ---- secondary (sub) stats: combat-subsystem stats gear can roll ----
+  // base per-roll value (multiplied by rarity mul); decimals = rounding precision
+  var SUBSTAT = {
+    crit:    { th: '🎯 คริต',       base: 0.03, dp: 3 },
+    critdmg: { th: '💥 คริตดาเมจ', base: 0.10, dp: 2 },
+    acc:     { th: '🎯 แม่นยำ',     base: 0.04, dp: 3 },
+    res:     { th: '🛡️ ต้านทาน',   base: 0.04, dp: 3 },
+  };
+  // deterministic key order; sub-stat count is picked off this cycle by item index
+  var SUB_KEYS = ['crit', 'critdmg', 'acc', 'res'];
+  // how many sub-stats each rarity rolls
+  var SUB_COUNT = { Common: 0, Rare: 1, Elite: 1, Epic: 2, Legendary: 2, Mythic: 3 };
+
+  function rollSub(key, mul) {
+    var def = SUBSTAT[key];
+    var v = def.base * mul;
+    var f = Math.pow(10, def.dp);
+    return Math.round(v * f) / f;
+  }
+
   // ---------- inventory seeding ----------
   function inv() {
     if (!G.state.inventory) G.state.inventory = {};
@@ -62,10 +83,18 @@
     var slot = SLOT_BY_KEY[slotKey];
     var r = RARITY[rarity];
     var val = Math.round(BASE[slot.stat] * r.mul);
+    // deterministic sub-stats: cycle through SUB_KEYS using index n so the
+    // same (slot, rarity, n) always yields the same keys, never repeating a key.
+    var count = SUB_COUNT[rarity] || 0;
+    var subs = [];
+    for (var i = 0; i < count && i < SUB_KEYS.length; i++) {
+      var key = SUB_KEYS[(n + i) % SUB_KEYS.length];
+      subs.push({ stat: key, value: rollSub(key, r.mul) });
+    }
     return {
       id: 'eq_' + slotKey + '_' + rarity.toLowerCase() + '_' + n,
       slot: slotKey, rarity: rarity, set: set,
-      mainStat: slot.stat, value: val,
+      mainStat: slot.stat, value: val, subs: subs,
     };
   }
   function seedIfEmpty() {
@@ -113,12 +142,18 @@
 
   // ---------- public: stat bonus from equipped gear ----------
   window.equipBonus = function (heroId) {
-    var out = { hp: 0, atk: 0, def: 0, spd: 0 };
+    var out = { hp: 0, atk: 0, def: 0, spd: 0, crit: 0, critdmg: 0, acc: 0, res: 0 };
     var m = (G.state.equipment || {})[heroId];
     if (!m) return out;
     for (var sk in m) {
       var it = itemById(m[sk]);
-      if (it && out.hasOwnProperty(it.mainStat)) out[it.mainStat] += it.value;
+      if (!it) continue;
+      if (out.hasOwnProperty(it.mainStat)) out[it.mainStat] += it.value;
+      if (Array.isArray(it.subs)) {
+        it.subs.forEach(function (s) {
+          if (out.hasOwnProperty(s.stat)) out[s.stat] += s.value;
+        });
+      }
     }
     return out;
   };

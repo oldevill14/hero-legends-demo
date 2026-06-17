@@ -16,7 +16,7 @@
       "rarity": "Common",
       "class": "Warrior",
       "element": "Fire",
-      "base_stats": { "hp": 620, "atk": 78, "def": 42, "spd": 96, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 620, "atk": 78, "def": 42, "spd": 96, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.03 },
       "skill": { "skill_id": "esk_pirate_grunt_slash", "slot": "active", "name_th": "ฟันดาบ", "name_en": "Cutlass Slash", "target_rule": "enemy_front", "cooldown": 0, "scaling": { "stat": "atk", "mult": 1.0 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.0 }, "hits": 1 }] }
     },
     {
@@ -27,7 +27,7 @@
       "rarity": "Common",
       "class": "Archer",
       "element": "Fire",
-      "base_stats": { "hp": 540, "atk": 88, "def": 36, "spd": 110, "crit": 0.10, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 540, "atk": 88, "def": 36, "spd": 110, "crit": 0.1, "critdmg": 1.5, "acc": 0.0, "res": 0.03 },
       "skill": { "skill_id": "esk_pirate_scout_shot", "slot": "active", "name_th": "ยิงปืนสั้น", "name_en": "Flintlock Shot", "target_rule": "enemy_highest_atk", "cooldown": 0, "scaling": { "stat": "atk", "mult": 1.1 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.1 }, "hits": 1 }] }
     },
     {
@@ -38,7 +38,7 @@
       "rarity": "Rare",
       "class": "Guardian",
       "element": "Fire",
-      "base_stats": { "hp": 980, "atk": 86, "def": 78, "spd": 84, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 980, "atk": 86, "def": 78, "spd": 84, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.06 },
       "skill": { "skill_id": "esk_pirate_brute_smash", "slot": "active", "name_th": "ทุบสะท้าน", "name_en": "Brute Smash", "target_rule": "enemy_front", "cooldown": 2, "scaling": { "stat": "atk", "mult": 1.3 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.3 }, "hits": 1 }, { "op": "debuff", "status": "def_down", "value": 0.2, "duration": 2, "chance": 0.6, "vs": "res" }] }
     },
     {
@@ -49,7 +49,7 @@
       "rarity": "Elite",
       "class": "Warrior",
       "element": "Fire",
-      "base_stats": { "hp": 1180, "atk": 118, "def": 70, "spd": 102, "crit": 0.10, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1180, "atk": 118, "def": 70, "spd": 102, "crit": 0.1, "critdmg": 1.5, "acc": 0.0, "res": 0.1 },
       "skill": { "skill_id": "esk_pirate_captain_rally", "slot": "active", "name_th": "บัญชาโจมตี", "name_en": "Captain's Order", "target_rule": "enemy_all", "cooldown": 3, "scaling": { "stat": "atk", "mult": 0.9 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 0.9 }, "hits": 1 }, { "op": "buff", "status": "atk_up", "target_rule": "ally_all", "value": 0.15, "duration": 2 }] }
     },
     {
@@ -60,7 +60,7 @@
       "rarity": "Common",
       "class": "Guardian",
       "element": "Water",
-      "base_stats": { "hp": 900, "atk": 64, "def": 82, "spd": 70, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 900, "atk": 64, "def": 82, "spd": 70, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.03 },
       "skill": { "skill_id": "esk_sea_crab_pinch", "slot": "active", "name_th": "หนีบก้าม", "name_en": "Claw Pinch", "target_rule": "enemy_front", "cooldown": 0, "scaling": { "stat": "atk", "mult": 1.0 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.0 }, "hits": 1 }] }
     },
     {
@@ -71,7 +71,7 @@
       "rarity": "Rare",
       "class": "Warrior",
       "element": "Dark",
-      "base_stats": { "hp": 1020, "atk": 104, "def": 64, "spd": 88, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1020, "atk": 104, "def": 64, "spd": 88, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.06 },
       "skill": { "skill_id": "esk_ogre_spawn_maul", "slot": "active", "name_th": "ตะปบ", "name_en": "Savage Maul", "target_rule": "enemy_front", "cooldown": 0, "scaling": { "stat": "atk", "mult": 1.1 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.1 }, "hits": 1 }] }
     },
     {
@@ -82,7 +82,7 @@
       "rarity": "Elite",
       "class": "Guardian",
       "element": "Dark",
-      "base_stats": { "hp": 1480, "atk": 116, "def": 96, "spd": 80, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1480, "atk": 116, "def": 96, "spd": 80, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.1 },
       "skill": { "skill_id": "esk_ogre_brute_quake", "slot": "active", "name_th": "ทุบแผ่นดิน", "name_en": "Ground Quake", "target_rule": "enemy_all", "cooldown": 3, "scaling": { "stat": "atk", "mult": 0.85 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 0.85 }, "hits": 1 }, { "op": "cc", "status": "stun", "chance": 0.4, "duration": 1, "vs": "res" }] }
     },
     {
@@ -93,7 +93,7 @@
       "rarity": "Elite",
       "class": "Mage",
       "element": "Dark",
-      "base_stats": { "hp": 1120, "atk": 138, "def": 60, "spd": 94, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1120, "atk": 138, "def": 60, "spd": 94, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.1 },
       "skill": { "skill_id": "esk_ogre_shaman_hex", "slot": "active", "name_th": "สาปมืด", "name_en": "Dark Hex", "target_rule": "enemy_all", "cooldown": 3, "scaling": { "stat": "atk", "mult": 1.0 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.0 }, "hits": 1 }, { "op": "debuff", "status": "atk_down", "value": 0.2, "duration": 2, "chance": 0.6, "vs": "res" }] }
     },
     {
@@ -104,7 +104,7 @@
       "rarity": "Common",
       "class": "Assassin",
       "element": "Dark",
-      "base_stats": { "hp": 480, "atk": 96, "def": 30, "spd": 124, "crit": 0.15, "critdmg": 1.6, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 480, "atk": 96, "def": 30, "spd": 124, "crit": 0.15, "critdmg": 1.6, "acc": 0.0, "res": 0.03 },
       "skill": { "skill_id": "esk_cave_bat_dive", "slot": "active", "name_th": "โฉบกัด", "name_en": "Dive Bite", "target_rule": "enemy_lowest_hp", "cooldown": 0, "scaling": { "stat": "atk", "mult": 1.2 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.2 }, "hits": 1 }] }
     },
     {
@@ -115,7 +115,7 @@
       "rarity": "Rare",
       "class": "Warrior",
       "element": "Water",
-      "base_stats": { "hp": 1180, "atk": 122, "def": 70, "spd": 100, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1180, "atk": 122, "def": 70, "spd": 100, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.06 },
       "skill": { "skill_id": "esk_sea_serpent_constrict", "slot": "active", "name_th": "รัดเกลียว", "name_en": "Constrict", "target_rule": "enemy_front", "cooldown": 2, "scaling": { "stat": "atk", "mult": 1.3 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.3 }, "hits": 1 }, { "op": "cc", "status": "stun", "chance": 0.35, "duration": 1, "vs": "res" }] }
     },
     {
@@ -126,7 +126,7 @@
       "rarity": "Rare",
       "class": "Mage",
       "element": "Water",
-      "base_stats": { "hp": 940, "atk": 116, "def": 54, "spd": 98, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 940, "atk": 116, "def": 54, "spd": 98, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.06 },
       "skill": { "skill_id": "esk_deep_jelly_sting", "slot": "active", "name_th": "พิษไฟฟ้า", "name_en": "Shock Sting", "target_rule": "enemy_all", "cooldown": 3, "scaling": { "stat": "atk", "mult": 0.9 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 0.9 }, "hits": 1 }, { "op": "debuff", "status": "poison", "value": 0.08, "duration": 3, "chance": 0.7, "vs": "res" }] }
     },
     {
@@ -137,7 +137,7 @@
       "rarity": "Rare",
       "class": "Warrior",
       "element": "Water",
-      "base_stats": { "hp": 1080, "atk": 124, "def": 66, "spd": 106, "crit": 0.10, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1080, "atk": 124, "def": 66, "spd": 106, "crit": 0.1, "critdmg": 1.5, "acc": 0.0, "res": 0.06 },
       "skill": { "skill_id": "esk_merfolk_raider_lance", "slot": "active", "name_th": "หอกคลื่น", "name_en": "Wave Lance", "target_rule": "enemy_highest_atk", "cooldown": 0, "scaling": { "stat": "atk", "mult": 1.2 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.2 }, "hits": 1 }] }
     },
     {
@@ -148,7 +148,7 @@
       "rarity": "Elite",
       "class": "Guardian",
       "element": "Water",
-      "base_stats": { "hp": 1560, "atk": 110, "def": 104, "spd": 90, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1560, "atk": 110, "def": 104, "spd": 90, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.1 },
       "skill": { "skill_id": "esk_merfolk_guard_bulwark", "slot": "active", "name_th": "ป้องคลื่น", "name_en": "Tidewall", "target_rule": "self", "cooldown": 3, "scaling": { "stat": "hp", "mult": 0.2 }, "effect_ops": [{ "op": "cc", "status": "taunt", "target_rule": "enemy_all", "chance": 0.7, "duration": 1, "vs": "res" }, { "op": "shield", "target_rule": "self", "scaling": { "stat": "hp", "mult": 0.2 }, "duration": 2 }] }
     },
     {
@@ -159,7 +159,7 @@
       "rarity": "Epic",
       "class": "Mage",
       "element": "Dark",
-      "base_stats": { "hp": 1320, "atk": 158, "def": 72, "spd": 96, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1320, "atk": 158, "def": 72, "spd": 96, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.12 },
       "skill": { "skill_id": "esk_abyss_horror_dread", "slot": "active", "name_th": "เงาคืบคลาน", "name_en": "Creeping Dread", "target_rule": "enemy_all", "cooldown": 3, "scaling": { "stat": "atk", "mult": 1.0 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.0 }, "hits": 1 }, { "op": "cc", "status": "fear", "chance": 0.45, "duration": 1, "vs": "res" }] }
     },
     {
@@ -170,7 +170,7 @@
       "rarity": "Rare",
       "class": "Archer",
       "element": "Light",
-      "base_stats": { "hp": 880, "atk": 128, "def": 50, "spd": 116, "crit": 0.10, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 880, "atk": 128, "def": 50, "spd": 116, "crit": 0.1, "critdmg": 1.5, "acc": 0.0, "res": 0.06 },
       "skill": { "skill_id": "esk_crystal_sprite_shard", "slot": "active", "name_th": "ยิงเศษผลึก", "name_en": "Shard Volley", "target_rule": "enemy_highest_atk", "cooldown": 0, "scaling": { "stat": "atk", "mult": 1.1 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.1 }, "hits": 1 }] }
     },
     {
@@ -181,7 +181,7 @@
       "rarity": "Elite",
       "class": "Warrior",
       "element": "Light",
-      "base_stats": { "hp": 1420, "atk": 132, "def": 90, "spd": 94, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1420, "atk": 132, "def": 90, "spd": 94, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.1 },
       "skill": { "skill_id": "esk_crystal_sentinel_strike", "slot": "active", "name_th": "ฟันแสง", "name_en": "Radiant Strike", "target_rule": "enemy_front", "cooldown": 0, "scaling": { "stat": "atk", "mult": 1.2 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.2 }, "hits": 1 }] }
     },
     {
@@ -192,7 +192,7 @@
       "rarity": "Elite",
       "class": "Mage",
       "element": "Light",
-      "base_stats": { "hp": 1180, "atk": 168, "def": 64, "spd": 98, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1180, "atk": 168, "def": 64, "spd": 98, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.1 },
       "skill": { "skill_id": "esk_crystal_mage_beam", "slot": "active", "name_th": "ลำแสงผลึก", "name_en": "Prism Beam", "target_rule": "enemy_all", "cooldown": 3, "scaling": { "stat": "atk", "mult": 1.0 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.0 }, "hits": 1 }] }
     },
     {
@@ -203,7 +203,7 @@
       "rarity": "Epic",
       "class": "Guardian",
       "element": "Light",
-      "base_stats": { "hp": 1860, "atk": 130, "def": 122, "spd": 88, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1860, "atk": 130, "def": 122, "spd": 88, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.12 },
       "skill": { "skill_id": "esk_crystal_guardian_aegis", "slot": "active", "name_th": "เกราะแสง", "name_en": "Lumen Aegis", "target_rule": "self", "cooldown": 3, "scaling": { "stat": "hp", "mult": 0.22 }, "effect_ops": [{ "op": "cc", "status": "taunt", "target_rule": "enemy_all", "chance": 0.8, "duration": 1, "vs": "res" }, { "op": "shield", "target_rule": "self", "scaling": { "stat": "hp", "mult": 0.22 }, "duration": 2 }] }
     },
     {
@@ -214,7 +214,7 @@
       "rarity": "Epic",
       "class": "Warrior",
       "element": "Light",
-      "base_stats": { "hp": 1720, "atk": 176, "def": 96, "spd": 100, "crit": 0.10, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1720, "atk": 176, "def": 96, "spd": 100, "crit": 0.1, "critdmg": 1.5, "acc": 0.0, "res": 0.12 },
       "skill": { "skill_id": "esk_crystal_warlord_command", "slot": "active", "name_th": "บัญชาผลึก", "name_en": "Warlord's Command", "target_rule": "enemy_all", "cooldown": 3, "scaling": { "stat": "atk", "mult": 1.1 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.1 }, "hits": 1 }, { "op": "buff", "status": "atk_up", "target_rule": "ally_all", "value": 0.18, "duration": 2 }] }
     },
     {
@@ -225,7 +225,7 @@
       "rarity": "Rare",
       "class": "Warrior",
       "element": "Fire",
-      "base_stats": { "hp": 1240, "atk": 128, "def": 78, "spd": 96, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1240, "atk": 128, "def": 78, "spd": 96, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.06 },
       "skill": { "skill_id": "esk_lanka_soldier_thrust", "slot": "active", "name_th": "แทงหอก", "name_en": "Spear Thrust", "target_rule": "enemy_front", "cooldown": 0, "scaling": { "stat": "atk", "mult": 1.1 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.1 }, "hits": 1 }] }
     },
     {
@@ -236,7 +236,7 @@
       "rarity": "Rare",
       "class": "Archer",
       "element": "Fire",
-      "base_stats": { "hp": 980, "atk": 150, "def": 56, "spd": 110, "crit": 0.10, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 980, "atk": 150, "def": 56, "spd": 110, "crit": 0.1, "critdmg": 1.5, "acc": 0.0, "res": 0.06 },
       "skill": { "skill_id": "esk_lanka_archer_volley", "slot": "active", "name_th": "ระดมยิง", "name_en": "Arrow Volley", "target_rule": "enemy_highest_atk", "cooldown": 0, "scaling": { "stat": "atk", "mult": 1.2 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.2 }, "hits": 1 }] }
     },
     {
@@ -247,7 +247,7 @@
       "rarity": "Elite",
       "class": "Warrior",
       "element": "Fire",
-      "base_stats": { "hp": 1420, "atk": 158, "def": 80, "spd": 114, "crit": 0.10, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1420, "atk": 158, "def": 80, "spd": 114, "crit": 0.1, "critdmg": 1.5, "acc": 0.0, "res": 0.1 },
       "skill": { "skill_id": "esk_lanka_cavalry_charge", "slot": "active", "name_th": "ม้าตะลุย", "name_en": "Cavalry Charge", "target_rule": "enemy_lowest_hp", "cooldown": 2, "scaling": { "stat": "atk", "mult": 1.5 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.5 }, "hits": 1 }] }
     },
     {
@@ -258,7 +258,7 @@
       "rarity": "Elite",
       "class": "Warrior",
       "element": "Fire",
-      "base_stats": { "hp": 1620, "atk": 162, "def": 92, "spd": 102, "crit": 0.10, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1620, "atk": 162, "def": 92, "spd": 102, "crit": 0.1, "critdmg": 1.5, "acc": 0.0, "res": 0.1 },
       "skill": { "skill_id": "esk_lanka_captain_order", "slot": "active", "name_th": "สั่งทัพ", "name_en": "Field Order", "target_rule": "enemy_all", "cooldown": 3, "scaling": { "stat": "atk", "mult": 0.95 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 0.95 }, "hits": 1 }, { "op": "buff", "status": "atk_up", "target_rule": "ally_all", "value": 0.15, "duration": 2 }] }
     },
     {
@@ -269,7 +269,7 @@
       "rarity": "Epic",
       "class": "Warrior",
       "element": "Fire",
-      "base_stats": { "hp": 1980, "atk": 192, "def": 104, "spd": 100, "crit": 0.10, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1980, "atk": 192, "def": 104, "spd": 100, "crit": 0.1, "critdmg": 1.5, "acc": 0.0, "res": 0.12 },
       "skill": { "skill_id": "esk_lanka_warlord_cleave", "slot": "active", "name_th": "ฟาดวงกว้าง", "name_en": "Sweeping Cleave", "target_rule": "enemy_all", "cooldown": 3, "scaling": { "stat": "atk", "mult": 1.2 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.2 }, "hits": 1 }, { "op": "debuff", "status": "def_down", "value": 0.2, "duration": 2, "chance": 0.6, "vs": "res" }] }
     },
     {
@@ -280,7 +280,7 @@
       "rarity": "Rare",
       "class": "Warrior",
       "element": "Nature",
-      "base_stats": { "hp": 1320, "atk": 140, "def": 74, "spd": 98, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1320, "atk": 140, "def": 74, "spd": 98, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.06 },
       "skill": { "skill_id": "esk_island_beast_rend", "slot": "active", "name_th": "ตะกุยฉีก", "name_en": "Savage Rend", "target_rule": "enemy_front", "cooldown": 0, "scaling": { "stat": "atk", "mult": 1.2 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.2 }, "hits": 1 }] }
     },
     {
@@ -291,7 +291,7 @@
       "rarity": "Rare",
       "class": "Assassin",
       "element": "Nature",
-      "base_stats": { "hp": 1020, "atk": 156, "def": 60, "spd": 120, "crit": 0.15, "critdmg": 1.6, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1020, "atk": 156, "def": 60, "spd": 120, "crit": 0.15, "critdmg": 1.6, "acc": 0.0, "res": 0.06 },
       "skill": { "skill_id": "esk_reef_lizard_pounce", "slot": "active", "name_th": "พุ่งกัด", "name_en": "Reef Pounce", "target_rule": "enemy_lowest_hp", "cooldown": 0, "scaling": { "stat": "atk", "mult": 1.3 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.3 }, "hits": 1 }] }
     },
     {
@@ -302,7 +302,7 @@
       "rarity": "Elite",
       "class": "Assassin",
       "element": "Nature",
-      "base_stats": { "hp": 1180, "atk": 178, "def": 66, "spd": 122, "crit": 0.15, "critdmg": 1.6, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1180, "atk": 178, "def": 66, "spd": 122, "crit": 0.15, "critdmg": 1.6, "acc": 0.0, "res": 0.1 },
       "skill": { "skill_id": "esk_jungle_stalker_ambush", "slot": "active", "name_th": "ลอบจู่โจม", "name_en": "Ambush", "target_rule": "enemy_lowest_hp", "cooldown": 2, "scaling": { "stat": "atk", "mult": 1.6 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.6 }, "hits": 1 }] }
     },
     {
@@ -313,7 +313,7 @@
       "rarity": "Epic",
       "class": "Warrior",
       "element": "Nature",
-      "base_stats": { "hp": 1640, "atk": 184, "def": 98, "spd": 104, "crit": 0.10, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1640, "atk": 184, "def": 98, "spd": 104, "crit": 0.1, "critdmg": 1.5, "acc": 0.0, "res": 0.12 },
       "skill": { "skill_id": "esk_wild_drake_breath", "slot": "active", "name_th": "พ่นพิษ", "name_en": "Toxic Breath", "target_rule": "enemy_all", "cooldown": 3, "scaling": { "stat": "atk", "mult": 1.0 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.0 }, "hits": 1 }, { "op": "debuff", "status": "poison", "value": 0.1, "duration": 3, "chance": 0.7, "vs": "res" }] }
     },
     {
@@ -324,7 +324,7 @@
       "rarity": "Epic",
       "class": "Guardian",
       "element": "Nature",
-      "base_stats": { "hp": 2000, "atk": 150, "def": 124, "spd": 90, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 2000, "atk": 150, "def": 124, "spd": 90, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.12 },
       "skill": { "skill_id": "esk_island_guardian_root", "slot": "active", "name_th": "รากพันธนาการ", "name_en": "Binding Roots", "target_rule": "enemy_highest_atk", "cooldown": 3, "scaling": { "stat": "atk", "mult": 1.0 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.0 }, "hits": 1 }, { "op": "cc", "status": "stun", "chance": 0.5, "duration": 1, "vs": "res" }] }
     },
     {
@@ -335,7 +335,7 @@
       "rarity": "Elite",
       "class": "Warrior",
       "element": "Fire",
-      "base_stats": { "hp": 1560, "atk": 178, "def": 84, "spd": 104, "crit": 0.10, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1560, "atk": 178, "def": 84, "spd": 104, "crit": 0.1, "critdmg": 1.5, "acc": 0.0, "res": 0.1 },
       "skill": { "skill_id": "esk_lanka_zealot_fervor", "slot": "active", "name_th": "ศรัทธาเดือด", "name_en": "Burning Fervor", "target_rule": "enemy_front", "cooldown": 0, "scaling": { "stat": "atk", "mult": 1.3 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.3 }, "hits": 1 }] }
     },
     {
@@ -346,7 +346,7 @@
       "rarity": "Epic",
       "class": "Mage",
       "element": "Fire",
-      "base_stats": { "hp": 1280, "atk": 198, "def": 70, "spd": 102, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1280, "atk": 198, "def": 70, "spd": 102, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.12 },
       "skill": { "skill_id": "esk_lanka_sorcerer_pyre", "slot": "active", "name_th": "เพลิงพิโรธ", "name_en": "Wrathful Pyre", "target_rule": "enemy_all", "cooldown": 3, "scaling": { "stat": "atk", "mult": 1.1 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.1 }, "hits": 1 }, { "op": "debuff", "status": "burn", "value": 0.1, "duration": 3, "chance": 0.7, "vs": "res" }] }
     },
     {
@@ -357,7 +357,7 @@
       "rarity": "Epic",
       "class": "Guardian",
       "element": "Fire",
-      "base_stats": { "hp": 2100, "atk": 156, "def": 128, "spd": 92, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 2100, "atk": 156, "def": 128, "spd": 92, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.12 },
       "skill": { "skill_id": "esk_lanka_royal_guard_wall", "slot": "active", "name_th": "กำแพงโล่", "name_en": "Shield Wall", "target_rule": "self", "cooldown": 3, "scaling": { "stat": "hp", "mult": 0.2 }, "effect_ops": [{ "op": "cc", "status": "taunt", "target_rule": "enemy_all", "chance": 0.85, "duration": 1, "vs": "res" }, { "op": "shield", "target_rule": "self", "scaling": { "stat": "hp", "mult": 0.2 }, "duration": 2 }] }
     },
     {
@@ -368,7 +368,7 @@
       "rarity": "Elite",
       "class": "Warrior",
       "element": "Fire",
-      "base_stats": { "hp": 1680, "atk": 176, "def": 92, "spd": 100, "crit": 0.10, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1680, "atk": 176, "def": 92, "spd": 100, "crit": 0.1, "critdmg": 1.5, "acc": 0.0, "res": 0.1 },
       "skill": { "skill_id": "esk_lanka_marine_boarding", "slot": "active", "name_th": "บุกขึ้นเรือ", "name_en": "Boarding Strike", "target_rule": "enemy_front", "cooldown": 0, "scaling": { "stat": "atk", "mult": 1.2 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.2 }, "hits": 1 }] }
     },
     {
@@ -379,7 +379,7 @@
       "rarity": "Epic",
       "class": "Archer",
       "element": "Fire",
-      "base_stats": { "hp": 1480, "atk": 214, "def": 70, "spd": 84, "crit": 0.10, "critdmg": 1.6, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 1480, "atk": 214, "def": 70, "spd": 84, "crit": 0.1, "critdmg": 1.6, "acc": 0.0, "res": 0.12 },
       "skill": { "skill_id": "esk_lanka_warship_gun_barrage", "slot": "active", "name_th": "ระดมปืนใหญ่", "name_en": "Cannon Barrage", "target_rule": "enemy_all", "cooldown": 3, "scaling": { "stat": "atk", "mult": 1.1 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.1 }, "hits": 1 }] }
     },
     {
@@ -390,7 +390,7 @@
       "rarity": "Epic",
       "class": "Guardian",
       "element": "Fire",
-      "base_stats": { "hp": 2200, "atk": 168, "def": 132, "spd": 94, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 2200, "atk": 168, "def": 132, "spd": 94, "crit": 0.05, "critdmg": 1.5, "acc": 0.0, "res": 0.12 },
       "skill": { "skill_id": "esk_lanka_admiral_guard_anchor", "slot": "active", "name_th": "สมอเหล็ก", "name_en": "Iron Anchor", "target_rule": "enemy_highest_atk", "cooldown": 3, "scaling": { "stat": "atk", "mult": 1.0 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.0 }, "hits": 1 }, { "op": "cc", "status": "stun", "chance": 0.5, "duration": 1, "vs": "res" }] }
     },
     {
@@ -401,7 +401,7 @@
       "rarity": "Legendary",
       "class": "Warrior",
       "element": "Fire",
-      "base_stats": { "hp": 2360, "atk": 224, "def": 124, "spd": 104, "crit": 0.10, "critdmg": 1.6, "acc": 0.0, "res": 0.0 },
+      "base_stats": { "hp": 2360, "atk": 224, "def": 124, "spd": 104, "crit": 0.1, "critdmg": 1.6, "acc": 0.0, "res": 0.2 },
       "skill": { "skill_id": "esk_lanka_vanguard_breaker", "slot": "active", "name_th": "ทลายแนว", "name_en": "Line Breaker", "target_rule": "enemy_all", "cooldown": 3, "scaling": { "stat": "atk", "mult": 1.3 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.3 }, "hits": 1 }, { "op": "debuff", "status": "def_down", "value": 0.25, "duration": 2, "chance": 0.7, "vs": "res" }] }
     },
     {
@@ -414,7 +414,7 @@
       "class": "Warrior",
       "element": "Water",
       "weak_element": "Nature",
-      "base_stats": { "hp": 6200, "atk": 246, "def": 140, "spd": 102, "crit": 0.10, "critdmg": 1.6, "acc": 0.0, "res": 0.20 },
+      "base_stats": { "hp": 6200, "atk": 246, "def": 140, "spd": 102, "crit": 0.1, "critdmg": 1.6, "acc": 0.0, "res": 0.25 },
       "skill": { "skill_id": "esk_sea_demon_lord_maelstrom", "slot": "ultimate", "name_th": "วังวนสมุทร", "name_en": "Abyssal Maelstrom", "target_rule": "enemy_all", "cooldown": 0, "scaling": { "stat": "atk", "mult": 1.5 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.5 }, "hits": 1 }, { "op": "cc", "status": "stun", "chance": 0.5, "duration": 1, "vs": "res" }] }
     },
     {
@@ -427,7 +427,7 @@
       "class": "Warrior",
       "element": "Fire",
       "weak_element": "Water",
-      "base_stats": { "hp": 9800, "atk": 286, "def": 158, "spd": 108, "crit": 0.10, "critdmg": 1.6, "acc": 0.0, "res": 0.25 },
+      "base_stats": { "hp": 9800, "atk": 286, "def": 158, "spd": 108, "crit": 0.1, "critdmg": 1.6, "acc": 0.0, "res": 0.25 },
       "skill": { "skill_id": "esk_lanka_supreme_commander_warcry", "slot": "ultimate", "name_th": "บัญชาสงครามครั้งสุดท้าย", "name_en": "Final War Cry", "target_rule": "enemy_all", "cooldown": 0, "scaling": { "stat": "atk", "mult": 1.6 }, "effect_ops": [{ "op": "damage", "scaling": { "stat": "atk", "mult": 1.6 }, "hits": 1 }, { "op": "debuff", "status": "atk_down", "value": 0.25, "duration": 2, "chance": 0.7, "vs": "res" }, { "op": "buff", "status": "atk_up", "target_rule": "ally_all", "value": 0.2, "duration": 2 }] }
     }
   ]

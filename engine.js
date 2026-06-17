@@ -1,8 +1,8 @@
 (() => {
   // backend/src/modules/battle/battle.constants.ts
   var ATB_ACT_THRESHOLD = 1000;
-  var DEF_K_BASE = 900;
-  var DEF_K_PER_LEVEL = 9;
+  var DEF_K_BASE = 320;
+  var DEF_K_PER_LEVEL = 5;
   var DEF_REDUCTION_CAP = 0.75;
   var MIN_DAMAGE = 1;
   var ELEMENT_ADVANTAGE_MULT = 1.3;

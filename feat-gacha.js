@@ -16,6 +16,9 @@
   var RATE = { Mythic: 0.01, Legendary: 0.04, Epic: 0.15 }; // remainder → Epic (lowest existing tier)
   var GLOW = { Mythic: 'var(--myth)', Legendary: 'var(--leg)', Epic: 'var(--epic)' };
   var SHARD_BY_RARITY = { Mythic: 50, Legendary: 30, Epic: 15 }; // dupe → shards
+  // featured rate-up banner: when a pull rolls FEATURED.rarity, this hero has
+  // FEATURED.rateUp chance to be the result instead of a random pick of that tier.
+  var FEATURED = { id: 'hero_sangkharat', rarity: 'Mythic', th: 'สังฆราชบาทหลวง', en: 'Lanka High Priest', rateUp: 0.5 };
 
   // ---------- one-time CSS (prefixed gac-) ----------
   if (!document.getElementById('gac-style')) {
@@ -80,7 +83,12 @@
     if (!pool.length) { // safety: degrade to any available rarity
       pool = heroes(); rarity = pool.length ? pool[0].r : 'Epic';
     }
-    var hero = rand(pool);
+    // featured rate-up: on a matching-rarity roll, bias toward the banner hero
+    var hero;
+    if (FEATURED && rarity === FEATURED.rarity && Math.random() < FEATURED.rateUp) {
+      hero = pool.filter(function (x) { return x.id === FEATURED.id; })[0];
+    }
+    if (!hero) hero = rand(pool);
 
     // ---- pity bookkeeping ----
     var st = GAME.state;
@@ -135,7 +143,7 @@
         : '<span class="gac-tag dupe">DUP</span>';
       var shard = r.isNew ? '' : '<span class="gac-shard">+' + r.shard + ' เศษ</span>';
       return '<div class="gac-card ' + r.rarity + '" style="animation-delay:' + (i * 0.06) + 's">'
-        + '<img src="portraits/' + h.id + '.jpg" alt="">'
+        + '<img src="portraits/' + h.id + '.jpg" alt="" onerror="this.style.visibility=\'hidden\'">'
         + '<span class="gac-ele" style="background:' + ELEC(h.e) + '"></span>'
         + tag
         + '<div class="gac-nm">' + h.th
@@ -201,15 +209,15 @@
     var can1 = ruby >= COST1, can10 = ruby >= COST10;
 
     body.innerHTML =
-      '<div class="banner"><img src="portraits/hero_nang_laweng.jpg" alt="">'
-      + '<div class="cap"><b>มหาศึกนางละเวง</b><br><span>★ Limited Banner · Rate Up: นางละเวง (Mythic)</span></div></div>'
+      '<div class="banner"><img src="portraits/' + FEATURED.id + '.jpg" alt="" onerror="this.style.visibility=\'hidden\'">'
+      + '<div class="cap"><b>มหาศึก' + FEATURED.th + '</b><br><span>★ Limited Banner · Rate Up: ' + FEATURED.th + ' (' + FEATURED.rarity + ' +' + Math.round(FEATURED.rateUp * 100) + '%)</span></div></div>'
       + '<div class="pulls">'
       + '<div class="pull one glass" id="gac-one" style="' + (can1 ? '' : 'opacity:.45;cursor:default') + '">อัญเชิญ ×1<br><small style="color:var(--gold)">💎 ' + COST1 + '</small></div>'
       + '<div class="pull ten" id="gac-ten" style="' + (can10 ? '' : 'opacity:.5;cursor:default') + '">อัญเชิญ ×10<br><small>💎 ' + COST10.toLocaleString() + '</small></div>'
       + '</div>'
       + '<div class="gac-pitybar" style="margin:14px auto 4px"><i style="width:' + pct + '%"></i></div>'
       + '<div class="gac-pitytxt">Pity ' + st.pity + '/' + PITY_MAX + ' — อีก ' + (PITY_MAX - st.pity) + ' ครั้งรับประกัน Mythic</div>'
-      + '<div class="rates">เรท: Mythic 1% · Legendary 4% · Epic 15% · ×10 รับประกัน Epic+ · Pity 100 ครั้ง รับประกัน Mythic</div>';
+      + '<div class="rates">เรท: Mythic 1% · Legendary 4% · Epic 15% · ×10 รับประกัน Epic+ · Pity 100 ครั้ง รับประกัน Mythic · ★ Rate Up: ' + FEATURED.th + ' ' + Math.round(FEATURED.rateUp * 100) + '% ของ ' + FEATURED.rarity + '</div>';
 
     var one = body.querySelector('#gac-one');
     var ten = body.querySelector('#gac-ten');

@@ -34,7 +34,19 @@ window.HLTSim = (function () {
   }
   function playerSpec(heroId, level) {
     const h = GD.heroById.get(heroId);
-    return { heroId: h.id, name: h.name_en || h.name_th || h.id, level, element: h.element, stats: { ...h.base_stats }, skills: skillsFor(h) };
+    const stats = { ...h.base_stats };
+    const eb = (typeof window !== 'undefined' && window.equipBonus) ? window.equipBonus(h.id) : null;
+    if (eb) {
+      stats.hp = Math.round((stats.hp || 0) + (eb.hp || 0));
+      stats.atk = Math.round((stats.atk || 0) + (eb.atk || 0));
+      stats.def = Math.round((stats.def || 0) + (eb.def || 0));
+      stats.spd = Math.round((stats.spd || 0) + (eb.spd || 0));
+      stats.crit = Math.min(1, (stats.crit || 0) + (eb.crit || 0));
+      stats.critdmg = (stats.critdmg || 0) + (eb.critdmg || 0);
+      stats.acc = Math.min(1, (stats.acc || 0) + (eb.acc || 0));
+      stats.res = Math.min(1, (stats.res || 0) + (eb.res || 0));
+    }
+    return { heroId: h.id, name: h.name_en || h.name_th || h.id, level, element: h.element, stats, skills: skillsFor(h) };
   }
   function enemySpecs(stage, lvl) {
     return (stage.enemy_team || []).slice(0, 5).map(e => {
