@@ -132,7 +132,8 @@
       '.str-card:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(139,92,246,.22)}',
       '.str-card.read{opacity:.7}',
       '.str-card.read::after{content:"✓ อ่านแล้ว";position:absolute;top:12px;right:14px;font-size:10px;font-weight:800;color:var(--nature)}',
-      '.str-ic{font-size:clamp(28px,2.8vw,40px);margin-bottom:8px}',
+      '.str-ic{font-size:clamp(28px,2.8vw,40px);margin-bottom:8px;width:clamp(46px,4.4vw,62px);height:clamp(46px,4.4vw,62px);display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:13px}',
+      '.str-ic img{width:100%;height:100%;object-fit:cover;display:block}',
       '.str-ch{font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}',
       '.str-nm{font-weight:800;font-size:clamp(14px,1.3vw,18px);margin-bottom:4px}',
       '.str-sb{font-size:11px;color:var(--muted)}',
@@ -248,7 +249,8 @@
     var cards = CHAPTERS.map(function (ch, i) {
       var isRead = S.story.read.indexOf(ch.id) >= 0;
       return '<div class="str-card' + (isRead ? ' read' : '') + '" onclick="storyOpenChapter(' + i + ')">' +
-        '<div class="str-ic">' + ch.icon + '</div>' +
+        '<div class="str-ic"><img src="icons/cat/story_' + ch.id + '.png" alt="" ' +
+          'onerror="this.outerHTML=\'' + ch.icon + '\'"></div>' +
         '<div class="str-ch">บทที่ ' + (i + 1) + '</div>' +
         '<div class="str-nm">' + ch.title + '</div>' +
         '<div class="str-sb">' + ch.sub + '</div>' +

@@ -33,7 +33,8 @@
       '.mds-tile{position:relative;border-radius:16px;padding:16px 12px 14px;text-align:left;cursor:pointer;',
       '  overflow:hidden;transition:transform .12s,box-shadow .12s;min-height:104px;display:flex;flex-direction:column;gap:3px}',
       '.mds-tile:hover{transform:translateY(-3px);box-shadow:0 8px 26px rgba(139,92,246,.32)}',
-      '.mds-tile .mds-ic{font-size:30px;line-height:1}',
+      '.mds-tile .mds-ic{font-size:30px;line-height:1;width:52px;height:52px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:12px}',
+      '.mds-tile .mds-ic img{width:100%;height:100%;object-fit:cover;display:block}',
       '.mds-tile .mds-t{font-weight:800;font-size:14px;margin-top:5px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}',
       '.mds-tile .mds-s{font-size:10.5px;color:var(--muted);line-height:1.5}',
       '.mds-tile .mds-rt{margin-top:auto;font-size:10px;color:var(--gold);font-weight:700;padding-top:6px}',
@@ -350,32 +351,32 @@
 
     var tiles = [
       {
-        ic: '🗼', t: 'หอคอยสวรรค์', tag: '<span class="mds-tag rdy">พร้อม</span>',
+        ic: '🗼', img: 'mode_tower', t: 'หอคอยสวรรค์', tag: '<span class="mds-tag rdy">พร้อม</span>',
         s: 'Tower · ปีนต่อทีละชั้น', rt: 'ชั้นปัจจุบัน ' + (G.state.tower.floor | 0),
         fn: 'window.MODES_tower()', feature: true
       },
       {
-        ic: '🐲', t: 'บอสโลก', tag: '<span class="mds-tag hot">เหลือ 12ชม.</span>',
+        ic: '🐲', img: 'mode_worldboss', t: 'บอสโลก', tag: '<span class="mds-tag hot">เหลือ 12ชม.</span>',
         s: 'World Boss · ถล่มร่วมทั้งเซิร์ฟ', rt: 'HP ' + bossPct() + '% · ปราบ ' + (G.state.worldBossKills | 0),
         fn: 'window.MODES_worldBoss()', feature: true
       },
       {
-        ic: '🗝️', t: 'ดันเจียนรายวัน', tag: '',
+        ic: '🗝️', img: 'mode_dungeon', t: 'ดันเจียนรายวัน', tag: '',
         s: 'ฟาร์มวัสดุตามธาตุ + ทอง', rt: '⚡' + DD_COST + ' ต่อรอบ',
         fn: 'window.MODES_daily()'
       },
       {
-        ic: '🚢', t: 'เดินเรือสำรวจ', tag: '',
+        ic: '🚢', img: 'mode_expedition', t: 'เดินเรือสำรวจ', tag: '',
         s: 'Expedition · ส่งทีมหาของรางวัล', rt: 'สำรวจแล้ว ' + (G.state.expedition.runs | 0) + ' ครั้ง',
         fn: 'window.MODES_expedition()'
       },
       {
-        ic: '♾️', t: 'ทะเลไร้ขอบ', tag: '<span class="mds-tag cool">Endless</span>',
+        ic: '♾️', img: 'mode_endless', t: 'ทะเลไร้ขอบ', tag: '<span class="mds-tag cool">Endless</span>',
         s: 'Endless Sea · เอาตัวรอดยาวที่สุด', rt: 'เริ่มรบ ▶',
         fn: 'window.MODES_endless()'
       },
       {
-        ic: '🏅', t: 'ด่านชนชั้นยอด', tag: '<span class="mds-tag new">Elite</span>',
+        ic: '🏅', img: 'mode_elite', t: 'ด่านชนชั้นยอด', tag: '<span class="mds-tag new">Elite</span>',
         s: 'Elite · ปลดล็อกเศษฮีโร่ Legendary', rt: 'เริ่มรบ ▶',
         fn: 'window.MODES_elite()'
       }
@@ -384,7 +385,8 @@
     host.className = 'mds-tiles';
     host.innerHTML = tiles.map(function (m) {
       return '<div class="mds-tile glass' + (m.feature ? ' mds-feature' : '') + '" onclick=\'' + m.fn + '\'>' +
-        '<div class="mds-ic">' + m.ic + '</div>' +
+        '<div class="mds-ic"><img src="icons/cat/' + m.img + '.png" alt="" ' +
+          'onerror="this.outerHTML=\'' + m.ic + '\'"></div>' +
         '<div class="mds-t">' + m.t + ' ' + (m.tag || '') + '</div>' +
         '<div class="mds-s">' + m.s + '</div>' +
         '<div class="mds-rt">' + m.rt + '</div>' +

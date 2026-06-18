@@ -91,7 +91,8 @@
       '.art-row.art-assigned{border-color:var(--myth);box-shadow:0 0 12px rgba(168,85,247,.30)}',
       '.art-ic{width:46px;height:46px;flex:none;border-radius:12px;display:flex;align-items:center;justify-content:center;',
       '  font-size:26px;background:radial-gradient(circle at 35% 30%,rgba(196,181,253,.25),rgba(109,40,217,.18));',
-      '  border:1px solid var(--line)}',
+      '  border:1px solid var(--line);overflow:hidden}',
+      '.art-ic img{width:100%;height:100%;object-fit:cover;display:block}',
       '.art-gr{flex:1;min-width:0}',
       '.art-nm{font-weight:800;font-size:13.5px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}',
       '.art-en{font-size:10px;color:var(--muted);font-weight:600}',
@@ -267,7 +268,8 @@
 
       return '<div class="art-row ' + (h ? 'art-assigned' : '') + '" ' +
           'onclick="__artPick(\'' + esc(a.id) + '\')">' +
-        '<div class="art-ic">' + a.ic + '</div>' +
+        '<div class="art-ic"><img src="items/' + a.id + '.png" alt="" ' +
+          'onerror="this.outerHTML=\'' + a.ic + '\'"></div>' +
         '<div class="art-gr">' +
           '<div class="art-nm">' + esc(a.th) +
             ' <span class="art-en">' + esc(a.en) + '</span>' +

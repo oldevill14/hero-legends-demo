@@ -49,7 +49,8 @@
       '.ach-card{display:flex;align-items:center;gap:13px;border-radius:14px;padding:13px 15px;background:var(--panel2);border:1px solid var(--line)}',
       '.ach-card.done{opacity:.6}',
       '.ach-card.ready{border-color:var(--gold);box-shadow:0 0 16px rgba(245,196,81,.28)}',
-      '.ach-ic{font-size:clamp(26px,2.4vw,36px);flex:none;width:clamp(40px,3vw,52px);text-align:center}',
+      '.ach-ic{font-size:clamp(26px,2.4vw,36px);flex:none;width:clamp(40px,3vw,52px);height:clamp(40px,3vw,52px);text-align:center;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:11px}',
+      '.ach-ic img{width:100%;height:100%;object-fit:cover;display:block}',
       '.ach-mid{flex:1;min-width:0}',
       '.ach-nm{font-weight:800;font-size:clamp(13px,1.2vw,17px)}',
       '.ach-ds{font-size:11px;color:var(--muted);margin:1px 0 6px}',
@@ -102,7 +103,8 @@
       var cur = a.prog(), pct = Math.min(100, Math.round(cur / a.goal * 100));
       var got = !!S.ach[a.id], can = claimable(a);
       return '<div class="ach-card ' + (got ? 'done' : can ? 'ready' : '') + '">' +
-        '<div class="ach-ic">' + a.ic + '</div>' +
+        '<div class="ach-ic"><img src="icons/cat/ach_' + a.id + '.png" alt="" ' +
+          'onerror="this.outerHTML=\'' + a.ic + '\'"></div>' +
         '<div class="ach-mid"><div class="ach-nm">' + a.name + '</div><div class="ach-ds">' + a.desc + '</div>' +
         '<div class="ach-bar"><i style="width:' + pct + '%"></i></div>' +
         '<div class="ach-pg">' + G.fmt(Math.min(cur, a.goal)) + '/' + G.fmt(a.goal) + '</div></div>' +

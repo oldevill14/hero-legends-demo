@@ -47,7 +47,8 @@
       '#mail .mail-row.unread{box-shadow:inset 3px 0 0 var(--glow)}',
       '#mail .mail-row.unread:hover{transform:translateY(-2px);box-shadow:inset 3px 0 0 var(--glow),0 6px 22px rgba(139,92,246,.28)}',
       '#mail .mail-row.claimed{opacity:.42}',
-      '#mail .mail-ic{font-size:24px;flex:none;width:34px;text-align:center;position:relative}',
+      '#mail .mail-ic{font-size:24px;flex:none;width:40px;height:40px;text-align:center;position:relative;display:flex;align-items:center;justify-content:center}',
+      '#mail .mail-ic img{width:100%;height:100%;object-fit:cover;border-radius:10px;display:block}',
       '#mail .mail-dot{position:absolute;top:-2px;right:-1px;width:9px;height:9px;border-radius:50%;',
       '  background:var(--epic);border:1.5px solid var(--panel2);box-shadow:0 0 7px rgba(236,72,153,.8)}',
       '#mail .mail-gr{flex:1;min-width:0}',
@@ -86,31 +87,31 @@
   // shard:{key:n} -> goes into inventory.shard ; mats:{key:n} -> inventory.mats
   var MAILS = [
     {
-      id: 'arena_weekly', icon: '🏆',
+      id: 'arena_weekly', icon: '🏆', img: 'mail_arena',
       title: 'รางวัลอันดับสังเวียนประจำสัปดาห์',
       desc: 'ขอแสดงความยินดี! คุณจบสัปดาห์ที่อันดับ Diamond III',
       reward: { ruby: 300, arenaCoin: 500 }, time: '2 ชม.ที่แล้ว'
     },
     {
-      id: 'event_laweng', icon: '🎆',
+      id: 'event_laweng', icon: '🎆', img: 'mail_event',
       title: 'อีเวนต์มหาศึกนางละเวงเปิดแล้ว',
       desc: 'ของขวัญต้อนรับอีเวนต์ — เก็บเหรียญอีเวนต์ไปแลกนางละเวง (Mythic)',
       reward: { eventCoin: 120, gold: 80000 }, time: '6 ชม.ที่แล้ว'
     },
     {
-      id: 'maint_compensation', icon: '🛠️',
+      id: 'maint_compensation', icon: '🛠️', img: 'mail_maint',
       title: 'ชดเชยการปิดปรับปรุงเซิร์ฟเวอร์',
       desc: 'ขออภัยในความไม่สะดวก — มอบของชดเชยให้ผู้เล่นทุกท่าน',
       reward: { ruby: 200, energy: 60 }, time: '1 วันที่แล้ว'
     },
     {
-      id: 'firstclear_gift', icon: '🎁',
+      id: 'firstclear_gift', icon: '🎁', img: 'mail_gift',
       title: 'ของขวัญผ่านบทแรก',
       desc: 'แสงนำทางมอบให้สำหรับการเดินทางครั้งแรกของคุณ',
       reward: { gold: 150000, shard: { hero_usaren: 20 } }, time: '2 วันที่แล้ว'
     },
     {
-      id: 'friend_gift', icon: '💌',
+      id: 'friend_gift', icon: '💌', img: 'mail_friend',
       title: 'ของขวัญจากเพื่อนร่วมกิลด์',
       desc: '"ราชาสมุทร" ฝากของขวัญถึงคุณ — สู้ ๆ นะสหาย!',
       reward: { guildCoin: 150, mats: { stone: 10, dust: 20 } }, time: '3 วันที่แล้ว'
@@ -249,7 +250,8 @@
         ? '<span class="mail-got">✓ รับแล้ว</span>'
         : '<button class="mail-claim" onclick="window.__mailClaim(\'' + m.id + '\')">รับ</button>';
       return '<div class="glass mail-row ' + (claimed ? 'claimed' : 'unread') + '" id="mail-row-' + m.id + '">' +
-        '<div class="mail-ic">' + m.icon + dot + '</div>' +
+        '<div class="mail-ic"><img src="icons/cat/' + (m.img || '') + '.png" alt="" ' +
+          'onerror="this.outerHTML=\'' + m.icon + '\'">' + dot + '</div>' +
         '<div class="mail-gr">' +
           '<div class="mail-t">' + m.title + '</div>' +
           '<div class="mail-d">' + m.desc + '</div>' +

@@ -91,7 +91,8 @@
       '.evd-mrow{display:flex;align-items:center;gap:10px;border-radius:14px;padding:11px 14px;background:var(--panel2);border:1px solid var(--line);margin-bottom:8px}',
       '.evd-mrow.done{opacity:.55}',
       '.evd-mrow.ready{border-color:var(--gold);box-shadow:0 0 14px rgba(245,196,81,.26)}',
-      '.evd-mic{font-size:clamp(20px,2vw,28px);flex:none;width:clamp(32px,2.5vw,42px);text-align:center}',
+      '.evd-mic{font-size:clamp(20px,2vw,28px);flex:none;width:clamp(32px,2.5vw,42px);height:clamp(32px,2.5vw,42px);text-align:center;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:10px}',
+      '.evd-mic img{width:100%;height:100%;object-fit:cover;display:block}',
       '.evd-mmid{flex:1;min-width:0}',
       '.evd-mnm{font-weight:800;font-size:clamp(12px,1.15vw,16px)}',
       '.evd-bar{height:7px;border-radius:4px;background:#0c0c16;overflow:hidden;border:1px solid var(--line);margin:5px 0 3px}',
@@ -199,7 +200,8 @@
         var claimed = S.daily.claimed.indexOf(m.id) >= 0;
         var ready = !claimed && cur >= m.goal;
         return '<div class="evd-mrow ' + (claimed ? 'done' : ready ? 'ready' : '') + '">' +
-          '<div class="evd-mic">' + m.ic + '</div>' +
+          '<div class="evd-mic"><img src="icons/cat/ev_' + m.id + '.png" alt="" ' +
+            'onerror="this.outerHTML=\'' + m.ic + '\'"></div>' +
           '<div class="evd-mmid">' +
             '<div class="evd-mnm">' + m.name + '</div>' +
             '<div class="evd-bar"><i style="width:' + pct + '%"></i></div>' +

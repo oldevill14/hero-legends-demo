@@ -60,7 +60,9 @@
       '.shop-amt{display:flex;gap:6px;justify-content:center;margin:10px 0 4px}',
       '.shop-amt .a{padding:5px 13px;border-radius:14px;font-size:12px;font-weight:800;cursor:pointer;background:var(--panel2);border:1px solid var(--line)}',
       '.shop-amt .a.on{background:linear-gradient(135deg,var(--glow),var(--glow2));border-color:transparent}',
-      '.shop-card .rt{min-width:96px;text-align:right}'
+      '.shop-card .rt{min-width:96px;text-align:right}',
+      '.shop-card .shp-ic{font-size:22px;flex:none;width:44px;height:44px;text-align:center;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:11px}',
+      '.shop-card .shp-ic img{width:100%;height:100%;object-fit:cover;display:block}'
     ].join('');
     document.head.appendChild(st);
   }
@@ -111,28 +113,28 @@
   // ---------------------------------------------------------------- DEALS
   // [icon, title, desc, cost(null=free) , reward, dealId]
   var DEALS = [
-    { ic: '🎁', t: 'กล่องของขวัญรายวัน', d: 'แสงแห่งวิญญาณมอบให้ทุกวัน — ฟรี', cost: null,
+    { ic: '🎁', img: 'icons/cat/mail_gift.png', t: 'กล่องของขวัญรายวัน', d: 'แสงแห่งวิญญาณมอบให้ทุกวัน — ฟรี', cost: null,
       reward: { gold: 50000, ruby: 60 }, free: true },
-    { ic: '💎', t: 'เพชร ×980 + โบนัส ×98', d: 'ดีลพิเศษ — แลกด้วยทอง', cost: { cur: 'gold', n: 600000 },
+    { ic: '💎', img: 'icons/ui/ui_ruby.png', t: 'เพชร ×980 + โบนัส ×98', d: 'ดีลพิเศษ — แลกด้วยทอง', cost: { cur: 'gold', n: 600000 },
       reward: { ruby: 1078 } },
-    { ic: '🪙', t: 'ทอง ×500,000', d: 'เติมคลังทองด่วน', cost: { cur: 'ruby', n: 480 },
+    { ic: '🪙', img: 'icons/ui/ui_gold.png', t: 'ทอง ×500,000', d: 'เติมคลังทองด่วน', cost: { cur: 'ruby', n: 480 },
       reward: { gold: 500000 } },
-    { ic: '⚡', t: 'พลังงาน ×60', d: 'เติมพลังออกผจญภัยต่อ', cost: { cur: 'ruby', n: 100 },
+    { ic: '⚡', img: 'icons/ui/ui_energy.png', t: 'พลังงาน ×60', d: 'เติมพลังออกผจญภัยต่อ', cost: { cur: 'ruby', n: 100 },
       reward: { energy: 60 } },
-    { ic: '🌟', t: 'เศษวิญญาณ ×20', d: 'ใช้ติดดาวฮีโร่ (★)', cost: { cur: 'ruby', n: 240 },
+    { ic: '🌟', img: 'icons/cat/shop_soul.png', t: 'เศษวิญญาณ ×20', d: 'ใช้ติดดาวฮีโร่ (★)', cost: { cur: 'ruby', n: 240 },
       reward: { __shard: 20 } }
   ];
 
   // ---------------------------------------------------------------- PACKS
   // value packs, mostly ruby-priced, some one-time
   var PACKS = [
-    { id: 'starter', ic: '🌟', t: 'Starter Pack', d: 'เพชร ×1,000 + ทอง ×300,000 · ครั้งเดียว',
+    { id: 'starter', ic: '🌟', img: 'icons/cat/shop_starterbox.png', t: 'Starter Pack', d: 'เพชร ×1,000 + ทอง ×300,000 · ครั้งเดียว',
       cost: { cur: 'ruby', n: 0 }, reward: { ruby: 1000, gold: 300000 }, once: true, note: 'แพ็กต้อนรับ ฟรี!' },
-    { id: 'monthly', ic: '📅', t: 'Monthly Pass', d: 'รับเพชรทันที ×900 + โบนัสรายวัน',
+    { id: 'monthly', ic: '📅', img: 'icons/cat/shop_monthly.png', t: 'Monthly Pass', d: 'รับเพชรทันที ×900 + โบนัสรายวัน',
       cost: { cur: 'ruby', n: 600 }, reward: { ruby: 900, gold: 200000 } },
-    { id: 'growth', ic: '📦', t: 'Growth Pack', d: 'ทอง ×800,000 + เศษวิญญาณ ×30',
+    { id: 'growth', ic: '📦', img: 'icons/cat/shop_growth.png', t: 'Growth Pack', d: 'ทอง ×800,000 + เศษวิญญาณ ×30',
       cost: { cur: 'ruby', n: 900 }, reward: { gold: 800000, __shard: 30 } },
-    { id: 'shadow', ic: '🌑', t: 'แพ็กเงา · Shadow Pack', d: 'เพชร ×1,500 + พลังงาน ×120 · สุดคุ้ม',
+    { id: 'shadow', ic: '🌑', img: 'icons/cat/shop_shadow.png', t: 'แพ็กเงา · Shadow Pack', d: 'เพชร ×1,500 + พลังงาน ×120 · สุดคุ้ม',
       cost: { cur: 'ruby', n: 0 }, reward: { ruby: 1500, energy: 120 }, hot: true,
       // priced in gold for variety
       costGold: 1100000 }
@@ -141,13 +143,13 @@
   // ------------------------------------------------------------- EXCHANGE
   // convert event/arena/guild coins -> shards / items
   var EXCHANGE = [
-    { ic: '🏅', t: 'เหรียญสังเวียน → เศษวิญญาณ', d: 'แลกเศษไปติดดาวฮีโร่',
+    { ic: '🏅', img: 'icons/cat/shop_arenacoin.png', t: 'เหรียญสังเวียน → เศษวิญญาณ', d: 'แลกเศษไปติดดาวฮีโร่',
       cur: 'arenaCoin', cost: 100, reward: { __shard: 10 } },
-    { ic: '🏰', t: 'เหรียญกิลด์ → ทอง', d: 'แลกทองจากคลังกิลด์',
+    { ic: '🏰', img: 'icons/cat/shop_guildcoin.png', t: 'เหรียญกิลด์ → ทอง', d: 'แลกทองจากคลังกิลด์',
       cur: 'guildCoin', cost: 150, reward: { gold: 200000 } },
-    { ic: '🎫', t: 'เหรียญอีเวนต์ → เศษนางละเวง', d: 'สะสมแลกฮีโร่ Mythic',
+    { ic: '🎫', img: 'icons/cat/shop_eventcoin.png', t: 'เหรียญอีเวนต์ → เศษนางละเวง', d: 'สะสมแลกฮีโร่ Mythic',
       cur: 'eventCoin', cost: 200, reward: { __shard: 25 } },
-    { ic: '🏅', t: 'เหรียญสังเวียน → เพชร', d: 'แลกเพชรจากร้านสังเวียน',
+    { ic: '🏅', img: 'icons/cat/shop_arenacoin.png', t: 'เหรียญสังเวียน → เพชร', d: 'แลกเพชรจากร้านสังเวียน',
       cur: 'arenaCoin', cost: 300, reward: { ruby: 150 } }
   ];
 
@@ -189,7 +191,8 @@
         : x.d + ' · รับ ' + rewardLabel(x.reward);
       var price = free ? '' : '<div class="rt" style="color:var(--gold);font-size:11px">' + costStr(x.cost.cur, x.cost.n) + '</div>';
       return '<div class="glass listcard shop-card">' +
-        '<div class="ic">' + x.ic + '</div>' +
+        '<div class="shp-ic"><img src="' + (x.img || '') + '" alt="" ' +
+          'onerror="this.outerHTML=\'' + x.ic + '\'"></div>' +
         '<div class="gr"><div class="t">' + x.t + tag + '</div><div class="s">' + sub + '</div></div>' +
         price +
         '<button class="btn" style="padding:7px 16px;font-size:12px" ' + dis +
@@ -209,7 +212,8 @@
         : x.cost.n === 0 ? 'ฟรี' : costStr('ruby', x.cost.n);
       var dis = owned ? 'disabled style="opacity:.45"' : '';
       return '<div class="glass listcard shop-card">' +
-        '<div class="ic">' + x.ic + '</div>' +
+        '<div class="shp-ic"><img src="' + (x.img || '') + '" alt="" ' +
+          'onerror="this.outerHTML=\'' + x.ic + '\'"></div>' +
         '<div class="gr"><div class="t">' + x.t + tag + '</div><div class="s">' + x.d + ' · รับ ' + rewardLabel(x.reward) + '</div></div>' +
         '<button class="btn" style="padding:7px 14px;font-size:12px" ' + dis +
           ' onclick="window.__shopPack(' + i + ')">' + priceTxt + '</button>' +
@@ -226,7 +230,8 @@
     return head + EXCHANGE.map(function (x, i) {
       var afford = (S[x.cur] || 0) >= x.cost;
       return '<div class="glass listcard shop-card">' +
-        '<div class="ic">' + x.ic + '</div>' +
+        '<div class="shp-ic"><img src="' + (x.img || '') + '" alt="" ' +
+          'onerror="this.outerHTML=\'' + x.ic + '\'"></div>' +
         '<div class="gr"><div class="t">' + x.t + '</div><div class="s">' + x.d + ' · ได้ ' + rewardLabel(x.reward) + '</div></div>' +
         '<div class="rt" style="color:' + (afford ? 'var(--gold)' : 'var(--fire)') + ';font-size:11px">' + costStr(x.cur, x.cost) + '</div>' +
         '<button class="btn" style="padding:7px 16px;font-size:12px" onclick="window.__shopExch(' + i + ')">แลก</button>' +
