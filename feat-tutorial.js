@@ -51,6 +51,7 @@
       'background:rgba(4,4,12,.82);backdrop-filter:blur(8px);animation:tut-fade .3s ease}',
       '@keyframes tut-fade{from{opacity:0}to{opacity:1}}',
       '.tut-box{max-width:clamp(300px,88vw,560px);width:100%;border-radius:22px;',
+      'max-height:94vh;overflow-y:auto;',
       'background:linear-gradient(160deg,#1a1232 0%,#0f0c24 60%,#130e2e 100%);',
       'border:1.5px solid rgba(139,92,246,.45);box-shadow:0 0 60px rgba(139,92,246,.25),0 20px 70px rgba(0,0,0,.7);',
       'padding:28px 26px 22px;position:relative}',
@@ -94,7 +95,15 @@
       'transition:border-color .2s,color .2s,box-shadow .2s;',
       'box-shadow:0 2px 12px rgba(0,0,0,.4)}',
       '.tut-help-btn:hover{border-color:var(--glow,#8b5cf6);color:#e9d5ff;',
-      'box-shadow:0 0 16px rgba(139,92,246,.4)}'
+      'box-shadow:0 0 16px rgba(139,92,246,.4)}',
+      // short viewports (landscape phones): compress vertically so the box fits without scroll
+      '@media (max-height:480px){',
+      '.tut-box{padding:14px 22px 12px}',
+      '.tut-hd{margin-bottom:8px}',
+      '.tut-dots{margin-bottom:10px}',
+      '.tut-card{min-height:0;padding:11px 16px;margin-bottom:12px;gap:6px}',
+      '.tut-card-ic{font-size:32px}',
+      '.tut-card-desc{line-height:1.4}}'
     ].join('');
     var st = document.createElement('style'); st.id = 'tut-style'; st.textContent = css;
     document.head.appendChild(st);
